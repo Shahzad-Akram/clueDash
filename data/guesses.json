@@ -1,0 +1,319 @@
+{
+  "guesses": [
+    {
+      "id": "guess-001",
+      "sortOrder": 1,
+      "phrase": "LION KING OF THE JUNGLE",
+      "clue": "King of the jungle",
+      "category": "ANIMAL",
+      "clueEmoji": "🦁",
+      "difficulty": "medium"
+    },
+    {
+      "id": "guess-002",
+      "sortOrder": 2,
+      "phrase": "MICKEY MOUSE",
+      "clue": "Beloved cartoon with round ears",
+      "category": "CHARACTER",
+      "clueEmoji": "🐭",
+      "difficulty": "easy"
+    },
+    {
+      "id": "guess-003",
+      "sortOrder": 3,
+      "phrase": "EMERALD CITY",
+      "clue": "Where the Wizard lives in Oz",
+      "category": "PLACE",
+      "clueEmoji": "🌆",
+      "difficulty": "medium"
+    },
+    {
+      "id": "guess-004",
+      "sortOrder": 4,
+      "phrase": "GREAT WALL OF CHINA",
+      "clue": "Ancient stone barrier you can see from space",
+      "category": "PLACE",
+      "clueEmoji": "🧱",
+      "difficulty": "hard"
+    },
+    {
+      "id": "guess-005",
+      "sortOrder": 5,
+      "phrase": "HARRY POTTER",
+      "clue": "Boy wizard with a lightning scar",
+      "category": "CHARACTER",
+      "clueEmoji": "⚡",
+      "difficulty": "easy"
+    },
+    {
+      "id": "guess-006",
+      "sortOrder": 6,
+      "phrase": "PACIFIC OCEAN",
+      "clue": "Largest body of salt water on Earth",
+      "category": "PLACE",
+      "clueEmoji": "🌊",
+      "difficulty": "medium"
+    },
+    {
+      "id": "guess-007",
+      "sortOrder": 7,
+      "phrase": "BOTTLE NOSED DOLPHIN",
+      "clue": "Smart gray swimmer that clicks and whistles",
+      "category": "ANIMAL",
+      "clueEmoji": "🐬",
+      "difficulty": "hard"
+    },
+    {
+      "id": "guess-008",
+      "sortOrder": 8,
+      "phrase": "STATUE OF LIBERTY",
+      "clue": "Copper lady holding a torch in New York Harbor",
+      "category": "PLACE",
+      "clueEmoji": "🗽",
+      "difficulty": "medium"
+    },
+    {
+      "id": "guess-009",
+      "sortOrder": 9,
+      "phrase": "SHERLOCK HOLMES",
+      "clue": "Fictional detective at 221B Baker Street",
+      "category": "CHARACTER",
+      "clueEmoji": "🔍",
+      "difficulty": "medium"
+    },
+    {
+      "id": "guess-010",
+      "sortOrder": 10,
+      "phrase": "MOUNT EVEREST",
+      "clue": "Highest peak above sea level",
+      "category": "PLACE",
+      "clueEmoji": "🏔️",
+      "difficulty": "easy"
+    },
+    {
+      "id": "guess-011",
+      "sortOrder": 11,
+      "phrase": "EMPEROR PENGUIN",
+      "clue": "Formal black and white bird of Antarctica",
+      "category": "ANIMAL",
+      "clueEmoji": "🐧",
+      "difficulty": "hard"
+    },
+    {
+      "id": "guess-012",
+      "sortOrder": 12,
+      "phrase": "EIFFEL TOWER",
+      "clue": "Iron lattice landmark in Paris",
+      "category": "PLACE",
+      "clueEmoji": "🗼",
+      "difficulty": "easy"
+    },
+    {
+      "id": "guess-013",
+      "sortOrder": 13,
+      "phrase": "SPIDER MAN",
+      "clue": "Web slinging hero from Queens",
+      "category": "CHARACTER",
+      "clueEmoji": "🕷️",
+      "difficulty": "easy"
+    },
+    {
+      "id": "guess-014",
+      "sortOrder": 14,
+      "phrase": "GOLDEN GATE BRIDGE",
+      "clue": "Orange suspension bridge in San Francisco",
+      "category": "PLACE",
+      "clueEmoji": "🌉",
+      "difficulty": "hard"
+    },
+    {
+      "id": "guess-015",
+      "sortOrder": 15,
+      "phrase": "GIRAFFE LONG NECK",
+      "clue": "Tallest mammal browsing treetops",
+      "category": "ANIMAL",
+      "clueEmoji": "🦒",
+      "difficulty": "medium"
+    },
+    {
+      "id": "guess-016",
+      "sortOrder": 16,
+      "phrase": "BIG BEN LONDON",
+      "clue": "Famous clock tower beside the Houses of Parliament",
+      "category": "PLACE",
+      "clueEmoji": "🕰️",
+      "difficulty": "easy"
+    },
+    {
+      "id": "guess-017",
+      "sortOrder": 17,
+      "phrase": "WONDER WOMAN",
+      "clue": "Amazon princess with a golden lasso",
+      "category": "CHARACTER",
+      "clueEmoji": "🦸‍♀️",
+      "difficulty": "medium"
+    },
+    {
+      "id": "guess-018",
+      "sortOrder": 18,
+      "phrase": "RED FOX",
+      "clue": "Bushy-tailed forest canine known for cleverness",
+      "category": "ANIMAL",
+      "clueEmoji": "🦊",
+      "difficulty": "easy"
+    },
+    {
+      "id": "guess-019",
+      "sortOrder": 19,
+      "phrase": "NIAGARA FALLS",
+      "clue": "Massive waterfalls between New York and Ontario",
+      "category": "PLACE",
+      "clueEmoji": "💧",
+      "difficulty": "medium"
+    },
+    {
+      "id": "guess-020",
+      "sortOrder": 20,
+      "phrase": "IRON MAN",
+      "clue": "Billionaire genius in a red and gold suit of armor",
+      "category": "CHARACTER",
+      "clueEmoji": "🤖",
+      "difficulty": "easy"
+    },
+    {
+      "id": "guess-021",
+      "sortOrder": 21,
+      "phrase": "GRAND CANYON",
+      "clue": "Vast Arizona gorge carved by the Colorado River",
+      "category": "PLACE",
+      "clueEmoji": "🏜️",
+      "difficulty": "medium"
+    },
+    {
+      "id": "guess-022",
+      "sortOrder": 22,
+      "phrase": "POLAR BEAR",
+      "clue": "White Arctic predator that loves sea ice",
+      "category": "ANIMAL",
+      "clueEmoji": "🐻‍❄️",
+      "difficulty": "easy"
+    },
+    {
+      "id": "guess-023",
+      "sortOrder": 23,
+      "phrase": "WALT DISNEY",
+      "clue": "Animator and entrepreneur behind the famous mouse studio",
+      "category": "CHARACTER",
+      "clueEmoji": "🎬",
+      "difficulty": "medium"
+    },
+    {
+      "id": "guess-024",
+      "sortOrder": 24,
+      "phrase": "ROMAN COLOSSEUM",
+      "clue": "Ancient arena where gladiators once fought in Rome",
+      "category": "PLACE",
+      "clueEmoji": "🏛️",
+      "difficulty": "hard"
+    },
+    {
+      "id": "guess-025",
+      "sortOrder": 25,
+      "phrase": "GREAT WHITE SHARK",
+      "clue": "Apex predator with rows of razor-sharp teeth",
+      "category": "ANIMAL",
+      "clueEmoji": "🦈",
+      "difficulty": "hard"
+    },
+    {
+      "id": "guess-026",
+      "sortOrder": 26,
+      "phrase": "LEONARDO DA VINCI",
+      "clue": "Renaissance master behind the Mona Lisa sketchbooks",
+      "category": "CHARACTER",
+      "clueEmoji": "🎨",
+      "difficulty": "hard"
+    },
+    {
+      "id": "guess-027",
+      "sortOrder": 27,
+      "phrase": "SAHARA DESERT",
+      "clue": "World’s largest hot desert stretching across North Africa",
+      "category": "PLACE",
+      "clueEmoji": "🏜️",
+      "difficulty": "medium"
+    },
+    {
+      "id": "guess-028",
+      "sortOrder": 28,
+      "phrase": "KOALA BEAR",
+      "clue": "Sleepy eucalyptus muncher from Down Under",
+      "category": "ANIMAL",
+      "clueEmoji": "🐨",
+      "difficulty": "easy"
+    },
+    {
+      "id": "guess-029",
+      "sortOrder": 29,
+      "phrase": "MARINA BAY SANDS",
+      "clue": "Singapore hotel trio topped by a ship-shaped sky park",
+      "category": "PLACE",
+      "clueEmoji": "🏨",
+      "difficulty": "hard"
+    },
+    {
+      "id": "guess-030",
+      "sortOrder": 30,
+      "phrase": "BLACK PANTHER",
+      "clue": "Wakandan king and protector in a vibranium suit",
+      "category": "CHARACTER",
+      "clueEmoji": "🐆",
+      "difficulty": "medium"
+    },
+    {
+      "id": "guess-031",
+      "sortOrder": 31,
+      "phrase": "YELLOW BRICK ROAD",
+      "clue": "Follow it toward the Emerald City in Oz",
+      "category": "PLACE",
+      "clueEmoji": "🟨",
+      "difficulty": "medium"
+    },
+    {
+      "id": "guess-032",
+      "sortOrder": 32,
+      "phrase": "TAJ MAHAL",
+      "clue": "Ivory-white marble mausoleum in Agra",
+      "category": "PLACE",
+      "clueEmoji": "🕌",
+      "difficulty": "easy"
+    },
+    {
+      "id": "guess-033",
+      "sortOrder": 33,
+      "phrase": "KANGAROO HOP",
+      "clue": "Macropod that carries a joey in a front pouch",
+      "category": "ANIMAL",
+      "clueEmoji": "🦘",
+      "difficulty": "easy"
+    },
+    {
+      "id": "guess-034",
+      "sortOrder": 34,
+      "phrase": "STONEHENGE",
+      "clue": "Prehistoric stone circle on Salisbury Plain",
+      "category": "PLACE",
+      "clueEmoji": "🪨",
+      "difficulty": "medium"
+    },
+    {
+      "id": "guess-035",
+      "sortOrder": 35,
+      "phrase": "MONA LISA",
+      "clue": "Mysterious smiling portrait hanging in the Louvre",
+      "category": "CHARACTER",
+      "clueEmoji": "🖼️",
+      "difficulty": "easy"
+    }
+  ]
+}

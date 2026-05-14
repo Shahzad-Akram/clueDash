@@ -1,0 +1,249 @@
+import {
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signOut as firebaseSignOut,
+} from 'firebase/auth';
+import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+
+import type { Gender } from '@/lib/auth-types';
+import type { AppUserProfile } from '@/lib/firebase/user-profile';
+import {
+  createUserProfileDoc,
+  fetchUserProfile,
+  fetchUserProfileWithRetry,
+  rollbackNewAuthUser,
+} from '@/lib/firebase/user-profile';
+import { getFirebaseAuth, tryInitFirebase } from '@/lib/firebase/app';
+import type { ProfileAvatarId } from '@/lib/profile-avatars';
+
+export type { Gender } from '@/lib/auth-types';
+
+export type SignUpPayload = {
+  email: string;
+  password: string;
+  name: string;
+  age: string;
+  gender: Gender;
+  avatarId: ProfileAvatarId;
+};
+
+type AuthResult = { ok: true } | { ok: false; message: string };
+
+type AuthContextValue = {
+  user: AppUserProfile | null;
+  isLoggedIn: boolean;
+  isHydrated: boolean;
+  isFirebaseReady: boolean;
+  signIn: (email: string, password: string) => Promise<AuthResult>;
+  signUp: (payload: SignUpPayload) => Promise<AuthResult>;
+  signOut: () => Promise<void>;
+  /** Reload `user` from Firestore (e.g. after points change). Uses a server read; optional retry until points reach a minimum. */
+  refreshProfile: (opts?: { untilPointsAtLeast?: number }) => Promise<void>;
+};
+
+const AuthContext = createContext<AuthContextValue | null>(null);
+
+const isValidEmail = (email: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+const mapAuthError = (err: unknown): string => {
+  if (err && typeof err === 'object' && 'code' in err) {
+    const code = String((err as { code: string }).code);
+    switch (code) {
+      case 'auth/email-already-in-use':
+        return 'That email is already registered. Try logging in.';
+      case 'auth/invalid-email':
+        return 'Please enter a valid email.';
+      case 'auth/invalid-credential':
+      case 'auth/wrong-password':
+      case 'auth/user-not-found':
+        return 'Email or password is incorrect.';
+      case 'auth/weak-password':
+        return 'Password is too weak. Use at least 6 characters.';
+      case 'auth/network-request-failed':
+        return 'Network error. Check your connection.';
+      case 'auth/too-many-requests':
+        return 'Too many attempts. Try again later.';
+      default:
+        return 'Something went wrong. Try again.';
+    }
+  }
+  return 'Something went wrong. Try again.';
+};
+
+export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+  const [user, setUser] = useState<AppUserProfile | null>(null);
+  const [isHydrated, setIsHydrated] = useState(false);
+  const [isFirebaseReady, setIsFirebaseReady] = useState(false);
+
+  useEffect(() => {
+    const ready = tryInitFirebase();
+    setIsFirebaseReady(ready);
+    if (!ready) {
+      setUser(null);
+      setIsHydrated(true);
+      return;
+    }
+
+    const auth = getFirebaseAuth();
+    const unsub = onAuthStateChanged(auth, async (next) => {
+      if (!next) {
+        setUser(null);
+        setIsHydrated(true);
+        return;
+      }
+
+      setUser(null);
+      try {
+        const profile = await fetchUserProfileWithRetry(next);
+        if (!profile) {
+          await firebaseSignOut(auth);
+          setUser(null);
+        } else {
+          setUser(profile);
+        }
+      } catch {
+        setUser(null);
+      } finally {
+        setIsHydrated(true);
+      }
+    });
+
+    return () => {
+      unsub();
+    };
+  }, []);
+
+  const signUp = useCallback(async (payload: SignUpPayload): Promise<AuthResult> => {
+    if (!tryInitFirebase()) {
+      return { ok: false, message: 'Firebase is not configured. Add EXPO_PUBLIC_FIREBASE_* to .env and restart.' };
+    }
+    const email = payload.email.trim().toLowerCase();
+    if (!email || !isValidEmail(email)) {
+      return { ok: false, message: 'Please enter a valid email.' };
+    }
+    if (!payload.name.trim()) {
+      return { ok: false, message: 'Please enter your name.' };
+    }
+    const ageN = Number.parseInt(payload.age, 10);
+    if (!Number.isFinite(ageN) || ageN < 1 || ageN > 120) {
+      return { ok: false, message: 'Please enter a valid age (1–120).' };
+    }
+    if (payload.password.length < 6) {
+      return { ok: false, message: 'Password must be at least 6 characters.' };
+    }
+
+    const auth = getFirebaseAuth();
+    try {
+      const cred = await createUserWithEmailAndPassword(auth, email, payload.password);
+      try {
+        await createUserProfileDoc(cred.user, {
+          email,
+          name: payload.name.trim(),
+          age: String(ageN),
+          gender: payload.gender,
+          avatarId: payload.avatarId,
+        });
+        const profile = await fetchUserProfile(cred.user);
+        if (profile) {
+          setUser(profile);
+        }
+        return { ok: true };
+      } catch (inner) {
+        await rollbackNewAuthUser(cred.user);
+        return { ok: false, message: mapAuthError(inner) };
+      }
+    } catch (err) {
+      return { ok: false, message: mapAuthError(err) };
+    }
+  }, []);
+
+  const signIn = useCallback(async (email: string, password: string): Promise<AuthResult> => {
+    if (!tryInitFirebase()) {
+      return { ok: false, message: 'Firebase is not configured. Add EXPO_PUBLIC_FIREBASE_* to .env and restart.' };
+    }
+    const e = email.trim().toLowerCase();
+    if (!e || !password) {
+      return { ok: false, message: 'Enter your email and password.' };
+    }
+    const auth = getFirebaseAuth();
+    try {
+      const cred = await signInWithEmailAndPassword(auth, e, password);
+      const profile = await fetchUserProfileWithRetry(cred.user, { attempts: 5, delayMs: 100 });
+      if (!profile) {
+        await firebaseSignOut(auth);
+        return {
+          ok: false,
+          message: 'Your account has no profile data. Contact support or sign up again.',
+        };
+      }
+      setUser(profile);
+      return { ok: true };
+    } catch (err) {
+      return { ok: false, message: mapAuthError(err) };
+    }
+  }, []);
+
+  const signOut = useCallback(async () => {
+    if (!tryInitFirebase()) {
+      setUser(null);
+      return;
+    }
+    try {
+      await firebaseSignOut(getFirebaseAuth());
+    } catch {
+      // ignore
+    }
+    setUser(null);
+  }, []);
+
+  const refreshProfile = useCallback(async (opts?: { untilPointsAtLeast?: number }) => {
+    if (!tryInitFirebase()) {
+      return;
+    }
+    const auth = getFirebaseAuth();
+    const u = auth.currentUser;
+    if (!u) {
+      return;
+    }
+    const target = opts?.untilPointsAtLeast;
+    const maxAttempts = target !== undefined ? 6 : 1;
+    for (let i = 0; i < maxAttempts; i++) {
+      const profile = await fetchUserProfile(u, { preferServer: true });
+      if (!profile) {
+        return;
+      }
+      setUser(profile);
+      if (target === undefined || profile.points >= target) {
+        return;
+      }
+      await new Promise((r) => setTimeout(r, 100));
+    }
+  }, []);
+
+  const isLoggedIn = Boolean(user);
+
+  const value = useMemo(
+    () => ({
+      user,
+      isLoggedIn,
+      isHydrated,
+      isFirebaseReady,
+      signIn,
+      signUp,
+      signOut,
+      refreshProfile,
+    }),
+    [user, isLoggedIn, isHydrated, isFirebaseReady, signIn, signUp, signOut, refreshProfile],
+  );
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+};
+
+export const useAuth = () => {
+  const ctx = useContext(AuthContext);
+  if (!ctx) {
+    throw new Error('useAuth must be used within AuthProvider');
+  }
+  return ctx;
+};
