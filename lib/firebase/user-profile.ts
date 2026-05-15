@@ -10,7 +10,8 @@ import { doc, getDoc, getDocFromServer, serverTimestamp, setDoc } from 'firebase
  * service cloud.firestore {
  *   match /databases/{database}/documents {
  *     match /users/{userId} {
- *       allow read: if request.auth != null && request.auth.uid == userId;
+ *       // Leaderboard: any signed-in user may read all profiles (name, points, avatarId).
+ *       allow read: if request.auth != null;
  *       allow create: if request.auth != null && request.auth.uid == userId;
  *       allow update: if request.auth != null && request.auth.uid == userId;
  *       allow delete: if false;

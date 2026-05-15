@@ -19,6 +19,7 @@ export {
   getPuzzleFirestoreId,
   recordPuzzleSolved,
 } from './guess-progress';
+export { fetchLeaderboardUsers } from './leaderboard-users';
 
 /** Example Firestore helpers — set Security Rules in Firebase console before production. */
 export type LeaderboardEntry = {

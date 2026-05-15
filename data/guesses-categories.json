@@ -1,0 +1,508 @@
+{
+  "guesses": [
+    {
+      "id": "cat-movies-01",
+      "sortOrder": 36,
+      "phrase": "THE DARK KNIGHT",
+      "clue": "Batman faces the Joker in Gotham",
+      "category": "MOVIES",
+      "clueEmoji": "🦇",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-movies-02",
+      "sortOrder": 37,
+      "phrase": "FINDING NEMO",
+      "clue": "Pixar clownfish lost in the ocean",
+      "category": "MOVIES",
+      "clueEmoji": "🐠",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-movies-03",
+      "sortOrder": 38,
+      "phrase": "TITANIC",
+      "clue": "Romance on a doomed luxury liner",
+      "category": "MOVIES",
+      "clueEmoji": "🚢",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-movies-04",
+      "sortOrder": 39,
+      "phrase": "AVENGERS ENDGAME",
+      "clue": "Marvel heroes undo the snap",
+      "category": "MOVIES",
+      "clueEmoji": "🦸",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-movies-05",
+      "sortOrder": 40,
+      "phrase": "THE LION KING",
+      "clue": "Disney tale of Simba and the pride",
+      "category": "MOVIES",
+      "clueEmoji": "🦁",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-movies-06",
+      "sortOrder": 41,
+      "phrase": "JURASSIC PARK",
+      "clue": "Theme park with cloned dinosaurs",
+      "category": "MOVIES",
+      "clueEmoji": "🦖",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-movies-07",
+      "sortOrder": 42,
+      "phrase": "FORREST GUMP",
+      "clue": "Life is like a box of chocolates",
+      "category": "MOVIES",
+      "clueEmoji": "🍫",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-actors-01",
+      "sortOrder": 43,
+      "phrase": "TOM HANKS",
+      "clue": "Cast Away and Forrest Gump star",
+      "category": "ACTORS",
+      "clueEmoji": "🎬",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-actors-02",
+      "sortOrder": 44,
+      "phrase": "MERYL STREEP",
+      "clue": "Record-holding Oscar-nominated actress",
+      "category": "ACTORS",
+      "clueEmoji": "⭐",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-actors-03",
+      "sortOrder": 45,
+      "phrase": "LEONARDO DICAPRIO",
+      "clue": "Titanic and Revenant leading man",
+      "category": "ACTORS",
+      "clueEmoji": "🚢",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-actors-04",
+      "sortOrder": 46,
+      "phrase": "SCARLETT JOHANSSON",
+      "clue": "Marvel's Black Widow spy hero",
+      "category": "ACTORS",
+      "clueEmoji": "🕷️",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-actors-05",
+      "sortOrder": 47,
+      "phrase": "MORGAN FREEMAN",
+      "clue": "Deep-voiced Shawshank narrator",
+      "category": "ACTORS",
+      "clueEmoji": "🎙️",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-actors-06",
+      "sortOrder": 48,
+      "phrase": "ANGELINA JOLIE",
+      "clue": "Played Lara Croft in Tomb Raider",
+      "category": "ACTORS",
+      "clueEmoji": "🏹",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-actors-07",
+      "sortOrder": 49,
+      "phrase": "DWAYNE JOHNSON",
+      "clue": "The Rock, wrestler turned blockbuster star",
+      "category": "ACTORS",
+      "clueEmoji": "💪",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-cricket-01",
+      "sortOrder": 50,
+      "phrase": "SACHIN TENDULKAR",
+      "clue": "India's Little Master batting legend",
+      "category": "CRICKET",
+      "clueEmoji": "🏏",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-cricket-02",
+      "sortOrder": 51,
+      "phrase": "VIRAT KOHLI",
+      "clue": "Aggressive former India captain",
+      "category": "CRICKET",
+      "clueEmoji": "🇮🇳",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-cricket-03",
+      "sortOrder": 52,
+      "phrase": "LORDS CRICKET GROUND",
+      "clue": "London home of cricket",
+      "category": "CRICKET",
+      "clueEmoji": "🏟️",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-cricket-04",
+      "sortOrder": 53,
+      "phrase": "THE ASHES",
+      "clue": "England vs Australia Test rivalry trophy",
+      "category": "CRICKET",
+      "clueEmoji": "🏆",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-cricket-05",
+      "sortOrder": 54,
+      "phrase": "INDIAN PREMIER LEAGUE",
+      "clue": "Colorful franchise T20 tournament in India",
+      "category": "CRICKET",
+      "clueEmoji": "🎉",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-cricket-06",
+      "sortOrder": 55,
+      "phrase": "DON BRADMAN",
+      "clue": "Australian with a 99.94 Test average",
+      "category": "CRICKET",
+      "clueEmoji": "🇦🇺",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-cricket-07",
+      "sortOrder": 56,
+      "phrase": "WICKET KEEPER",
+      "clue": "Player behind the stumps with gloves",
+      "category": "CRICKET",
+      "clueEmoji": "🧤",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-football-01",
+      "sortOrder": 57,
+      "phrase": "LIONEL MESSI",
+      "clue": "Argentine maestro with many Ballon d'Ors",
+      "category": "FOOTBALL",
+      "clueEmoji": "⚽",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-football-02",
+      "sortOrder": 58,
+      "phrase": "CRISTIANO RONALDO",
+      "clue": "Portuguese superstar known as CR7",
+      "category": "FOOTBALL",
+      "clueEmoji": "7️⃣",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-football-03",
+      "sortOrder": 59,
+      "phrase": "FIFA WORLD CUP",
+      "clue": "Global trophy won every four years",
+      "category": "FOOTBALL",
+      "clueEmoji": "🏆",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-football-04",
+      "sortOrder": 60,
+      "phrase": "MANCHESTER UNITED",
+      "clue": "Red Devils of Old Trafford",
+      "category": "FOOTBALL",
+      "clueEmoji": "🔴",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-football-05",
+      "sortOrder": 61,
+      "phrase": "CHAMPIONS LEAGUE",
+      "clue": "Europe's top club competition",
+      "category": "FOOTBALL",
+      "clueEmoji": "⭐",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-football-06",
+      "sortOrder": 62,
+      "phrase": "PENALTY KICK",
+      "clue": "Twelve-yard shot from the spot",
+      "category": "FOOTBALL",
+      "clueEmoji": "🥅",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-football-07",
+      "sortOrder": 63,
+      "phrase": "OFFSIDE RULE",
+      "clue": "Flag raised when ahead of the line",
+      "category": "FOOTBALL",
+      "clueEmoji": "🚩",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-countries-01",
+      "sortOrder": 64,
+      "phrase": "UNITED STATES",
+      "clue": "Fifty states under the Stars and Stripes",
+      "category": "COUNTRIES",
+      "clueEmoji": "🇺🇸",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-countries-02",
+      "sortOrder": 65,
+      "phrase": "JAPAN",
+      "clue": "Land of the Rising Sun",
+      "category": "COUNTRIES",
+      "clueEmoji": "🇯🇵",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-countries-03",
+      "sortOrder": 66,
+      "phrase": "BRAZIL",
+      "clue": "Largest country in South America",
+      "category": "COUNTRIES",
+      "clueEmoji": "🇧🇷",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-countries-04",
+      "sortOrder": 67,
+      "phrase": "EGYPT",
+      "clue": "Nile nation of pyramids and pharaohs",
+      "category": "COUNTRIES",
+      "clueEmoji": "🇪🇬",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-countries-05",
+      "sortOrder": 68,
+      "phrase": "FRANCE",
+      "clue": "Eiffel Tower country with capital Paris",
+      "category": "COUNTRIES",
+      "clueEmoji": "🇫🇷",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-countries-06",
+      "sortOrder": 69,
+      "phrase": "AUSTRALIA",
+      "clue": "Island continent down under",
+      "category": "COUNTRIES",
+      "clueEmoji": "🇦🇺",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-countries-07",
+      "sortOrder": 70,
+      "phrase": "CANADA",
+      "clue": "Maple leaf nation north of the USA",
+      "category": "COUNTRIES",
+      "clueEmoji": "🇨🇦",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-music-01",
+      "sortOrder": 71,
+      "phrase": "THE BEATLES",
+      "clue": "Fab Four from Liverpool",
+      "category": "MUSIC",
+      "clueEmoji": "🎸",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-music-02",
+      "sortOrder": 72,
+      "phrase": "MICHAEL JACKSON",
+      "clue": "King of Pop who moonwalked",
+      "category": "MUSIC",
+      "clueEmoji": "🕺",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-music-03",
+      "sortOrder": 73,
+      "phrase": "TAYLOR SWIFT",
+      "clue": "Pop superstar behind the Eras tour",
+      "category": "MUSIC",
+      "clueEmoji": "🎤",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-music-04",
+      "sortOrder": 74,
+      "phrase": "BOHEMIAN RHAPSODY",
+      "clue": "Queen's operatic rock epic",
+      "category": "MUSIC",
+      "clueEmoji": "👑",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-music-05",
+      "sortOrder": 75,
+      "phrase": "GRAMMY AWARDS",
+      "clue": "Golden gramophone music prizes",
+      "category": "MUSIC",
+      "clueEmoji": "🏆",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-music-06",
+      "sortOrder": 76,
+      "phrase": "ELECTRIC GUITAR",
+      "clue": "Amplified six-string rock instrument",
+      "category": "MUSIC",
+      "clueEmoji": "🎸",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-music-07",
+      "sortOrder": 77,
+      "phrase": "SPOTIFY PLAYLIST",
+      "clue": "Streaming queue of favorite songs",
+      "category": "MUSIC",
+      "clueEmoji": "🎧",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-brands-01",
+      "sortOrder": 78,
+      "phrase": "APPLE INC",
+      "clue": "iPhone maker with a bitten logo",
+      "category": "BRANDS",
+      "clueEmoji": "🍎",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-brands-02",
+      "sortOrder": 79,
+      "phrase": "NIKE SWOOSH",
+      "clue": "Just Do It sportswear brand",
+      "category": "BRANDS",
+      "clueEmoji": "👟",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-brands-03",
+      "sortOrder": 80,
+      "phrase": "COCA COLA",
+      "clue": "Red-can fizzy cola classic",
+      "category": "BRANDS",
+      "clueEmoji": "🥤",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-brands-04",
+      "sortOrder": 81,
+      "phrase": "MCDONALDS",
+      "clue": "Golden arches fast-food chain",
+      "category": "BRANDS",
+      "clueEmoji": "🍟",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-brands-05",
+      "sortOrder": 82,
+      "phrase": "GOOGLE SEARCH",
+      "clue": "Colorful-letter search engine giant",
+      "category": "BRANDS",
+      "clueEmoji": "🔍",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-brands-06",
+      "sortOrder": 83,
+      "phrase": "AMAZON PRIME",
+      "clue": "Smile-arrow online retail membership",
+      "category": "BRANDS",
+      "clueEmoji": "📦",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-brands-07",
+      "sortOrder": 84,
+      "phrase": "STARBUCKS COFFEE",
+      "clue": "Green siren cafe on every corner",
+      "category": "BRANDS",
+      "clueEmoji": "☕",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-history-01",
+      "sortOrder": 85,
+      "phrase": "WORLD WAR TWO",
+      "clue": "Global conflict from 1939 to 1945",
+      "category": "HISTORY",
+      "clueEmoji": "🌍",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-history-02",
+      "sortOrder": 86,
+      "phrase": "ANCIENT ROME",
+      "clue": "Empire of gladiators and the Colosseum",
+      "category": "HISTORY",
+      "clueEmoji": "🏛️",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-history-03",
+      "sortOrder": 87,
+      "phrase": "FRENCH REVOLUTION",
+      "clue": "1789 uprising that stormed the Bastille",
+      "category": "HISTORY",
+      "clueEmoji": "🇫🇷",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-history-04",
+      "sortOrder": 88,
+      "phrase": "MOON LANDING",
+      "clue": "Apollo 11 put Armstrong on the lunar surface",
+      "category": "HISTORY",
+      "clueEmoji": "🌙",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-history-05",
+      "sortOrder": 89,
+      "phrase": "INDUSTRIAL REVOLUTION",
+      "clue": "Era of factories and steam power",
+      "category": "HISTORY",
+      "clueEmoji": "🏭",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-history-06",
+      "sortOrder": 90,
+      "phrase": "CLEOPATRA VII",
+      "clue": "Last pharaoh of ancient Egypt",
+      "category": "HISTORY",
+      "clueEmoji": "👑",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-history-07",
+      "sortOrder": 91,
+      "phrase": "BERLIN WALL",
+      "clue": "Barrier that divided East and West Germany",
+      "category": "HISTORY",
+      "clueEmoji": "🧱",
+      "difficulty": "medium"
+    }
+  ]
+}

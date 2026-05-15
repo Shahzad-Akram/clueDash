@@ -1,35 +1,20 @@
 import { Fredoka_600SemiBold, Fredoka_700Bold, useFonts } from '@expo-google-fonts/fredoka';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Image } from 'expo-image';
-import { useRouter } from 'expo-router';
+import { useFocusEffect, useRouter } from 'expo-router';
 import { useCallback, useState } from 'react';
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { AppBottomNav, APP_BOTTOM_NAV_LEADERBOARD, APP_BOTTOM_NAV_PROFILE } from '@/components/app-bottom-nav';
 import { useAuth } from '@/contexts/auth-context';
+import { useLeaderboard } from '@/hooks/use-leaderboard';
+import { loadDailyChallengeState } from '@/lib/daily-challenge-storage';
 
-const COIN_BALANCE = 1250;
-
-const LEADERBOARD_ROWS = [
-  {
-    name: 'Alex',
-    score: '2,450',
-    rankImage: require('@/assets/images/rank1.png'),
-    avatar: require('@/assets/images/user1.png'),
-  },
-  {
-    name: 'Maya',
-    score: '1,890',
-    rankImage: require('@/assets/images/rank2.png'),
-    avatar: require('@/assets/images/user2.png'),
-  },
-  {
-    name: 'Ryan',
-    score: '1,620',
-    rankImage: require('@/assets/images/rank3.png'),
-    avatar: require('@/assets/images/user3.png'),
-  },
+const LANDING_RANK_IMAGES = [
+  require('@/assets/images/rank1.png'),
+  require('@/assets/images/rank2.png'),
+  require('@/assets/images/rank3.png'),
 ] as const;
 
 type GameCardProps = {
@@ -118,7 +103,9 @@ function GameCard({ title, subtitle, imageSource, colors, fontsLoaded, onPress }
 export default function LandingPage() {
   const router = useRouter();
   const { user, isLoggedIn } = useAuth();
+  const { topThree: leaderboardTopThree, loading: leaderboardLoading } = useLeaderboard(3);
   const [activeNavIndex, setActiveNavIndex] = useState(0);
+  const [dailyStreak, setDailyStreak] = useState(0);
   const [fontsLoaded] = useFonts({
     Fredoka_700Bold,
     Fredoka_600SemiBold,
@@ -126,6 +113,20 @@ export default function LandingPage() {
 
   const hintType = fontsLoaded ? ({ fontFamily: 'Fredoka_600SemiBold' } as const) : undefined;
   const boldType = fontsLoaded ? ({ fontFamily: 'Fredoka_700Bold' } as const) : undefined;
+
+  useFocusEffect(
+    useCallback(() => {
+      let active = true;
+      void loadDailyChallengeState().then((state) => {
+        if (active) {
+          setDailyStreak(state.streak);
+        }
+      });
+      return () => {
+        active = false;
+      };
+    }, []),
+  );
 
   const handleGuessTheNamePress = () => {
     router.push('/guess-the-name');
@@ -157,8 +158,6 @@ export default function LandingPage() {
     [isLoggedIn, router],
   );
 
-  const coinDisplay = user?.points ?? COIN_BALANCE;
-
   return (
     <SafeAreaView style={styles.safeArea} edges={['top', 'left', 'right']}>
       <View style={styles.screen}>
@@ -175,20 +174,22 @@ export default function LandingPage() {
                 accessibilityLabel="ClueDash"
               />
             </View>
-            <View
-              style={styles.coinPill}
-              accessibilityRole="text"
-              accessibilityLabel={`Points: ${coinDisplay.toLocaleString()}. Add coins`}>
-              <View style={styles.headerCoinDisc}>
-                <MaterialCommunityIcons name="star" size={12} color="#FFF8E1" />
+            {isLoggedIn && user ? (
+              <View
+                style={styles.coinPill}
+                accessibilityRole="text"
+                accessibilityLabel={`Points: ${user.points.toLocaleString()}. Add coins`}>
+                <View style={styles.headerCoinDisc}>
+                  <MaterialCommunityIcons name="star" size={12} color="#FFF8E1" />
+                </View>
+                <Text style={styles.coinText} numberOfLines={1}>
+                  {user.points.toLocaleString()}
+                </Text>
+                <View style={styles.plusBadge}>
+                  <Text style={styles.plusText}>+</Text>
+                </View>
               </View>
-              <Text style={styles.coinText} numberOfLines={1}>
-                {coinDisplay.toLocaleString()}
-              </Text>
-              <View style={styles.plusBadge}>
-                <Text style={styles.plusText}>+</Text>
-              </View>
-            </View>
+            ) : null}
           </View>
 
           <View style={styles.dailyRowSection}>
@@ -260,8 +261,8 @@ export default function LandingPage() {
                   </View>
                   <Text
                     style={[styles.streakCount, boldType, !fontsLoaded && styles.fontFallbackBold]}
-                    accessibilityLabel="7 day streak">
-                    7
+                    accessibilityLabel={`${dailyStreak} day streak`}>
+                    {dailyStreak}
                   </Text>
                   <Text
                     style={[styles.streakLabel, boldType, !fontsLoaded && styles.fontFallbackBold]}
@@ -331,29 +332,58 @@ export default function LandingPage() {
                 </Pressable>
               </View>
               <View style={styles.bottomCardInset}>
-                {LEADERBOARD_ROWS.map((row, index) => (
-                  <View
-                    key={row.name}
-                    style={[styles.leaderboardRow, index < LEADERBOARD_ROWS.length - 1 && styles.leaderboardRowDivider]}>
-                    <Image source={row.rankImage} style={styles.rankBadgeImage} contentFit="contain" accessibilityLabel={`Rank ${index + 1}`} />
-                    <Image source={row.avatar} style={styles.leaderAvatar} contentFit="cover" accessibilityLabel={row.name} />
-                    <Text
-                      style={[styles.leaderName, boldType, !fontsLoaded && styles.fontFallbackBold]}
-                      numberOfLines={1}>
-                      {row.name}
-                    </Text>
-                    <View style={styles.leaderScoreWrap}>
+                {leaderboardLoading ? (
+                  <ActivityIndicator
+                    style={styles.leaderboardLoading}
+                    color="#2A93F4"
+                    accessibilityLabel="Loading leaderboard"
+                  />
+                ) : leaderboardTopThree.length === 0 ? (
+                  <Text style={[styles.leaderboardEmpty, hintType, !fontsLoaded && styles.fontFallbackSemi]}>
+                    No players on the board yet. Sign up and play to appear here!
+                  </Text>
+                ) : (
+                  leaderboardTopThree.map((row, index) => (
+                    <View
+                      key={row.uid}
+                      style={[
+                        styles.leaderboardRow,
+                        index < leaderboardTopThree.length - 1 && styles.leaderboardRowDivider,
+                      ]}>
                       <Image
-                        source={require('@/assets/images/star.png')}
-                        style={styles.leaderStarIcon}
+                        source={LANDING_RANK_IMAGES[index] ?? LANDING_RANK_IMAGES[2]}
+                        style={styles.rankBadgeImage}
                         contentFit="contain"
-                        accessible={false}
-                        importantForAccessibility="no"
+                        accessibilityLabel={`Rank ${row.rank}`}
                       />
-                      <Text style={[styles.leaderScoreText, boldType, !fontsLoaded && styles.fontFallbackBold]}>{row.score}</Text>
+                      <Image
+                        source={row.avatarSource}
+                        style={styles.leaderAvatar}
+                        contentFit="cover"
+                        accessibilityLabel={row.name}
+                      />
+                      <Text
+                        style={[styles.leaderName, boldType, !fontsLoaded && styles.fontFallbackBold]}
+                        numberOfLines={1}>
+                        {row.name}
+                        {row.isYou ? ' (You)' : ''}
+                      </Text>
+                      <View style={styles.leaderScoreWrap}>
+                        <Image
+                          source={require('@/assets/images/star.png')}
+                          style={styles.leaderStarIcon}
+                          contentFit="contain"
+                          accessible={false}
+                          importantForAccessibility="no"
+                        />
+                        <Text
+                          style={[styles.leaderScoreText, boldType, !fontsLoaded && styles.fontFallbackBold]}>
+                          {row.scoreLabel}
+                        </Text>
+                      </View>
                     </View>
-                  </View>
-                ))}
+                  ))
+                )}
               </View>
             </View>
           </View>
@@ -788,6 +818,17 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
     gap: 6,
     minHeight: 34,
+  },
+  leaderboardLoading: {
+    paddingVertical: 20,
+  },
+  leaderboardEmpty: {
+    textAlign: 'center',
+    color: '#5A3A0A',
+    fontSize: 14,
+    lineHeight: 20,
+    paddingVertical: 16,
+    paddingHorizontal: 8,
   },
   leaderboardRowDivider: {
     borderBottomWidth: StyleSheet.hairlineWidth,

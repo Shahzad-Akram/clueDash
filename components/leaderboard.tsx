@@ -2,8 +2,8 @@ import { Fredoka_600SemiBold, Fredoka_700Bold, useFonts } from '@expo-google-fon
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Image } from 'expo-image';
 import { useRouter } from 'expo-router';
-import { useCallback, useState } from 'react';
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { useCallback, useMemo, useState } from 'react';
+import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import {
@@ -14,26 +14,21 @@ import {
 } from '@/components/app-bottom-nav';
 import { AppScreenHeader } from '@/components/app-screen-header';
 import { useAuth } from '@/contexts/auth-context';
+import { useLeaderboard, type LeaderboardRow } from '@/hooks/use-leaderboard';
 
 type LeaderTab = 'global' | 'friends' | 'weekly';
 
-type PodiumPlayer = {
+type PodiumSlotStyle = {
   place: 1 | 2 | 3;
-  name: string;
-  score: string;
-  avatar: number;
   podiumColor: string;
   podiumBorder: string;
   podiumHeight: number;
   badgeImage: number;
 };
 
-const PODIUM: PodiumPlayer[] = [
+const PODIUM_SLOT_STYLES: PodiumSlotStyle[] = [
   {
     place: 2,
-    name: 'PuzzlePro',
-    score: '9,820',
-    avatar: require('@/assets/images/user1.png'),
     podiumColor: '#C5D9E8',
     podiumBorder: '#8FA8BC',
     podiumHeight: 100,
@@ -41,9 +36,6 @@ const PODIUM: PodiumPlayer[] = [
   },
   {
     place: 1,
-    name: 'LexiGamez',
-    score: '12,450',
-    avatar: require('@/assets/images/user2.png'),
     podiumColor: '#FFD54F',
     podiumBorder: '#E6A800',
     podiumHeight: 132,
@@ -51,9 +43,6 @@ const PODIUM: PodiumPlayer[] = [
   },
   {
     place: 3,
-    name: 'WordWiz',
-    score: '7,610',
-    avatar: require('@/assets/images/user3.png'),
     podiumColor: '#E8B89A',
     podiumBorder: '#C67D52',
     podiumHeight: 82,
@@ -61,21 +50,23 @@ const PODIUM: PodiumPlayer[] = [
   },
 ];
 
-type ListRow = {
-  rank: number;
-  name: string;
-  score: string;
-  avatar: number;
-  isYou?: boolean;
+type PodiumDisplaySlot = PodiumSlotStyle & {
+  player: LeaderboardRow | null;
 };
 
-const LIST_ROWS: ListRow[] = [
-  { rank: 4, name: 'BrainyBee', score: '6,230', avatar: require('@/assets/images/user1.png') },
-  { rank: 5, name: 'ClueQueen', score: '5,410', avatar: require('@/assets/images/user2.png') },
-  { rank: 6, name: 'WordSeeker', score: '4,980', avatar: require('@/assets/images/user3.png'), isYou: true },
-  { rank: 7, name: 'HintHero', score: '4,120', avatar: require('@/assets/images/user1.png') },
-  { rank: 8, name: 'LetterLynx', score: '3,780', avatar: require('@/assets/images/user2.png') },
-];
+/** Visual order: 2nd (left), 1st (center), 3rd (right) — each slot keeps its rank badge. */
+const PODIUM_VISUAL_ORDER: Array<1 | 2 | 3> = [2, 1, 3];
+
+const buildPodiumDisplay = (topThree: LeaderboardRow[]): PodiumDisplaySlot[] => {
+  const byRank = new Map(topThree.map((player) => [player.rank, player] as const));
+  return PODIUM_VISUAL_ORDER.map((place) => {
+    const slot = PODIUM_SLOT_STYLES.find((s) => s.place === place)!;
+    return {
+      ...slot,
+      player: byRank.get(place) ?? null,
+    };
+  });
+};
 
 type Achievement = {
   id: string;
@@ -129,6 +120,8 @@ const LeaderboardScreen = () => {
   const router = useRouter();
   const insets = useSafeAreaInsets();
   const { isLoggedIn } = useAuth();
+  const { topThree, rest, loading, error } = useLeaderboard(50);
+  const podiumDisplay = useMemo(() => buildPodiumDisplay(topThree), [topThree]);
   const [fontsLoaded] = useFonts({
     Fredoka_700Bold,
     Fredoka_600SemiBold,
@@ -241,9 +234,36 @@ const LeaderboardScreen = () => {
             </Pressable>
           </View>
 
+          {tab !== 'global' ? (
+            <Text style={[styles.tabPlaceholder, bodyFont, !fontsLoaded && styles.fontFallbackSemi]}>
+              {tab === 'friends'
+                ? 'Friends leaderboard is coming soon. Use Global to see top players by points.'
+                : 'Weekly leaderboard is coming soon. Use Global to see top players by points.'}
+            </Text>
+          ) : loading ? (
+            <ActivityIndicator
+              style={styles.leaderboardLoading}
+              color="#2A93F4"
+              accessibilityLabel="Loading leaderboard"
+            />
+          ) : error ? (
+            <Text style={[styles.tabPlaceholder, bodyFont, !fontsLoaded && styles.fontFallbackSemi]}>{error}</Text>
+          ) : topThree.length === 0 ? (
+            <Text style={[styles.tabPlaceholder, bodyFont, !fontsLoaded && styles.fontFallbackSemi]}>
+              No players on the board yet. Play games to earn points and appear here!
+            </Text>
+          ) : (
+            <>
           <View style={styles.podiumRow}>
-            {PODIUM.map((p) => (
-              <View key={p.place} style={[styles.podiumCol, p.place === 1 && styles.podiumColCenter]}>
+            {podiumDisplay.map((p) => {
+              if (!p.player) {
+                return <View key={`podium-empty-${p.place}`} style={styles.podiumColEmpty} />;
+              }
+              return (
+              <View
+                key={p.player.uid}
+                style={[styles.podiumCol, p.place === 1 && styles.podiumColCenter]}
+                accessibilityLabel={`Rank ${p.place}, ${p.player.name}, ${p.player.scoreLabel} points`}>
                 <View style={styles.podiumAvatarBlock}>
                   {p.place === 1 ? (
                     <View style={styles.crownWrap} accessibilityElementsHidden>
@@ -253,16 +273,16 @@ const LeaderboardScreen = () => {
                     <View style={styles.crownSpacer} />
                   )}
                   <Image
-                    source={p.avatar}
+                    source={p.player.avatarSource}
                     style={[styles.podiumAvatar, p.place === 1 && styles.podiumAvatarFirst]}
                     contentFit="cover"
-                    accessibilityLabel={p.name}
+                    accessibilityLabel={p.player.name}
                   />
                 </View>
                 <Text
                   style={[styles.podiumName, titleFont, !fontsLoaded && styles.fontFallbackBold]}
                   numberOfLines={1}>
-                  {p.name}
+                  {p.player.name}
                 </Text>
                 <View style={styles.podiumScoreRow}>
                   <Image
@@ -271,7 +291,9 @@ const LeaderboardScreen = () => {
                     contentFit="contain"
                     accessible={false}
                   />
-                  <Text style={[styles.podiumScore, titleFont, !fontsLoaded && styles.fontFallbackBold]}>{p.score}</Text>
+                  <Text style={[styles.podiumScore, titleFont, !fontsLoaded && styles.fontFallbackBold]}>
+                    {p.player.scoreLabel}
+                  </Text>
                 </View>
                 <View
                   style={[
@@ -285,20 +307,26 @@ const LeaderboardScreen = () => {
                   <Image source={p.badgeImage} style={styles.podiumRankBadge} contentFit="contain" accessibilityLabel={`Rank ${p.place}`} />
                 </View>
               </View>
-            ))}
+              );
+            })}
           </View>
 
           <View style={styles.listCard}>
-            {LIST_ROWS.map((row, index) => (
+            {rest.length === 0 ? (
+              <Text style={[styles.listEmpty, bodyFont, !fontsLoaded && styles.fontFallbackSemi]}>
+                No more players to show.
+              </Text>
+            ) : (
+              rest.map((row, index) => (
               <View
-                key={row.rank}
+                key={row.uid}
                 style={[
                   styles.listRow,
-                  index < LIST_ROWS.length - 1 && styles.listRowDivider,
+                  index < rest.length - 1 && styles.listRowDivider,
                   row.isYou && styles.listRowYou,
                 ]}>
                 <Text style={[styles.listRank, bodyFont, !fontsLoaded && styles.fontFallbackSemi]}>{row.rank}</Text>
-                <Image source={row.avatar} style={styles.listAvatar} contentFit="cover" accessibilityLabel={row.name} />
+                <Image source={row.avatarSource} style={styles.listAvatar} contentFit="cover" accessibilityLabel={row.name} />
                 <View style={styles.listNameCol}>
                   <View style={styles.listNameRow}>
                     <Text style={[styles.listName, titleFont, !fontsLoaded && styles.fontFallbackBold]} numberOfLines={1}>
@@ -318,11 +346,16 @@ const LeaderboardScreen = () => {
                     contentFit="contain"
                     accessible={false}
                   />
-                  <Text style={[styles.listScore, titleFont, !fontsLoaded && styles.fontFallbackBold]}>{row.score}</Text>
+                  <Text style={[styles.listScore, titleFont, !fontsLoaded && styles.fontFallbackBold]}>
+                    {row.scoreLabel}
+                  </Text>
                 </View>
               </View>
-            ))}
+              ))
+            )}
           </View>
+            </>
+          )}
 
           <View style={styles.achievementsBanner}>
             <MaterialCommunityIcons name="star-four-points" size={16} color="#FFF176" style={styles.sparkle} />
@@ -400,6 +433,23 @@ const styles = StyleSheet.create({
   body: {
     paddingHorizontal: 14,
   },
+  leaderboardLoading: {
+    paddingVertical: 32,
+  },
+  tabPlaceholder: {
+    textAlign: 'center',
+    color: '#FFFFFF',
+    fontSize: 15,
+    lineHeight: 22,
+    paddingVertical: 28,
+    paddingHorizontal: 12,
+  },
+  listEmpty: {
+    textAlign: 'center',
+    color: '#5A3A0A',
+    fontSize: 14,
+    paddingVertical: 14,
+  },
   scopeTabs: {
     flexDirection: 'row',
     backgroundColor: '#FFF8EF',
@@ -448,6 +498,11 @@ const styles = StyleSheet.create({
   podiumColCenter: {
     maxWidth: 128,
     zIndex: 1,
+  },
+  podiumColEmpty: {
+    flex: 1,
+    maxWidth: 120,
+    minHeight: 1,
   },
   podiumAvatarBlock: {
     alignItems: 'center',

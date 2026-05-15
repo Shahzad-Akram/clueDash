@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "scripts": {
     "seed:guesses": "node scripts/seed-guesses.mjs",
+    "seed:guesses-categories": "node scripts/seed-guesses.mjs data/guesses-categories.json",
     "start": "expo start",
     "reset-project": "node ./scripts/reset-project.js",
     "android": "expo start --android",

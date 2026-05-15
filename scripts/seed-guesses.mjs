@@ -62,8 +62,12 @@ if (missing.length) {
 const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
 const db = getFirestore(app);
 
-const jsonPath = join(root, 'data', 'guesses.json');
+const dataFileArg = process.argv[2];
+const jsonPath = dataFileArg
+  ? join(root, dataFileArg.replace(/^[/\\]/, ''))
+  : join(root, 'data', 'guesses.json');
 const { guesses } = JSON.parse(readFileSync(jsonPath, 'utf8'));
+console.log(`Reading ${jsonPath}`);
 
 if (!Array.isArray(guesses) || guesses.length === 0) {
   console.error('data/guesses.json must contain a non-empty "guesses" array.');

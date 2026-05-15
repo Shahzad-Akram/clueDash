@@ -1,6 +1,7 @@
 import { Fredoka_600SemiBold, Fredoka_700Bold, useFonts } from '@expo-google-fonts/fredoka';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
+import { Image } from 'expo-image';
+import { useFocusEffect, useRouter } from 'expo-router';
 import { useCallback, useMemo, useState } from 'react';
 import {
   FlatList,
@@ -21,6 +22,9 @@ import {
 } from '@/components/app-bottom-nav';
 import { AppScreenHeader } from '@/components/app-screen-header';
 import { useAuth } from '@/contexts/auth-context';
+import { useGuessPuzzles } from '@/contexts/guess-puzzles-context';
+import { tryInitFirebase } from '@/lib/firebase';
+import { fetchSolvedGuessIds, getPuzzleFirestoreId } from '@/lib/firebase/guess-progress';
 
 type CategoryTab = 'all' | 'popular' | 'new';
 
@@ -28,12 +32,21 @@ type CategoryItem = {
   id: string;
   title: string;
   description: string;
+  /** Card face + light tint */
   bg: string;
+  /** Bottom depth tint (like reference gradient) */
+  bgDepth: string;
   titleColor: string;
-  icon: keyof typeof MaterialCommunityIcons.glyphMap;
-  current: number;
-  total: number;
+  descriptionColor: string;
+  imageSource: number;
+  /** Matches `category` field on Firestore `guesses` documents. */
+  firestoreCategory: string;
   tags: CategoryTab[];
+};
+
+type CategoryProgress = {
+  solved: number;
+  total: number;
 };
 
 const CATEGORY_DATA: CategoryItem[] = [
@@ -41,141 +54,221 @@ const CATEGORY_DATA: CategoryItem[] = [
     id: 'movies',
     title: 'Movies',
     description: 'Guess famous films and quotes.',
-    bg: '#D6EBFF',
+    bg: '#B8DCFF',
+    bgDepth: '#8FC4F8',
     titleColor: '#1565C0',
-    icon: 'movie-open',
-    current: 18,
-    total: 25,
+    descriptionColor: '#2E5F8A',
+    imageSource: require('@/assets/images/cinema.png'),
+    firestoreCategory: 'MOVIES',
     tags: ['all', 'popular'],
   },
   {
     id: 'actors',
     title: 'Actors',
     description: 'Stars from stage and screen.',
-    bg: '#FFE8CC',
+    bg: '#FFE4B8',
+    bgDepth: '#F5C98A',
     titleColor: '#E65100',
-    icon: 'star',
-    current: 12,
-    total: 20,
+    descriptionColor: '#8B4513',
+    imageSource: require('@/assets/images/starCategories.png'),
+    firestoreCategory: 'ACTORS',
     tags: ['all', 'popular'],
   },
   {
     id: 'cricket',
     title: 'Cricket',
     description: 'Players, teams, and records.',
-    bg: '#DFF5E1',
+    bg: '#C8EFC9',
+    bgDepth: '#9AD99C',
     titleColor: '#2E7D32',
-    icon: 'cricket',
-    current: 9,
-    total: 15,
+    descriptionColor: '#3D6B40',
+    imageSource: require('@/assets/images/cricket.png'),
+    firestoreCategory: 'CRICKET',
     tags: ['all', 'new'],
   },
   {
     id: 'football',
     title: 'Football',
     description: 'Clubs, cups, and legends.',
-    bg: '#D9F7FA',
+    bg: '#B8E4FF',
+    bgDepth: '#8FCEF5',
     titleColor: '#0277BD',
-    icon: 'soccer',
-    current: 21,
-    total: 30,
+    descriptionColor: '#2E5F7A',
+    imageSource: require('@/assets/images/football.png'),
+    firestoreCategory: 'FOOTBALL',
     tags: ['all', 'popular'],
   },
   {
     id: 'countries',
     title: 'Countries',
     description: 'Capitals, flags, and trivia.',
-    bg: '#EDE7F6',
+    bg: '#E0D4F5',
+    bgDepth: '#C4B0E8',
     titleColor: '#6A1B9A',
-    icon: 'earth',
-    current: 14,
-    total: 22,
+    descriptionColor: '#5A4578',
+    imageSource: require('@/assets/images/countries.png'),
+    firestoreCategory: 'COUNTRIES',
     tags: ['all', 'new'],
   },
   {
     id: 'music',
     title: 'Music',
     description: 'Bands, albums, and hits.',
-    bg: '#FCE4EC',
+    bg: '#FFD4E0',
+    bgDepth: '#F5A8BC',
     titleColor: '#C2185B',
-    icon: 'music-note',
-    current: 16,
-    total: 24,
+    descriptionColor: '#8B3D55',
+    imageSource: require('@/assets/images/music.png'),
+    firestoreCategory: 'MUSIC',
     tags: ['all', 'popular'],
   },
   {
     id: 'brands',
     title: 'Brands',
     description: 'Logos and slogans you know.',
-    bg: '#E0F2F1',
+    bg: '#B8EEE8',
+    bgDepth: '#8EDDD4',
     titleColor: '#00695C',
-    icon: 'shopping',
-    current: 10,
-    total: 18,
+    descriptionColor: '#2E6B62',
+    imageSource: require('@/assets/images/brands.png'),
+    firestoreCategory: 'BRANDS',
     tags: ['all', 'new'],
   },
   {
     id: 'history',
     title: 'History',
     description: 'Dates, rulers, and events.',
-    bg: '#EFEBE9',
+    bg: '#EDE4D4',
+    bgDepth: '#D4C4A8',
     titleColor: '#5D4037',
-    icon: 'bank',
-    current: 7,
-    total: 12,
+    descriptionColor: '#6B5344',
+    imageSource: require('@/assets/images/history.png'),
+    firestoreCategory: 'HISTORY',
     tags: ['all'],
   },
 ];
 
 type CategoryCardProps = {
   item: CategoryItem;
+  progress: CategoryProgress;
+  showProgress: boolean;
   fontsLoaded: boolean;
   titleFont: { fontFamily: string } | undefined;
   bodyFont: { fontFamily: string } | undefined;
   onPress?: () => void;
 };
 
-const CategoryCard = ({ item, fontsLoaded, titleFont, bodyFont, onPress }: CategoryCardProps) => {
-  const progress = item.total > 0 ? Math.min(1, item.current / item.total) : 0;
+const CategoryCard = ({
+  item,
+  progress,
+  showProgress,
+  fontsLoaded,
+  titleFont,
+  bodyFont,
+  onPress,
+}: CategoryCardProps) => {
+  const fillRatio =
+    progress.total > 0 ? Math.min(1, progress.solved / progress.total) : 0;
+  const progressPct = `${Math.round(fillRatio * 100)}%` as const;
+  const progressLabel = `${progress.solved} / ${progress.total}`;
+
   return (
     <Pressable
       accessibilityRole="button"
-      accessibilityLabel={`${item.title}. ${item.description}`}
+      accessibilityLabel={
+        showProgress
+          ? `${item.title}. ${item.description}. Progress ${progressLabel}`
+          : `${item.title}. ${item.description}`
+      }
       onPress={onPress}
       style={({ pressed }) => [styles.cardOuter, pressed && styles.cardPressed]}>
-      <View style={[styles.cardFace, { backgroundColor: item.bg }]}>
-        <View style={styles.cardRow}>
-          <View style={styles.cardIconWrap} accessibilityElementsHidden>
-            <MaterialCommunityIcons name={item.icon} size={40} color={item.titleColor} />
+      <View style={styles.cardShadowWrap}>
+        <View
+          style={[
+            styles.cardFace,
+            { backgroundColor: item.bg },
+            !showProgress && styles.cardFaceNoProgress,
+          ]}>
+          <View style={[styles.cardDepth, { backgroundColor: item.bgDepth }]} pointerEvents="none" />
+          <View style={styles.cardShine} pointerEvents="none" />
+
+          <View style={styles.cardBody}>
+            <View style={styles.cardRow}>
+              <View style={styles.cardIconWrap}>
+                <Image
+                  source={item.imageSource}
+                  style={styles.cardIconImage}
+                  contentFit="contain"
+                  accessibilityLabel={`${item.title} icon`}
+                />
+              </View>
+              <View style={styles.cardTextCol}>
+                <Text
+                  style={[
+                    styles.cardTitle,
+                    { color: item.titleColor },
+                    titleFont,
+                    !fontsLoaded && styles.fontFallbackBold,
+                  ]}
+                  numberOfLines={1}
+                  adjustsFontSizeToFit
+                  minimumFontScale={0.85}>
+                  {item.title}
+                </Text>
+                <Text
+                  style={[
+                    styles.cardDesc,
+                    { color: item.descriptionColor },
+                    bodyFont,
+                    !fontsLoaded && styles.fontFallbackSemi,
+                  ]}
+                  numberOfLines={2}>
+                  {item.description}
+                </Text>
+              </View>
+            </View>
+
+            {showProgress ? (
+              <View
+                style={styles.progressTrack}
+                accessibilityRole="progressbar"
+                accessibilityValue={{ min: 0, max: progress.total, now: progress.solved }}>
+                <View style={[styles.progressFill, { width: progressPct }]} />
+                <View style={[styles.progressFillHighlight, { width: progressPct }]} pointerEvents="none" />
+                <Text style={[styles.progressLabel, bodyFont, !fontsLoaded && styles.fontFallbackSemi]}>
+                  {progressLabel}
+                </Text>
+              </View>
+            ) : null}
           </View>
-          <View style={styles.cardTextCol}>
-            <Text
-              style={[styles.cardTitle, { color: item.titleColor }, titleFont, !fontsLoaded && styles.fontFallbackBold]}
-              numberOfLines={1}>
-              {item.title}
-            </Text>
-            <Text
-              style={[styles.cardDesc, bodyFont, !fontsLoaded && styles.fontFallbackSemi]}
-              numberOfLines={2}>
-              {item.description}
-            </Text>
-          </View>
-        </View>
-        <View style={styles.progressTrack} accessibilityLabel={`Progress ${item.current} of ${item.total}`}>
-          <View style={[styles.progressFill, { width: `${Math.round(progress * 100)}%` }]} />
-          <Text style={[styles.progressLabel, bodyFont, !fontsLoaded && styles.fontFallbackSemi]}>
-            {item.current} / {item.total}
-          </Text>
         </View>
       </View>
     </Pressable>
   );
 };
 
+const buildProgressByCategory = (
+  puzzles: { id?: string; phrase: string; category: string }[],
+  solvedIds: Set<string>,
+): Record<string, CategoryProgress> => {
+  const result: Record<string, CategoryProgress> = {};
+  for (const cat of CATEGORY_DATA) {
+    const inCategory = puzzles.filter(
+      (p) => p.category.trim().toUpperCase() === cat.firestoreCategory,
+    );
+    const total = inCategory.length;
+    const solved = inCategory.filter((p) => solvedIds.has(getPuzzleFirestoreId(p))).length;
+    result[cat.id] = { solved, total };
+  }
+  return result;
+};
+
 const CategoriesScreen = () => {
   const router = useRouter();
   const insets = useSafeAreaInsets();
-  const { isLoggedIn } = useAuth();
+  const { user, isLoggedIn } = useAuth();
+  const { puzzles } = useGuessPuzzles();
+  const [solvedIds, setSolvedIds] = useState<Set<string>>(() => new Set());
   const [fontsLoaded] = useFonts({
     Fredoka_700Bold,
     Fredoka_600SemiBold,
@@ -187,6 +280,29 @@ const CategoriesScreen = () => {
 
   const titleFont = fontsLoaded ? ({ fontFamily: 'Fredoka_700Bold' } as const) : undefined;
   const bodyFont = fontsLoaded ? ({ fontFamily: 'Fredoka_600SemiBold' } as const) : undefined;
+
+  useFocusEffect(
+    useCallback(() => {
+      if (!isLoggedIn || !user?.uid || !tryInitFirebase()) {
+        setSolvedIds(new Set());
+        return;
+      }
+      let active = true;
+      void fetchSolvedGuessIds(user.uid).then((ids) => {
+        if (active) {
+          setSolvedIds(ids);
+        }
+      });
+      return () => {
+        active = false;
+      };
+    }, [isLoggedIn, user?.uid]),
+  );
+
+  const progressByCategoryId = useMemo(
+    () => buildProgressByCategory(puzzles, solvedIds),
+    [puzzles, solvedIds],
+  );
 
   const filtered = useMemo(() => {
     const q = search.trim().toLowerCase();
@@ -229,6 +345,19 @@ const CategoriesScreen = () => {
   const handleTabPress = useCallback((tab: CategoryTab) => {
     setActiveTab(tab);
   }, []);
+
+  const handleCategoryPress = useCallback(
+    (item: CategoryItem) => {
+      router.push({
+        pathname: '/guess-the-name',
+        params: {
+          category: item.firestoreCategory,
+          categoryTitle: item.title,
+        },
+      });
+    },
+    [router],
+  );
 
   return (
     <SafeAreaView style={styles.safe} edges={['top', 'left', 'right']}>
@@ -288,7 +417,15 @@ const CategoriesScreen = () => {
             }
             renderItem={({ item }) => (
               <View style={styles.gridCell}>
-                <CategoryCard item={item} fontsLoaded={fontsLoaded} titleFont={titleFont} bodyFont={bodyFont} />
+                <CategoryCard
+                  item={item}
+                  progress={progressByCategoryId[item.id] ?? { solved: 0, total: 0 }}
+                  showProgress={isLoggedIn}
+                  fontsLoaded={fontsLoaded}
+                  titleFont={titleFont}
+                  bodyFont={bodyFont}
+                  onPress={() => handleCategoryPress(item)}
+                />
               </View>
             )}
           />
@@ -313,7 +450,7 @@ const styles = StyleSheet.create({
   },
   body: {
     flex: 1,
-    paddingHorizontal: 14,
+    paddingHorizontal: 10,
   },
   list: {
     flex: 1,
@@ -377,12 +514,11 @@ const styles = StyleSheet.create({
     paddingTop: 4,
   },
   gridRow: {
-    gap: 10,
-    marginBottom: 10,
+    gap: 12,
+    marginBottom: 12,
   },
   gridCell: {
     flex: 1,
-    paddingHorizontal: 4,
   },
   cardOuter: {
     flex: 1,
@@ -391,55 +527,96 @@ const styles = StyleSheet.create({
     opacity: 0.92,
     transform: [{ scale: 0.98 }],
   },
-  cardFace: {
-    borderRadius: 20,
-    borderWidth: 2,
-    borderColor: '#FFFFFF',
-    padding: 12,
-    minHeight: 148,
+  cardShadowWrap: {
     shadowColor: '#2A1810',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.18,
+    shadowOffset: { width: 0, height: 5 },
+    shadowOpacity: 0.22,
     shadowRadius: 6,
-    elevation: 5,
+    elevation: 6,
+  },
+  cardFace: {
+    borderRadius: 22,
+    borderWidth: 3,
+    borderTopColor: '#FFFFFF',
+    borderLeftColor: '#FFFFFF',
+    borderRightColor: '#F5F5F5',
+    borderBottomColor: '#E8E8E8',
+    overflow: 'hidden',
+    minHeight: 168,
+  },
+  cardFaceNoProgress: {
+    minHeight: 140,
+  },
+  cardDepth: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    bottom: 0,
+    height: '42%',
+    borderBottomLeftRadius: 18,
+    borderBottomRightRadius: 18,
+    opacity: 0.55,
+  },
+  cardShine: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    height: '38%',
+    backgroundColor: 'rgba(255, 255, 255, 0.35)',
+    borderTopLeftRadius: 18,
+    borderTopRightRadius: 18,
+  },
+  cardBody: {
+    flex: 1,
+    paddingHorizontal: 8,
+    paddingTop: 6,
+    paddingBottom: 8,
+    justifyContent: 'space-between',
   },
   cardRow: {
+    flex: 1,
     flexDirection: 'row',
-    alignItems: 'flex-start',
-    gap: 10,
-    marginBottom: 10,
-  },
-  cardIconWrap: {
-    width: 52,
-    height: 52,
-    borderRadius: 16,
-    backgroundColor: 'rgba(255,255,255,0.65)',
     alignItems: 'center',
     justifyContent: 'center',
-    borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.9)',
+    gap: 12,
+    paddingHorizontal: 4,
+  },
+  cardIconWrap: {
+    width: 70,
+    height: 78,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  cardIconImage: {
+    width: 86,
+    height: 86,
   },
   cardTextCol: {
-    flex: 1,
-    minWidth: 0,
+    flexShrink: 1,
+    maxWidth: '56%',
+    justifyContent: 'center',
   },
   cardTitle: {
     fontSize: 17,
     fontWeight: '900',
-    marginBottom: 4,
+    marginBottom: 2,
+    letterSpacing: 0.2,
   },
   cardDesc: {
-    fontSize: 12,
+    fontSize: 10,
     fontWeight: '600',
-    color: '#4E342E',
-    lineHeight: 16,
+    lineHeight: 13,
   },
   progressTrack: {
     height: 26,
-    borderRadius: 13,
-    backgroundColor: '#FFF8EF',
-    borderWidth: 1,
-    borderColor: '#D7C4B0',
+    borderRadius: 14,
+    backgroundColor: '#FFF6E8',
+    borderWidth: 2,
+    borderTopColor: '#FFFFFF',
+    borderLeftColor: '#FFFDF8',
+    borderRightColor: '#E8DCC8',
+    borderBottomColor: '#D9CBB5',
     overflow: 'hidden',
     justifyContent: 'center',
     alignItems: 'center',
@@ -449,14 +626,26 @@ const styles = StyleSheet.create({
     left: 0,
     top: 0,
     bottom: 0,
-    backgroundColor: '#72BE2C',
+    backgroundColor: '#6BCF3A',
     borderRadius: 12,
   },
+  progressFillHighlight: {
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    height: '45%',
+    backgroundColor: 'rgba(255, 255, 255, 0.28)',
+    borderTopLeftRadius: 12,
+    borderTopRightRadius: 12,
+  },
   progressLabel: {
-    fontSize: 12,
+    fontSize: 13,
     fontWeight: '900',
-    color: '#3E2723',
-    zIndex: 1,
+    color: '#FFFFFF',
+    zIndex: 2,
+    textShadowColor: 'rgba(45, 35, 20, 0.45)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 2,
   },
   emptyText: {
     textAlign: 'center',
@@ -470,8 +659,5 @@ const styles = StyleSheet.create({
   },
   fontFallbackSemi: {
     fontWeight: '600',
-  },
-  pressed: {
-    opacity: 0.88,
   },
 });

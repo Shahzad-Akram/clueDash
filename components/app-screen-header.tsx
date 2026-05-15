@@ -4,24 +4,24 @@ import * as Haptics from 'expo-haptics';
 import { useCallback } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
-const DEFAULT_COIN_BALANCE = 1250;
+import { useAuth } from '@/contexts/auth-context';
 
 export type AppScreenHeaderProps = {
   title: string;
   onBack: () => void;
-  coinBalance?: number;
   onSettingsPress?: () => void;
-  /** When false, hides coin pill and settings (e.g. auth screens). */
+  /** When false, hides the right header actions (e.g. auth screens). */
   showWallet?: boolean;
 };
 
 export const AppScreenHeader = ({
   title,
   onBack,
-  coinBalance = DEFAULT_COIN_BALANCE,
   onSettingsPress,
   showWallet = true,
 }: AppScreenHeaderProps) => {
+  const { user, isLoggedIn } = useAuth();
+  const showPoints = showWallet && isLoggedIn && user;
   const [fontsLoaded] = useFonts({
     Fredoka_700Bold,
     Fredoka_600SemiBold,
@@ -59,25 +59,27 @@ export const AppScreenHeader = ({
           </Text>
           {showWallet ? (
             <View style={styles.headerRight}>
-              <View
-                style={styles.coinPill}
-                accessibilityRole="text"
-                accessibilityLabel={`Coins: ${coinBalance.toLocaleString()}. Add coins`}>
-                <View style={styles.headerCoinDisc}>
-                  <MaterialCommunityIcons name="star" size={12} color="#FFF8E1" />
-                </View>
-                <Text
-                  style={[styles.coinText, headerSecondaryType, !fontsLoaded && styles.headerSecondaryFallback]}
-                  numberOfLines={1}>
-                  {coinBalance.toLocaleString()}
-                </Text>
-                <View style={styles.plusBadge}>
+              {showPoints ? (
+                <View
+                  style={styles.coinPill}
+                  accessibilityRole="text"
+                  accessibilityLabel={`Points: ${user.points.toLocaleString()}. Add coins`}>
+                  <View style={styles.headerCoinDisc}>
+                    <MaterialCommunityIcons name="star" size={12} color="#FFF8E1" />
+                  </View>
                   <Text
-                    style={[styles.plusText, headerSecondaryType, !fontsLoaded && styles.headerSecondaryFallback]}>
-                    +
+                    style={[styles.coinText, headerSecondaryType, !fontsLoaded && styles.headerSecondaryFallback]}
+                    numberOfLines={1}>
+                    {user.points.toLocaleString()}
                   </Text>
+                  <View style={styles.plusBadge}>
+                    <Text
+                      style={[styles.plusText, headerSecondaryType, !fontsLoaded && styles.headerSecondaryFallback]}>
+                      +
+                    </Text>
+                  </View>
                 </View>
-              </View>
+              ) : null}
               <Pressable
                 accessibilityRole="button"
                 accessibilityLabel="Settings"

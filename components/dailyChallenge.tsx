@@ -17,15 +17,17 @@ import {
 } from 'react-native';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { useAuth } from '@/contexts/auth-context';
 import { FALLBACK_PUZZLES, type GuessPuzzle } from '@/contexts/guess-puzzles-context';
+import { usePaidHintActions } from '@/hooks/use-paid-hint-actions';
 import {
   getLocalCalendarDateKey,
-  isPreviousCalendarDay,
   loadDailyChallengeState,
   saveDailyChallengeState,
   type DailyChallengePersistedState,
 } from '@/lib/daily-challenge-storage';
-import { fetchDailyChallengePuzzlesOrdered, type GuessPuzzleDoc } from '@/lib/firebase';
+import { fetchDailyChallengePuzzlesOrdered, tryInitFirebase, type GuessPuzzleDoc } from '@/lib/firebase';
+import { awardUserPoints, DAILY_CHALLENGE_WIN_POINTS } from '@/lib/firebase/points';
 
 const normalizeAnswer = (phrase: string) =>
   phrase
@@ -117,7 +119,6 @@ const buildAnswerRows = (answer: string): AnswerCell[][] => {
 };
 
 const MAX_WRONG = 5;
-const COIN_BALANCE = 1250;
 const DAILY_TIMER_SECONDS = 60;
 
 const KEYBOARD_ROWS: string[][] = [
@@ -154,6 +155,7 @@ const DailyChallenge = () => {
   const router = useRouter();
   const insets = useSafeAreaInsets();
   const { width: windowWidth } = useWindowDimensions();
+  const { user, isLoggedIn, refreshProfile } = useAuth();
 
   const [persisted, setPersisted] = useState<DailyChallengePersistedState | null>(null);
   const [entryBlocked, setEntryBlocked] = useState(false);
@@ -161,6 +163,7 @@ const DailyChallenge = () => {
   const [timedOut, setTimedOut] = useState(false);
   const dailyOutcomeSavedRef = useRef(false);
   const winSavedRef = useRef(false);
+  const [winBonusLine, setWinBonusLine] = useState<string | null>(null);
 
   const [remoteDailyPuzzles, setRemoteDailyPuzzles] = useState<GuessPuzzle[]>([]);
 
@@ -337,31 +340,53 @@ const DailyChallenge = () => {
     })();
   }, [hasWon, timedOut, hasLost, canPlay]);
 
+  const wonInTime = hasWon && !timedOut;
+
   useEffect(() => {
-    if (!hasWon || winSavedRef.current) {
+    if (!wonInTime || winSavedRef.current) {
+      if (!wonInTime) {
+        setWinBonusLine(null);
+      }
       return;
     }
     winSavedRef.current = true;
+    let cancelled = false;
     void (async () => {
       const prev = await loadDailyChallengeState();
       const day = getLocalCalendarDateKey();
-      let streak = 1;
-      if (prev.lastWinDate === day) {
-        streak = prev.streak;
-      } else if (prev.lastWinDate && isPreviousCalendarDay(prev.lastWinDate, day)) {
-        streak = prev.streak + 1;
-      } else {
-        streak = 1;
-      }
+      const streak = prev.streak + 1;
       await saveDailyChallengeState({
         attempted: true,
         dateOfAttempt: day,
         streak,
         lastWinDate: day,
       });
+      if (cancelled) {
+        return;
+      }
       setPersisted(await loadDailyChallengeState());
+
+      if (isLoggedIn && user?.uid && tryInitFirebase()) {
+        const result = await awardUserPoints(user.uid, DAILY_CHALLENGE_WIN_POINTS);
+        if (cancelled) {
+          return;
+        }
+        if (result.ok) {
+          setWinBonusLine(`+${DAILY_CHALLENGE_WIN_POINTS} points added to your profile!`);
+          await refreshProfile({
+            untilPointsAtLeast: (user.points ?? 0) + DAILY_CHALLENGE_WIN_POINTS,
+          });
+        } else {
+          setWinBonusLine(null);
+        }
+      } else {
+        setWinBonusLine(null);
+      }
     })();
-  }, [hasWon]);
+    return () => {
+      cancelled = true;
+    };
+  }, [isLoggedIn, refreshProfile, user?.points, user?.uid, wonInTime]);
 
   const handleLetterPress = useCallback(
     (letter: string) => {
@@ -391,21 +416,23 @@ const DailyChallenge = () => {
     router.back();
   }, [router]);
 
-  const handleHintPress = useCallback(() => {
-    if (isGameLocked || clueRevealed) {
-      return;
-    }
-    void Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-    setClueRevealed(true);
-  }, [clueRevealed, isGameLocked]);
-
-  const handleRevealCluePress = useCallback(() => {
-    if (isGameLocked || clueEmojiRevealed) {
-      return;
-    }
-    void Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-    setClueEmojiRevealed(true);
-  }, [clueEmojiRevealed, isGameLocked]);
+  const {
+    hintDisabled,
+    revealClueDisabled,
+    handleHintPress,
+    handleRevealCluePress,
+    hintCost,
+    revealClueCost,
+  } = usePaidHintActions({
+    isLoggedIn,
+    user,
+    refreshProfile,
+    isGameLocked,
+    clueRevealed,
+    clueEmojiRevealed,
+    onHintRevealed: () => setClueRevealed(true),
+    onEmojiRevealed: () => setClueEmojiRevealed(true),
+  });
 
   const handleSettingsPress = useCallback(() => {
     void Haptics.selectionAsync();
@@ -463,26 +490,35 @@ const DailyChallenge = () => {
                   DAILY CHALLENGE
                 </Text>
                 <View style={styles.headerRight}>
-                  <View style={styles.coinPill}>
-                    <View style={styles.headerCoinDisc}>
-                      <MaterialCommunityIcons name="star" size={12} color="#FFF8E1" />
-                    </View>
-                    <Text
-                      style={[styles.coinText, headerSecondaryType, !headerFontsLoaded && styles.headerSecondaryFallback]}
-                      numberOfLines={1}>
-                      {COIN_BALANCE.toLocaleString()}
-                    </Text>
-                    <View style={styles.plusBadge}>
+                  {isLoggedIn && user ? (
+                    <View
+                      style={styles.coinPill}
+                      accessibilityRole="text"
+                      accessibilityLabel={`Points: ${user.points.toLocaleString()}`}>
+                      <View style={styles.headerCoinDisc}>
+                        <MaterialCommunityIcons name="star" size={12} color="#FFF8E1" />
+                      </View>
                       <Text
                         style={[
-                          styles.plusText,
+                          styles.coinText,
                           headerSecondaryType,
                           !headerFontsLoaded && styles.headerSecondaryFallback,
-                        ]}>
-                        +
+                        ]}
+                        numberOfLines={1}>
+                        {user.points.toLocaleString()}
                       </Text>
+                      <View style={styles.plusBadge}>
+                        <Text
+                          style={[
+                            styles.plusText,
+                            headerSecondaryType,
+                            !headerFontsLoaded && styles.headerSecondaryFallback,
+                          ]}>
+                          +
+                        </Text>
+                      </View>
                     </View>
-                  </View>
+                  ) : null}
                   <Pressable
                     accessibilityRole="button"
                     accessibilityLabel="Settings"
@@ -651,35 +687,45 @@ const DailyChallenge = () => {
           <View style={styles.actionRow}>
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel={clueRevealed ? 'Clue already revealed' : 'Use hint for 50 coins'}
-              accessibilityState={{ disabled: isGameLocked || clueRevealed }}
-              disabled={isGameLocked || clueRevealed}
-              onPress={handleHintPress}
+              accessibilityLabel={
+                clueRevealed
+                  ? 'Clue already revealed'
+                  : hintDisabled
+                    ? 'Use hint. Log in and have enough points to use'
+                    : `Use hint for ${hintCost} points`
+              }
+              accessibilityState={{ disabled: hintDisabled }}
+              disabled={hintDisabled}
+              onPress={() => void handleHintPress()}
               style={({ pressed }) => [
                 styles.hintBtn,
-                (isGameLocked || clueRevealed) && styles.hintBtnDisabled,
-                pressed && !isGameLocked && !clueRevealed && styles.pressed,
+                hintDisabled && styles.hintBtnDisabled,
+                pressed && !hintDisabled && styles.pressed,
               ]}>
               <MaterialCommunityIcons name="lightbulb-on" size={21} color="#FFD54F" />
               <Text style={styles.actionBtnText}>USE HINT</Text>
-              <Text style={styles.coinCost}>50</Text>
+              <Text style={styles.coinCost}>{hintCost}</Text>
             </Pressable>
             <Pressable
               accessibilityRole="button"
               accessibilityLabel={
-                clueEmojiRevealed ? 'Clue picture already revealed' : 'Reveal clue picture for 75 coins'
+                clueEmojiRevealed
+                  ? 'Clue picture already revealed'
+                  : revealClueDisabled
+                    ? 'Reveal clue picture. Log in and have enough points to use'
+                    : `Reveal clue picture for ${revealClueCost} points`
               }
-              accessibilityState={{ disabled: isGameLocked || clueEmojiRevealed }}
-              disabled={isGameLocked || clueEmojiRevealed}
-              onPress={handleRevealCluePress}
+              accessibilityState={{ disabled: revealClueDisabled }}
+              disabled={revealClueDisabled}
+              onPress={() => void handleRevealCluePress()}
               style={({ pressed }) => [
                 styles.revealBtn,
-                (isGameLocked || clueEmojiRevealed) && styles.revealBtnDisabled,
-                pressed && !isGameLocked && !clueEmojiRevealed && styles.pressed,
+                revealClueDisabled && styles.revealBtnDisabled,
+                pressed && !revealClueDisabled && styles.pressed,
               ]}>
               <MaterialCommunityIcons name="eye-outline" size={21} color="#fff" />
               <Text style={styles.actionBtnText}>REVEAL CLUE</Text>
-              <Text style={styles.coinCostLight}>75</Text>
+              <Text style={styles.coinCostLight}>{revealClueCost}</Text>
             </Pressable>
           </View>
           <View style={styles.keyboard}>
@@ -764,7 +810,7 @@ const DailyChallenge = () => {
       </SafeAreaView>
 
       <Modal
-        visible={hasWon}
+        visible={wonInTime}
         transparent
         animationType="fade"
         statusBarTranslucent
@@ -775,6 +821,7 @@ const DailyChallenge = () => {
             <MaterialCommunityIcons name="trophy" size={72} color="#FFD54F" accessibilityLabel="Trophy" />
             <Text style={styles.modalTitle}>You won!</Text>
             <Text style={styles.modalSubtitle}>{`Great job solving today's phrase in time.`}</Text>
+            {winBonusLine ? <Text style={styles.modalBonusLine}>{winBonusLine}</Text> : null}
             <Text style={styles.modalStreakText}>
               Streak: <Text style={styles.modalStreakEm}>{persisted?.streak ?? 0}</Text>
             </Text>
@@ -1600,6 +1647,12 @@ const styles = StyleSheet.create({
     color: '#6B5344',
     textAlign: 'center',
     marginBottom: 4,
+  },
+  modalBonusLine: {
+    fontSize: 14,
+    fontWeight: '800',
+    color: '#3A7D1E',
+    textAlign: 'center',
   },
   modalStreakText: {
     fontSize: 17,
