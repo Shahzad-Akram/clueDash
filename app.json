@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "WordNoose",
-    "slug": "Numtease",
+    "name": "GuessUp",
+    "slug": "GuessUp",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "numtease",
+    "scheme": "GuessUp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
@@ -13,7 +13,7 @@
       "infoPlist": {
         "NSUserTrackingUsageDescription": "This identifier will be used to deliver personalized ads to you."
       },
-      "bundleIdentifier": "com.thebabybless.Numtease"
+      "bundleIdentifier": "com.digitalukapps.GuessUp"
     },
     "android": {
       "adaptiveIcon": {

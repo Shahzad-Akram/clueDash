@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export const GAME_MUSIC_STORAGE_KEY = '@numtease/music_enabled_v1';
+export const GAME_MUSIC_STORAGE_KEY = '@GuessUp/music_enabled_v1';
 
 export const loadMusicEnabledPreference = async (): Promise<boolean> => {
   try {

@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export const GUEST_SESSION_STORAGE_KEY = '@numtease/guest_session_v1';
+export const GUEST_SESSION_STORAGE_KEY = '@GuessUp/guest_session_v1';
 
 export const loadGuestSession = async (): Promise<boolean> => {
   try {

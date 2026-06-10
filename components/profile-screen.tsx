@@ -2,7 +2,7 @@ import { Fredoka_600SemiBold, Fredoka_700Bold, useFonts } from '@expo-google-fon
 import { Image } from 'expo-image';
 import { useRouter } from 'expo-router';
 import { useCallback, useEffect, useState } from 'react';
-import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, Alert, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { AppScreenHeader } from '@/components/app-screen-header';
@@ -12,12 +12,13 @@ import { getProfileAvatarSource } from '@/lib/profile-avatars';
 const ProfileScreen = () => {
   const router = useRouter();
   const insets = useSafeAreaInsets();
-  const { user, isHydrated, isLoggedIn, signOut } = useAuth();
+  const { user, isHydrated, isLoggedIn, signOut, deleteAccount } = useAuth();
   const [fontsLoaded] = useFonts({
     Fredoka_700Bold,
     Fredoka_600SemiBold,
   });
   const [signingOut, setSigningOut] = useState(false);
+  const [deleting, setDeleting] = useState(false);
 
   const titleFont = fontsLoaded ? ({ fontFamily: 'Fredoka_700Bold' } as const) : undefined;
   const bodyFont = fontsLoaded ? ({ fontFamily: 'Fredoka_600SemiBold' } as const) : undefined;
@@ -42,6 +43,32 @@ const ProfileScreen = () => {
     router.replace('/');
   }, [router, signOut]);
 
+  const handleDeleteAccount = useCallback(() => {
+    Alert.alert(
+      'Delete account?',
+      'This permanently deletes your profile, points, and game progress. This cannot be undone.',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        {
+          text: 'Delete',
+          style: 'destructive',
+          onPress: () => {
+            void (async () => {
+              setDeleting(true);
+              const result = await deleteAccount();
+              setDeleting(false);
+              if (!result.ok) {
+                Alert.alert('Could not delete account', result.message);
+                return;
+              }
+              router.replace('/');
+            })();
+          },
+        },
+      ],
+    );
+  }, [deleteAccount, router]);
+
   if (!isHydrated || !user) {
     return (
       <SafeAreaView style={styles.safe} edges={['top', 'left', 'right']}>
@@ -52,15 +79,6 @@ const ProfileScreen = () => {
       </SafeAreaView>
     );
   }
-
-  const genderLabel =
-    user.gender === 'male'
-      ? 'Male'
-      : user.gender === 'female'
-        ? 'Female'
-        : user.gender === 'other'
-          ? 'Other'
-          : 'Prefer not to say';
 
   return (
     <SafeAreaView style={styles.safe} edges={['top', 'left', 'right']}>
@@ -74,14 +92,6 @@ const ProfileScreen = () => {
           <Text style={[styles.name, titleFont, !fontsLoaded && styles.fontFallbackBold]}>{user.name}</Text>
           <Text style={[styles.email, bodyFont, !fontsLoaded && styles.fontFallbackSemi]}>{user.email}</Text>
 
-          <View style={styles.row}>
-            <Text style={[styles.metaLabel, bodyFont, !fontsLoaded && styles.fontFallbackSemi]}>Age</Text>
-            <Text style={[styles.metaValue, titleFont, !fontsLoaded && styles.fontFallbackBold]}>{user.age}</Text>
-          </View>
-          <View style={styles.row}>
-            <Text style={[styles.metaLabel, bodyFont, !fontsLoaded && styles.fontFallbackSemi]}>Gender</Text>
-            <Text style={[styles.metaValue, titleFont, !fontsLoaded && styles.fontFallbackBold]}>{genderLabel}</Text>
-          </View>
           <View style={styles.pointsRow}>
             <Text style={[styles.pointsLabel, titleFont, !fontsLoaded && styles.fontFallbackBold]}>Points</Text>
             <Text style={[styles.pointsValue, titleFont, !fontsLoaded && styles.fontFallbackBold]}>{user.points.toLocaleString()}</Text>
@@ -99,6 +109,20 @@ const ProfileScreen = () => {
             <ActivityIndicator color="#FFFFFF" />
           ) : (
             <Text style={[styles.signOutText, titleFont, !fontsLoaded && styles.fontFallbackBold]}>SIGN OUT</Text>
+          )}
+        </Pressable>
+
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel="Delete account"
+          accessibilityState={{ disabled: deleting }}
+          disabled={deleting}
+          onPress={handleDeleteAccount}
+          style={({ pressed }) => [styles.deleteBtn, pressed && styles.deletePressed, deleting && styles.deleteDisabled]}>
+          {deleting ? (
+            <ActivityIndicator color="#E53935" />
+          ) : (
+            <Text style={[styles.deleteText, titleFont, !fontsLoaded && styles.fontFallbackBold]}>DELETE ACCOUNT</Text>
           )}
         </Pressable>
       </ScrollView>
@@ -208,6 +232,27 @@ const styles = StyleSheet.create({
   signOutText: {
     color: '#FFFFFF',
     fontSize: 16,
+    fontWeight: '900',
+    letterSpacing: 0.6,
+  },
+  deleteBtn: {
+    marginTop: 14,
+    backgroundColor: 'transparent',
+    borderRadius: 18,
+    borderWidth: 2,
+    borderColor: '#E53935',
+    paddingVertical: 14,
+    alignItems: 'center',
+  },
+  deletePressed: {
+    opacity: 0.85,
+  },
+  deleteDisabled: {
+    opacity: 0.7,
+  },
+  deleteText: {
+    color: '#FFCDD2',
+    fontSize: 14,
     fontWeight: '900',
     letterSpacing: 0.6,
   },

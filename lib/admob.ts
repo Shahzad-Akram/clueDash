@@ -22,6 +22,7 @@ class AdMobService {
   private interstitial: import('react-native-google-mobile-ads').InterstitialAd | null = null;
   private unsubscribeLoaded: (() => void) | null = null;
   private unsubscribeClosed: (() => void) | null = null;
+  private unsubscribeError: (() => void) | null = null;
   private closeWaiters: (() => void)[] = [];
   /** True only after MobileAds.initialize() succeeds (native module loaded lazily). */
   private sdkInitialized = false;
@@ -91,8 +92,12 @@ class AdMobService {
     try {
       this.unsubscribeClosed?.();
     } catch {}
+    try {
+      this.unsubscribeError?.();
+    } catch {}
     this.unsubscribeLoaded = null;
     this.unsubscribeClosed = null;
+    this.unsubscribeError = null;
   }
 
   async preloadInterstitialAd(): Promise<void> {
@@ -131,6 +136,17 @@ class AdMobService {
         setTimeout(() => void this.preloadInterstitialAd(), 1000);
       });
 
+      // Without this, a failed load (no fill, network) leaves isAdLoading stuck
+      // at true and no ad ever loads again for the rest of the session.
+      this.unsubscribeError = this.interstitial.addAdEventListener(AdEventType.ERROR, (error) => {
+        console.log(
+          'AdMob: Interstitial failed to load:',
+          error instanceof Error ? error.message : String(error),
+        );
+        this.isAdLoaded = false;
+        this.isAdLoading = false;
+      });
+
       this.interstitial.load();
     } catch (error) {
       console.log(
@@ -151,8 +167,11 @@ class AdMobService {
       if (!this.isAdLoaded) {
         await this.preloadInterstitialAd();
       }
-      if (!this.isAdLoaded || !this.interstitial) {
+      // `interstitial.loaded` is the native SDK's source of truth — our flag can
+      // drift (e.g. a loaded ad expires after ~1h). Never call show() on a stale ad.
+      if (!this.isAdLoaded || !this.interstitial?.loaded) {
         console.log('AdMob: No ad available to show');
+        this.recoverAndPreloadFreshAd();
         return false;
       }
       await this.interstitial.show();
@@ -162,7 +181,17 @@ class AdMobService {
         'AdMob: Failed to show interstitial ad:',
         error instanceof Error ? error.message : String(error),
       );
+      this.recoverAndPreloadFreshAd();
       return false;
+    }
+  }
+
+  /** Resets stale state and queues a fresh ad load so the next trigger can succeed. */
+  private recoverAndPreloadFreshAd(): void {
+    this.isAdLoaded = false;
+    if (this.interstitial && !this.isAdLoading) {
+      this.interstitial = null;
+      setTimeout(() => void this.preloadInterstitialAd(), 500);
     }
   }
 

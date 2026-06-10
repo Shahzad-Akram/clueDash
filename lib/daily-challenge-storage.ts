@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export const DAILY_CHALLENGE_STORAGE_KEY = '@numtease/daily_challenge_v1';
+export const DAILY_CHALLENGE_STORAGE_KEY = '@GuessUp/daily_challenge_v1';
 
 /** Persisted daily challenge progress (AsyncStorage — same role as localStorage on web). */
 export type DailyChallengePersistedState = {

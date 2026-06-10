@@ -1,5 +1,14 @@
 import { deleteUser, type User } from 'firebase/auth';
-import { doc, getDoc, getDocFromServer, serverTimestamp, setDoc } from 'firebase/firestore';
+import {
+  collection,
+  deleteDoc,
+  doc,
+  getDoc,
+  getDocFromServer,
+  getDocs,
+  serverTimestamp,
+  setDoc,
+} from 'firebase/firestore';
 
 /**
  * Firestore `users` collection — document ID = Firebase Auth `uid`.
@@ -14,7 +23,8 @@ import { doc, getDoc, getDocFromServer, serverTimestamp, setDoc } from 'firebase
  *       allow read: if request.auth != null;
  *       allow create: if request.auth != null && request.auth.uid == userId;
  *       allow update: if request.auth != null && request.auth.uid == userId;
- *       allow delete: if false;
+ *       // Account deletion: users may delete their own profile.
+ *       allow delete: if request.auth != null && request.auth.uid == userId;
  *     }
  *     match /users/{userId}/solvedGuesses/{guessId} {
  *       allow read, write: if request.auth != null && request.auth.uid == userId;
@@ -23,7 +33,6 @@ import { doc, getDoc, getDocFromServer, serverTimestamp, setDoc } from 'firebase
  * }
  */
 
-import type { Gender } from '@/lib/auth-types';
 import { getFirebaseDb } from '@/lib/firebase/app';
 import type { ProfileAvatarId } from '@/lib/profile-avatars';
 
@@ -36,8 +45,6 @@ export const NEW_USER_POINTS = 300;
 export type UserProfileDoc = {
   email: string;
   name: string;
-  age: string;
-  gender: Gender;
   avatarId: ProfileAvatarId;
   points: number;
 };
@@ -46,16 +53,11 @@ export type AppUserProfile = UserProfileDoc & {
   uid: string;
 };
 
-const isGender = (v: unknown): v is Gender =>
-  v === 'male' || v === 'female' || v === 'other' || v === 'prefer_not';
-
 const isAvatarId = (v: unknown): v is ProfileAvatarId => v === 'user1' || v === 'user2' || v === 'user3';
 
 export const parseUserProfileDoc = (uid: string, data: Record<string, unknown>, fallbackEmail: string): AppUserProfile => {
   const email = typeof data.email === 'string' ? data.email : fallbackEmail;
   const name = typeof data.name === 'string' ? data.name : '';
-  const age = data.age !== undefined && data.age !== null ? String(data.age) : '';
-  const gender = isGender(data.gender) ? data.gender : 'prefer_not';
   const avatarId = isAvatarId(data.avatarId) ? data.avatarId : 'user1';
   const rawPoints = data.points;
   const points =
@@ -65,7 +67,7 @@ export const parseUserProfileDoc = (uid: string, data: Record<string, unknown>, 
         ? Number(rawPoints)
         : NEW_USER_POINTS;
 
-  return { uid, email, name, age, gender, avatarId, points };
+  return { uid, email, name, avatarId, points };
 };
 
 export type FetchUserProfileOptions = {
@@ -115,7 +117,7 @@ export const fetchUserProfileWithRetry = async (
 
 export const createUserProfileDoc = async (
   user: User,
-  profile: Pick<UserProfileDoc, 'email' | 'name' | 'age' | 'gender' | 'avatarId'>,
+  profile: Pick<UserProfileDoc, 'email' | 'name' | 'avatarId'>,
 ): Promise<void> => {
   await setDoc(doc(getFirebaseDb(), USERS_COLLECTION, user.uid), {
     ...profile,
@@ -131,4 +133,22 @@ export const rollbackNewAuthUser = async (user: User): Promise<void> => {
   } catch {
     // best-effort
   }
+};
+
+/**
+ * Permanently deletes the user's data and Firebase Auth account:
+ * solved-puzzle progress → profile doc → Auth user (last, since Firestore
+ * rules require an authenticated request).
+ *
+ * May throw `auth/requires-recent-login` — Firebase requires a recent sign-in
+ * for account deletion; the caller should ask the user to log in again.
+ */
+export const deleteUserAccount = async (user: User): Promise<void> => {
+  const db = getFirebaseDb();
+
+  const solvedSnap = await getDocs(collection(db, USERS_COLLECTION, user.uid, 'solvedGuesses'));
+  await Promise.all(solvedSnap.docs.map((d) => deleteDoc(d.ref)));
+
+  await deleteDoc(doc(db, USERS_COLLECTION, user.uid));
+  await deleteUser(user);
 };

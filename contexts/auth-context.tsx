@@ -6,10 +6,10 @@ import {
 } from 'firebase/auth';
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
-import type { Gender } from '@/lib/auth-types';
 import type { AppUserProfile } from '@/lib/firebase/user-profile';
 import {
   createUserProfileDoc,
+  deleteUserAccount,
   fetchUserProfile,
   fetchUserProfileWithRetry,
   rollbackNewAuthUser,
@@ -18,14 +18,10 @@ import { getFirebaseAuth, tryInitFirebase } from '@/lib/firebase/app';
 import { loadGuestSession, saveGuestSession } from '@/lib/guest-session';
 import type { ProfileAvatarId } from '@/lib/profile-avatars';
 
-export type { Gender } from '@/lib/auth-types';
-
 export type SignUpPayload = {
   email: string;
   password: string;
   name: string;
-  age: string;
-  gender: Gender;
   avatarId: ProfileAvatarId;
 };
 
@@ -44,6 +40,8 @@ type AuthContextValue = {
   signIn: (email: string, password: string) => Promise<AuthResult>;
   signUp: (payload: SignUpPayload) => Promise<AuthResult>;
   signOut: () => Promise<void>;
+  /** Permanently deletes the account (Firestore data + Firebase Auth user). */
+  deleteAccount: () => Promise<AuthResult>;
   continueAsGuest: () => Promise<void>;
   /** Reload `user` from Firestore (e.g. after points change). Uses a server read; optional retry until points reach a minimum. */
   refreshProfile: (opts?: { untilPointsAtLeast?: number }) => Promise<void>;
@@ -148,10 +146,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     if (!payload.name.trim()) {
       return { ok: false, message: 'Please enter your name.' };
     }
-    const ageN = Number.parseInt(payload.age, 10);
-    if (!Number.isFinite(ageN) || ageN < 1 || ageN > 120) {
-      return { ok: false, message: 'Please enter a valid age (1–120).' };
-    }
     if (payload.password.length < 6) {
       return { ok: false, message: 'Password must be at least 6 characters.' };
     }
@@ -163,8 +157,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         await createUserProfileDoc(cred.user, {
           email,
           name: payload.name.trim(),
-          age: String(ageN),
-          gender: payload.gender,
           avatarId: payload.avatarId,
         });
         const profile = await fetchUserProfile(cred.user);
@@ -230,6 +222,33 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     setUser(null);
   }, [clearGuestMode]);
 
+  const deleteAccount = useCallback(async (): Promise<AuthResult> => {
+    if (!tryInitFirebase()) {
+      return { ok: false, message: 'Firebase is not configured.' };
+    }
+    const current = getFirebaseAuth().currentUser;
+    if (!current) {
+      return { ok: false, message: 'You are not logged in.' };
+    }
+    try {
+      await deleteUserAccount(current);
+      await clearGuestMode();
+      setUser(null);
+      return { ok: true };
+    } catch (err) {
+      if (err && typeof err === 'object' && 'code' in err) {
+        const code = String((err as { code: string }).code);
+        if (code === 'auth/requires-recent-login') {
+          return {
+            ok: false,
+            message: 'For security, please log out, log back in, and try deleting again.',
+          };
+        }
+      }
+      return { ok: false, message: mapAuthError(err) };
+    }
+  }, [clearGuestMode]);
+
   const refreshProfile = useCallback(async (opts?: { untilPointsAtLeast?: number }) => {
     if (!tryInitFirebase()) {
       return;
@@ -270,6 +289,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       signIn,
       signUp,
       signOut,
+      deleteAccount,
       continueAsGuest,
       refreshProfile,
     }),
@@ -284,6 +304,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       signIn,
       signUp,
       signOut,
+      deleteAccount,
       continueAsGuest,
       refreshProfile,
     ],

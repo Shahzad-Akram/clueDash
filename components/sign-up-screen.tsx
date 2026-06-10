@@ -16,16 +16,9 @@ import {
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { AppScreenHeader } from '@/components/app-screen-header';
-import { useAuth, type Gender } from '@/contexts/auth-context';
+import { useAuth } from '@/contexts/auth-context';
 import { PROFILE_AVATARS } from '@/lib/profile-avatars';
 import type { ProfileAvatarId } from '@/lib/profile-avatars';
-
-const GENDER_OPTIONS: { value: Gender; label: string }[] = [
-  { value: 'male', label: 'Male' },
-  { value: 'female', label: 'Female' },
-  { value: 'other', label: 'Other' },
-  { value: 'prefer_not', label: 'Prefer not to say' },
-];
 
 const SignUpScreen = () => {
   const router = useRouter();
@@ -38,8 +31,6 @@ const SignUpScreen = () => {
 
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
-  const [age, setAge] = useState('');
-  const [gender, setGender] = useState<Gender>('prefer_not');
   const [avatarId, setAvatarId] = useState<ProfileAvatarId>('user1');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -79,8 +70,6 @@ const SignUpScreen = () => {
       email: email.trim(),
       password,
       name: name.trim(),
-      age: age.trim(),
-      gender,
       avatarId,
     });
     setSubmitting(false);
@@ -89,7 +78,7 @@ const SignUpScreen = () => {
       return;
     }
     router.replace('/(tabs)');
-  }, [age, avatarId, confirmPassword, email, gender, name, password, router, signUp]);
+  }, [avatarId, confirmPassword, email, name, password, router, signUp]);
 
   return (
     <SafeAreaView style={styles.safe} edges={['top', 'left', 'right']}>
@@ -140,53 +129,6 @@ const SignUpScreen = () => {
               onChangeText={setName}
               style={[styles.input, bodyFont, !fontsLoaded && styles.fontFallbackSemi]}
             />
-          </View>
-
-          <View style={styles.field}>
-            <Text style={[styles.label, titleFont, !fontsLoaded && styles.fontFallbackBold]}>Age</Text>
-            <TextInput
-              accessibilityLabel="Age"
-              keyboardType="number-pad"
-              placeholder="e.g. 21"
-              placeholderTextColor="#A08B78"
-              maxLength={3}
-              value={age}
-              onChangeText={setAge}
-              style={[styles.input, bodyFont, !fontsLoaded && styles.fontFallbackSemi]}
-            />
-          </View>
-
-          <View style={styles.field}>
-            <Text style={[styles.label, titleFont, !fontsLoaded && styles.fontFallbackBold]}>Gender</Text>
-            <View style={styles.genderRow} accessibilityRole="radiogroup" accessibilityLabel="Gender">
-              {GENDER_OPTIONS.map((opt) => {
-                const selected = gender === opt.value;
-                return (
-                  <Pressable
-                    key={opt.value}
-                    accessibilityRole="radio"
-                    accessibilityState={{ selected }}
-                    accessibilityLabel={opt.label}
-                    onPress={() => setGender(opt.value)}
-                    style={({ pressed }) => [
-                      styles.genderPill,
-                      selected && styles.genderPillSelected,
-                      pressed && styles.genderPillPressed,
-                    ]}>
-                    <Text
-                      style={[
-                        styles.genderPillText,
-                        selected && styles.genderPillTextSelected,
-                        bodyFont,
-                        !fontsLoaded && styles.fontFallbackSemi,
-                      ]}
-                      numberOfLines={1}>
-                      {opt.label}
-                    </Text>
-                  </Pressable>
-                );
-              })}
-            </View>
           </View>
 
           <View style={styles.field}>
@@ -338,34 +280,6 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     fontSize: 16,
     color: '#3E2723',
-  },
-  genderRow: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 8,
-  },
-  genderPill: {
-    paddingVertical: 10,
-    paddingHorizontal: 12,
-    borderRadius: 14,
-    backgroundColor: '#FFF8EF',
-    borderWidth: 2,
-    borderColor: '#E8D9C8',
-  },
-  genderPillSelected: {
-    backgroundColor: '#2A93F4',
-    borderColor: '#1B6ED4',
-  },
-  genderPillPressed: {
-    opacity: 0.9,
-  },
-  genderPillText: {
-    fontSize: 13,
-    fontWeight: '800',
-    color: '#5D4037',
-  },
-  genderPillTextSelected: {
-    color: '#FFFFFF',
   },
   avatarRow: {
     flexDirection: 'row',

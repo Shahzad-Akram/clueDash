@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { getLocalCalendarDateKey } from '@/lib/daily-challenge-storage';
 
-export const INTERSTITIAL_AD_GATE_STORAGE_KEY = '@numtease/interstitial_ad_gate_v1';
+export const INTERSTITIAL_AD_GATE_STORAGE_KEY = '@GuessUp/interstitial_ad_gate_v1';
 
 /** Max interstitials per user per day (resets at local midnight). */
 export const MAX_INTERSTITIALS_PER_DAY = 3;
