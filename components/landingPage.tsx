@@ -193,17 +193,24 @@ export default function LandingPage() {
             {isLoggedIn && user ? (
               <View
                 style={styles.coinPill}
-                accessibilityRole="text"
-                accessibilityLabel={`Points: ${user.points.toLocaleString()}. Add coins`}>
-                <View style={styles.headerCoinDisc}>
+                accessibilityLabel={`Points: ${user.points.toLocaleString()}`}>
+                <Pressable
+                  accessibilityRole="button"
+                  accessibilityLabel="Open leaderboard"
+                  onPress={handleViewAllLeaderboard}
+                  style={({ pressed }) => [styles.headerCoinDisc, pressed && styles.coinActionPressed]}>
                   <MaterialCommunityIcons name="star" size={12} color="#FFF8E1" />
-                </View>
+                </Pressable>
                 <Text style={styles.coinText} numberOfLines={1}>
                   {user.points.toLocaleString()}
                 </Text>
-                <View style={styles.plusBadge}>
+                <Pressable
+                  accessibilityRole="button"
+                  accessibilityLabel="Play guess the name"
+                  onPress={handleGuessTheNamePress}
+                  style={({ pressed }) => [styles.plusBadge, pressed && styles.coinActionPressed]}>
                   <Text style={styles.plusText}>+</Text>
-                </View>
+                </Pressable>
               </View>
             ) : null}
           </View>
@@ -510,6 +517,10 @@ const styles = StyleSheet.create({
     lineHeight: 18,
     marginTop: -1,
   },
+  coinActionPressed: {
+    opacity: 0.8,
+    transform: [{ scale: 0.94 }],
+  },
   dailyRowSection: {
     marginBottom: 12,
   },
@@ -811,7 +822,6 @@ const styles = StyleSheet.create({
   viewAllPressable: {
     flexShrink: 0,
     marginLeft: 'auto',
-    marginRight: -8,
     alignItems: 'flex-end',
     justifyContent: 'center',
     paddingVertical: 8,
@@ -824,7 +834,8 @@ const styles = StyleSheet.create({
   },
   viewAllImage: {
     height: 42,
-    width: 148,
+    // Matches the source asset aspect ratio (410x246) so `contain` adds no horizontal letterboxing.
+    width: 70,
     alignSelf: 'flex-end',
     maxWidth: '100%',
   },

@@ -19,6 +19,7 @@ import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { useAuth } from '@/contexts/auth-context';
 import { FALLBACK_PUZZLES, type GuessPuzzle } from '@/contexts/guess-puzzles-context';
+import { useInterstitialAd } from '@/hooks/use-interstitial-ad';
 import { usePaidHintActions } from '@/hooks/use-paid-hint-actions';
 import {
   getLocalCalendarDateKey,
@@ -342,6 +343,21 @@ const DailyChallenge = () => {
 
   const wonInTime = hasWon && !timedOut;
 
+  const { showInterstitialAfterGameComplete } = useInterstitialAd();
+  const adShownForAttemptRef = useRef(false);
+
+  useEffect(() => {
+    if (!roundStarted) {
+      return;
+    }
+    const attemptComplete = hasWon || hasLost || timedOut;
+    if (!attemptComplete || adShownForAttemptRef.current) {
+      return;
+    }
+    adShownForAttemptRef.current = true;
+    void showInterstitialAfterGameComplete();
+  }, [hasLost, hasWon, roundStarted, showInterstitialAfterGameComplete, timedOut]);
+
   useEffect(() => {
     if (!wonInTime || winSavedRef.current) {
       if (!wonInTime) {
@@ -434,9 +450,15 @@ const DailyChallenge = () => {
     onEmojiRevealed: () => setClueEmojiRevealed(true),
   });
 
-  const handleSettingsPress = useCallback(() => {
+  const handleStarPress = useCallback(() => {
     void Haptics.selectionAsync();
-  }, []);
+    router.push('/leaderboard');
+  }, [router]);
+
+  const handlePlusPress = useCallback(() => {
+    void Haptics.selectionAsync();
+    router.push('/guess-the-name');
+  }, [router]);
 
   const headerTitleType = headerFontsLoaded ? ({ fontFamily: 'Fredoka_700Bold' } as const) : undefined;
   const headerSecondaryType = headerFontsLoaded ? ({ fontFamily: 'Fredoka_600SemiBold' } as const) : undefined;
@@ -481,11 +503,14 @@ const DailyChallenge = () => {
                   {isLoggedIn && user ? (
                     <View
                       style={styles.coinPill}
-                      accessibilityRole="text"
                       accessibilityLabel={`Points: ${user.points.toLocaleString()}`}>
-                      <View style={styles.headerCoinDisc}>
+                      <Pressable
+                        accessibilityRole="button"
+                        accessibilityLabel="Open leaderboard"
+                        onPress={handleStarPress}
+                        style={({ pressed }) => [styles.headerCoinDisc, pressed && styles.pressed]}>
                         <MaterialCommunityIcons name="star" size={12} color="#FFF8E1" />
-                      </View>
+                      </Pressable>
                       <Text
                         style={[
                           styles.coinText,
@@ -495,7 +520,11 @@ const DailyChallenge = () => {
                         numberOfLines={1}>
                         {user.points.toLocaleString()}
                       </Text>
-                      <View style={styles.plusBadge}>
+                      <Pressable
+                        accessibilityRole="button"
+                        accessibilityLabel="Play guess the name"
+                        onPress={handlePlusPress}
+                        style={({ pressed }) => [styles.plusBadge, pressed && styles.pressed]}>
                         <Text
                           style={[
                             styles.plusText,
@@ -504,16 +533,9 @@ const DailyChallenge = () => {
                           ]}>
                           +
                         </Text>
-                      </View>
+                      </Pressable>
                     </View>
                   ) : null}
-                  <Pressable
-                    accessibilityRole="button"
-                    accessibilityLabel="Settings"
-                    onPress={handleSettingsPress}
-                    style={({ pressed }) => [styles.headerSquircleBtn, pressed && styles.pressed]}>
-                    <MaterialCommunityIcons name="cog" size={22} color="#FFFFFF" />
-                  </Pressable>
                 </View>
               </View>
             </View>

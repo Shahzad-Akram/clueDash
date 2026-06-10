@@ -1,6 +1,7 @@
 import { Fredoka_600SemiBold, Fredoka_700Bold, useFonts } from '@expo-google-fonts/fredoka';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import * as Haptics from 'expo-haptics';
+import { useRouter } from 'expo-router';
 import { useCallback } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
@@ -9,11 +10,8 @@ import { useAuth } from '@/contexts/auth-context';
 export type AppScreenHeaderProps = {
   title: string;
   onBack: () => void;
-  onSettingsPress?: () => void;
   /** When false, hides the right header actions (e.g. auth screens). */
   showWallet?: boolean;
-  /** When false, hides the settings button (e.g. when a music toggle is shown instead). */
-  showSettings?: boolean;
   /** When provided, shows a music on/off toggle in the header. */
   musicEnabled?: boolean;
   onMusicToggle?: () => void;
@@ -22,12 +20,11 @@ export type AppScreenHeaderProps = {
 export const AppScreenHeader = ({
   title,
   onBack,
-  onSettingsPress,
   showWallet = true,
-  showSettings = true,
   musicEnabled = true,
   onMusicToggle,
 }: AppScreenHeaderProps) => {
+  const router = useRouter();
   const { user, isLoggedIn } = useAuth();
   const showPoints = showWallet && isLoggedIn && user;
   const [fontsLoaded] = useFonts({
@@ -38,13 +35,15 @@ export const AppScreenHeader = ({
   const headerTitleType = fontsLoaded ? ({ fontFamily: 'Fredoka_700Bold' } as const) : undefined;
   const headerSecondaryType = fontsLoaded ? ({ fontFamily: 'Fredoka_600SemiBold' } as const) : undefined;
 
-  const handleSettingsPress = useCallback(() => {
-    if (onSettingsPress) {
-      onSettingsPress();
-      return;
-    }
+  const handleStarPress = useCallback(() => {
     void Haptics.selectionAsync();
-  }, [onSettingsPress]);
+    router.push('/leaderboard');
+  }, [router]);
+
+  const handlePlusPress = useCallback(() => {
+    void Haptics.selectionAsync();
+    router.push('/guess-the-name');
+  }, [router]);
 
   const handleMusicToggle = useCallback(() => {
     onMusicToggle?.();
@@ -74,22 +73,29 @@ export const AppScreenHeader = ({
               {showPoints ? (
                 <View
                   style={styles.coinPill}
-                  accessibilityRole="text"
-                  accessibilityLabel={`Points: ${user.points.toLocaleString()}. Add coins`}>
-                  <View style={styles.headerCoinDisc}>
+                  accessibilityLabel={`Points: ${user.points.toLocaleString()}`}>
+                  <Pressable
+                    accessibilityRole="button"
+                    accessibilityLabel="Open leaderboard"
+                    onPress={handleStarPress}
+                    style={({ pressed }) => [styles.headerCoinDisc, pressed && styles.pressed]}>
                     <MaterialCommunityIcons name="star" size={12} color="#FFF8E1" />
-                  </View>
+                  </Pressable>
                   <Text
                     style={[styles.coinText, headerSecondaryType, !fontsLoaded && styles.headerSecondaryFallback]}
                     numberOfLines={1}>
                     {user.points.toLocaleString()}
                   </Text>
-                  <View style={styles.plusBadge}>
+                  <Pressable
+                    accessibilityRole="button"
+                    accessibilityLabel="Play guess the name"
+                    onPress={handlePlusPress}
+                    style={({ pressed }) => [styles.plusBadge, pressed && styles.pressed]}>
                     <Text
                       style={[styles.plusText, headerSecondaryType, !fontsLoaded && styles.headerSecondaryFallback]}>
                       +
                     </Text>
-                  </View>
+                  </Pressable>
                 </View>
               ) : null}
               {onMusicToggle ? (
@@ -104,15 +110,6 @@ export const AppScreenHeader = ({
                     size={22}
                     color="#FFFFFF"
                   />
-                </Pressable>
-              ) : null}
-              {showSettings ? (
-                <Pressable
-                  accessibilityRole="button"
-                  accessibilityLabel="Settings"
-                  onPress={handleSettingsPress}
-                  style={({ pressed }) => [styles.headerSquircleBtn, pressed && styles.pressed]}>
-                  <MaterialCommunityIcons name="cog" size={22} color="#FFFFFF" />
                 </Pressable>
               ) : null}
             </View>

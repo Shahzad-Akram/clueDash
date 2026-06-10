@@ -2,14 +2,19 @@ import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
+import {
+  getTrackingPermissionsAsync,
+  requestTrackingPermissionsAsync,
+} from 'expo-tracking-transparency';
 import { useEffect, useState } from 'react';
-import { Image, Platform } from 'react-native';
+import { Image, InteractionManager, Platform } from 'react-native';
 import 'react-native-reanimated';
 
 import { AppBackground, APP_BACKGROUND_IMAGE } from '@/components/app-background';
 import { AuthProvider } from '@/contexts/auth-context';
 import { GuessPuzzlesProvider } from '@/contexts/guess-puzzles-context';
 import { useColorScheme } from '@/hooks/use-color-scheme';
+import adMobService from '@/lib/admob';
 import { tryInitFirebase } from '@/lib/firebase';
 
 void SplashScreen.preventAutoHideAsync();
@@ -30,6 +35,30 @@ export default function RootLayout() {
     if (Platform.OS === 'web' && ok) {
       void import('@/lib/firebase/analytics.web').then((m) => void m.tryInitFirebaseAnalytics());
     }
+  }, []);
+
+  useEffect(() => {
+    if (Platform.OS === 'web') {
+      return;
+    }
+    const initAds = async () => {
+      if (Platform.OS === 'ios') {
+        try {
+          const { status } = await getTrackingPermissionsAsync();
+          if (status === 'undetermined') {
+            await requestTrackingPermissionsAsync();
+          }
+        } catch (error) {
+          console.warn('ATT: Error requesting tracking permission', error);
+        }
+      }
+      // Let initial navigation/render settle before initializing ads (heavy on cold start).
+      await new Promise<void>((resolve) => {
+        InteractionManager.runAfterInteractions(() => resolve());
+      });
+      await adMobService.initialize();
+    };
+    void initAds();
   }, []);
 
   useEffect(() => {

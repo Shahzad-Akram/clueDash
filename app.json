@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Numtease",
+    "name": "WordNoose",
     "slug": "Numtease",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -9,7 +9,11 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSUserTrackingUsageDescription": "This identifier will be used to deliver personalized ads to you."
+      },
+      "bundleIdentifier": "com.thebabybless.Numtease"
     },
     "android": {
       "adaptiveIcon": {
@@ -19,7 +23,14 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "permissions": [
+        "android.permission.INTERNET",
+        "android.permission.ACCESS_NETWORK_STATE",
+        "com.google.android.gms.permission.AD_ID",
+        "android.permission.RECORD_AUDIO",
+        "android.permission.MODIFY_AUDIO_SETTINGS"
+      ]
     },
     "web": {
       "output": "static",
@@ -39,8 +50,28 @@
           }
         }
       ],
-      "expo-audio"
+      "expo-audio",
+      [
+        "react-native-google-mobile-ads",
+        {
+          "androidAppId": "ca-app-pub-5967256865674252~6865524347",
+          "iosAppId": "ca-app-pub-5967256865674252~6315196711"
+        }
+      ],
+      "expo-tracking-transparency"
     ],
+    "extra": {
+      "admob": {
+        "android": {
+          "appId": "ca-app-pub-5967256865674252~6865524347",
+          "interstitialUnitId": "ca-app-pub-5967256865674252/1613197668"
+        },
+        "ios": {
+          "appId": "ca-app-pub-5967256865674252~6315196711",
+          "interstitialUnitId": "ca-app-pub-5967256865674252/5002115045"
+        }
+      }
+    },
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true

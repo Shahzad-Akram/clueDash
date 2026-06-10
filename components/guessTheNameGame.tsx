@@ -18,6 +18,7 @@ import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { AppScreenHeader } from '@/components/app-screen-header';
 import { useAuth } from '@/contexts/auth-context';
+import { useInterstitialAd } from '@/hooks/use-interstitial-ad';
 import {
   shuffleGuessPuzzles,
   useGuessPuzzlesOrFallback,
@@ -300,6 +301,21 @@ const GuessTheNameGame = () => {
   const hasLost = wrongCount >= MAX_WRONG;
   const isGameLocked = hasWon || hasLost;
 
+  const { showInterstitialAfterGameComplete } = useInterstitialAd();
+  const adShownForRoundRef = useRef(false);
+
+  useEffect(() => {
+    if (!hasWon && !hasLost) {
+      adShownForRoundRef.current = false;
+      return;
+    }
+    if (adShownForRoundRef.current || !roundPuzzle) {
+      return;
+    }
+    adShownForRoundRef.current = true;
+    void showInterstitialAfterGameComplete();
+  }, [hasLost, hasWon, roundPuzzle, showInterstitialAfterGameComplete]);
+
   useEffect(() => {
     if (hasWon) {
       return;
@@ -494,7 +510,6 @@ const GuessTheNameGame = () => {
           <AppScreenHeader
             title={screenTitle}
             onBack={handleBack}
-            showSettings={false}
             musicEnabled={musicEnabled}
             onMusicToggle={toggleMusic}
           />
