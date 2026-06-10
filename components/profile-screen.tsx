@@ -31,7 +31,7 @@ const ProfileScreen = () => {
       return;
     }
     if (!isLoggedIn) {
-      router.replace('/login');
+      router.replace('/');
     }
   }, [isHydrated, isLoggedIn, router]);
 
@@ -39,7 +39,7 @@ const ProfileScreen = () => {
     setSigningOut(true);
     await signOut();
     setSigningOut(false);
-    router.replace('/login');
+    router.replace('/');
   }, [router, signOut]);
 
   if (!isHydrated || !user) {

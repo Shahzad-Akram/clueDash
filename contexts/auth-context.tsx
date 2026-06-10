@@ -15,6 +15,7 @@ import {
   rollbackNewAuthUser,
 } from '@/lib/firebase/user-profile';
 import { getFirebaseAuth, tryInitFirebase } from '@/lib/firebase/app';
+import { loadGuestSession, saveGuestSession } from '@/lib/guest-session';
 import type { ProfileAvatarId } from '@/lib/profile-avatars';
 
 export type { Gender } from '@/lib/auth-types';
@@ -33,11 +34,17 @@ type AuthResult = { ok: true } | { ok: false; message: string };
 type AuthContextValue = {
   user: AppUserProfile | null;
   isLoggedIn: boolean;
+  isGuest: boolean;
+  /** Auth + guest preference have finished loading. */
+  isSessionReady: boolean;
   isHydrated: boolean;
   isFirebaseReady: boolean;
+  /** Signed in or chose to continue as guest. */
+  hasAppAccess: boolean;
   signIn: (email: string, password: string) => Promise<AuthResult>;
   signUp: (payload: SignUpPayload) => Promise<AuthResult>;
   signOut: () => Promise<void>;
+  continueAsGuest: () => Promise<void>;
   /** Reload `user` from Firestore (e.g. after points change). Uses a server read; optional retry until points reach a minimum. */
   refreshProfile: (opts?: { untilPointsAtLeast?: number }) => Promise<void>;
 };
@@ -73,8 +80,22 @@ const mapAuthError = (err: unknown): string => {
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<AppUserProfile | null>(null);
+  const [isGuest, setIsGuest] = useState(false);
+  const [isGuestHydrated, setIsGuestHydrated] = useState(false);
   const [isHydrated, setIsHydrated] = useState(false);
   const [isFirebaseReady, setIsFirebaseReady] = useState(false);
+
+  const clearGuestMode = useCallback(async () => {
+    await saveGuestSession(false);
+    setIsGuest(false);
+  }, []);
+
+  useEffect(() => {
+    void loadGuestSession().then((active) => {
+      setIsGuest(active);
+      setIsGuestHydrated(true);
+    });
+  }, []);
 
   useEffect(() => {
     const ready = tryInitFirebase();
@@ -100,6 +121,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           await firebaseSignOut(auth);
           setUser(null);
         } else {
+          void saveGuestSession(false);
+          setIsGuest(false);
           setUser(profile);
         }
       } catch {
@@ -146,6 +169,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         });
         const profile = await fetchUserProfile(cred.user);
         if (profile) {
+          await saveGuestSession(false);
+          setIsGuest(false);
           setUser(profile);
         }
         return { ok: true };
@@ -177,6 +202,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           message: 'Your account has no profile data. Contact support or sign up again.',
         };
       }
+      await saveGuestSession(false);
+      setIsGuest(false);
       setUser(profile);
       return { ok: true };
     } catch (err) {
@@ -184,7 +211,13 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   }, []);
 
+  const continueAsGuest = useCallback(async () => {
+    await saveGuestSession(true);
+    setIsGuest(true);
+  }, []);
+
   const signOut = useCallback(async () => {
+    await clearGuestMode();
     if (!tryInitFirebase()) {
       setUser(null);
       return;
@@ -195,7 +228,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       // ignore
     }
     setUser(null);
-  }, []);
+  }, [clearGuestMode]);
 
   const refreshProfile = useCallback(async (opts?: { untilPointsAtLeast?: number }) => {
     if (!tryInitFirebase()) {
@@ -222,19 +255,38 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   const isLoggedIn = Boolean(user);
+  const isSessionReady = isHydrated && isGuestHydrated;
+  const hasAppAccess = isLoggedIn || isGuest;
 
   const value = useMemo(
     () => ({
       user,
       isLoggedIn,
+      isGuest,
+      isSessionReady,
       isHydrated,
       isFirebaseReady,
+      hasAppAccess,
       signIn,
       signUp,
       signOut,
+      continueAsGuest,
       refreshProfile,
     }),
-    [user, isLoggedIn, isHydrated, isFirebaseReady, signIn, signUp, signOut, refreshProfile],
+    [
+      user,
+      isLoggedIn,
+      isGuest,
+      isSessionReady,
+      isHydrated,
+      isFirebaseReady,
+      hasAppAccess,
+      signIn,
+      signUp,
+      signOut,
+      continueAsGuest,
+      refreshProfile,
+    ],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

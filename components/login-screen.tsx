@@ -46,7 +46,7 @@ const LoginScreen = () => {
     if (!isHydrated || !isLoggedIn) {
       return;
     }
-    router.replace('/');
+    router.replace('/(tabs)');
   }, [isHydrated, isLoggedIn, router]);
 
   const handleSubmit = useCallback(async () => {
@@ -62,7 +62,7 @@ const LoginScreen = () => {
       setError(result.message);
       return;
     }
-    router.replace('/');
+    router.replace('/(tabs)');
   }, [email, password, router, signIn]);
 
   return (

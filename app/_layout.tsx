@@ -15,7 +15,7 @@ import { tryInitFirebase } from '@/lib/firebase';
 void SplashScreen.preventAutoHideAsync();
 
 export const unstable_settings = {
-  anchor: 'login',
+  anchor: 'index',
 };
 
 export default function RootLayout() {
@@ -72,10 +72,11 @@ export default function RootLayout() {
         <AuthProvider>
           <GuessPuzzlesProvider>
             <Stack
-              initialRouteName="login"
+              initialRouteName="index"
               screenOptions={{
                 contentStyle: { backgroundColor: 'transparent' },
               }}>
+              <Stack.Screen name="index" options={{ headerShown: false }} />
               <Stack.Screen name="login" options={{ headerShown: false }} />
               <Stack.Screen name="sign-up" options={{ headerShown: false }} />
               <Stack.Screen name="(tabs)" options={{ headerShown: false }} />

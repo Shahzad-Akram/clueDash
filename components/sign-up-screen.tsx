@@ -61,7 +61,7 @@ const SignUpScreen = () => {
     if (!isHydrated || !isLoggedIn) {
       return;
     }
-    router.replace('/');
+    router.replace('/(tabs)');
   }, [isHydrated, isLoggedIn, router]);
 
   const handleAvatarSelect = useCallback((id: ProfileAvatarId) => {
@@ -88,7 +88,7 @@ const SignUpScreen = () => {
       setError(result.message);
       return;
     }
-    router.replace('/');
+    router.replace('/(tabs)');
   }, [age, avatarId, confirmPassword, email, gender, name, password, router, signUp]);
 
   return (
