@@ -12,6 +12,11 @@ export type AppScreenHeaderProps = {
   onSettingsPress?: () => void;
   /** When false, hides the right header actions (e.g. auth screens). */
   showWallet?: boolean;
+  /** When false, hides the settings button (e.g. when a music toggle is shown instead). */
+  showSettings?: boolean;
+  /** When provided, shows a music on/off toggle in the header. */
+  musicEnabled?: boolean;
+  onMusicToggle?: () => void;
 };
 
 export const AppScreenHeader = ({
@@ -19,6 +24,9 @@ export const AppScreenHeader = ({
   onBack,
   onSettingsPress,
   showWallet = true,
+  showSettings = true,
+  musicEnabled = true,
+  onMusicToggle,
 }: AppScreenHeaderProps) => {
   const { user, isLoggedIn } = useAuth();
   const showPoints = showWallet && isLoggedIn && user;
@@ -37,6 +45,10 @@ export const AppScreenHeader = ({
     }
     void Haptics.selectionAsync();
   }, [onSettingsPress]);
+
+  const handleMusicToggle = useCallback(() => {
+    onMusicToggle?.();
+  }, [onMusicToggle]);
 
   return (
     <View style={styles.headerShadowWrap}>
@@ -80,13 +92,29 @@ export const AppScreenHeader = ({
                   </View>
                 </View>
               ) : null}
-              <Pressable
-                accessibilityRole="button"
-                accessibilityLabel="Settings"
-                onPress={handleSettingsPress}
-                style={({ pressed }) => [styles.headerSquircleBtn, pressed && styles.pressed]}>
-                <MaterialCommunityIcons name="cog" size={22} color="#FFFFFF" />
-              </Pressable>
+              {onMusicToggle ? (
+                <Pressable
+                  accessibilityRole="button"
+                  accessibilityLabel={musicEnabled ? 'Turn music off' : 'Turn music on'}
+                  accessibilityState={{ selected: musicEnabled }}
+                  onPress={handleMusicToggle}
+                  style={({ pressed }) => [styles.headerSquircleBtn, pressed && styles.pressed]}>
+                  <MaterialCommunityIcons
+                    name={musicEnabled ? 'volume-high' : 'volume-off'}
+                    size={22}
+                    color="#FFFFFF"
+                  />
+                </Pressable>
+              ) : null}
+              {showSettings ? (
+                <Pressable
+                  accessibilityRole="button"
+                  accessibilityLabel="Settings"
+                  onPress={handleSettingsPress}
+                  style={({ pressed }) => [styles.headerSquircleBtn, pressed && styles.pressed]}>
+                  <MaterialCommunityIcons name="cog" size={22} color="#FFFFFF" />
+                </Pressable>
+              ) : null}
             </View>
           ) : (
             <View style={styles.headerRightSpacer} accessibilityElementsHidden />

@@ -438,18 +438,6 @@ const DailyChallenge = () => {
     void Haptics.selectionAsync();
   }, []);
 
-  const handlePausePress = useCallback(() => {
-    void Haptics.selectionAsync();
-  }, []);
-
-  const handleSoundPress = useCallback(() => {
-    void Haptics.selectionAsync();
-  }, []);
-
-  const handleStarPress = useCallback(() => {
-    void Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-  }, []);
-
   const headerTitleType = headerFontsLoaded ? ({ fontFamily: 'Fredoka_700Bold' } as const) : undefined;
   const headerSecondaryType = headerFontsLoaded ? ({ fontFamily: 'Fredoka_600SemiBold' } as const) : undefined;
 
@@ -683,7 +671,7 @@ const DailyChallenge = () => {
           </View>
         </ScrollView>
 
-        <View style={styles.keyboardDock}>
+        <View style={[styles.keyboardDock, { paddingBottom: Math.max(10, insets.bottom) }]}>
           <View style={styles.actionRow}>
             <Pressable
               accessibilityRole="button"
@@ -760,51 +748,7 @@ const DailyChallenge = () => {
                 })}
               </View>
             ))}
-            <View style={styles.keyRow}>
-              <Pressable
-                accessibilityRole="button"
-                accessibilityLabel="Delete"
-                style={({ pressed }) => [styles.keySpecial, styles.keyDelete, pressed && styles.pressed]}>
-                <MaterialCommunityIcons name="close" size={22} color="#fff" />
-              </Pressable>
-              <View style={styles.keySpacer} />
-              <Pressable
-                accessibilityRole="button"
-                accessibilityLabel="Enter"
-                style={({ pressed }) => [styles.keySpecial, styles.keyEnter, pressed && styles.pressed]}>
-                <MaterialCommunityIcons name="keyboard-return" size={22} color="#fff" />
-              </Pressable>
-            </View>
           </View>
-        </View>
-
-        <View style={[styles.footer, { paddingBottom: Math.max(10, insets.bottom) }]}>
-          <Pressable
-            accessibilityRole="button"
-            accessibilityLabel="Pause game"
-            onPress={handlePausePress}
-            style={({ pressed }) => [styles.footerPill, styles.footerPause, pressed && styles.pressed]}>
-            <Text style={styles.footerPillText}>PAUSE</Text>
-          </Pressable>
-          <Pressable
-            accessibilityRole="button"
-            accessibilityLabel="Bonus action"
-            onPress={handleStarPress}
-            style={({ pressed }) => [styles.starFab, pressed && styles.pressed]}>
-            <Image
-              source={require('@/assets/images/starIcon.png')}
-              style={styles.starFabImage}
-              contentFit="contain"
-            />
-          </Pressable>
-          <Pressable
-            accessibilityRole="button"
-            accessibilityLabel="Sound on"
-            onPress={handleSoundPress}
-            style={({ pressed }) => [styles.footerPill, styles.footerSound, pressed && styles.pressed]}>
-            <MaterialCommunityIcons name="volume-high" size={16} color="#fff" />
-            <Text style={styles.footerPillText}>SOUND ON</Text>
-          </Pressable>
         </View>
         </View>
       </SafeAreaView>
@@ -856,6 +800,10 @@ const DailyChallenge = () => {
               {timedOut
                 ? `Your ${DAILY_TIMER_SECONDS} seconds ran out before you solved the phrase.`
                 : 'You ran out of lives before solving the phrase.'}
+            </Text>
+            <Text style={styles.modalAnswerLabel}>The answer was:</Text>
+            <Text style={styles.modalAnswerText} accessibilityLabel={`Answer: ${answer}`}>
+              {answer}
             </Text>
             <Text style={styles.modalSubtitle}>Try again tomorrow.</Text>
             <Pressable
@@ -1500,7 +1448,6 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingHorizontal: 6,
     paddingTop: 8,
-    paddingBottom: 4,
     backgroundColor: 'rgba(0,0,0,0.06)',
     borderTopWidth: 1,
     borderTopColor: 'rgba(0,0,0,0.1)',
@@ -1544,78 +1491,6 @@ const styles = StyleSheet.create({
   keyCapTextOn: {
     color: '#fff',
   },
-  keySpecial: {
-    height: 42,
-    minWidth: 54,
-    borderRadius: 9,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 2,
-  },
-  keyDelete: {
-    backgroundColor: '#E74C3C',
-    borderColor: '#C0392B',
-  },
-  keyEnter: {
-    backgroundColor: '#F2992E',
-    borderColor: '#D97510',
-  },
-  keySpacer: {
-    flex: 1,
-  },
-  footer: {
-    width: '100%',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: 14,
-    paddingVertical: 10,
-    backgroundColor: 'transparent',
-    borderTopWidth: 2,
-    borderTopColor: 'rgba(255, 255, 255, 0.35)',
-  },
-  footerPill: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 6,
-    borderRadius: 18,
-    borderWidth: 2,
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-  },
-  footerPause: {
-    backgroundColor: '#2A93F4',
-    borderColor: '#1B6ED4',
-  },
-  footerSound: {
-    backgroundColor: '#72BE2C',
-    borderColor: '#4E961B',
-  },
-  footerPillText: {
-    color: '#fff',
-    fontWeight: '900',
-    fontSize: 11,
-  },
-  starFab: {
-    width: 56,
-    height: 56,
-    borderRadius: 28,
-    backgroundColor: '#FFD54F',
-    borderWidth: 3,
-    borderColor: '#E6B800',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 0,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 6,
-  },
-  starFabImage: {
-    width: 34,
-    height: 34,
-  },
   modalOverlay: {
     flex: 1,
     backgroundColor: 'rgba(0,0,0,0.55)',
@@ -1646,6 +1521,21 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#6B5344',
     textAlign: 'center',
+    marginBottom: 4,
+  },
+  modalAnswerLabel: {
+    fontSize: 14,
+    fontWeight: '700',
+    color: '#6B5344',
+    textAlign: 'center',
+    marginTop: 4,
+  },
+  modalAnswerText: {
+    fontSize: 18,
+    fontWeight: '900',
+    color: '#5A3A0A',
+    textAlign: 'center',
+    letterSpacing: 0.5,
     marginBottom: 4,
   },
   modalBonusLine: {

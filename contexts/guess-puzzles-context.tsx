@@ -19,7 +19,7 @@ const FALLBACK_PUZZLES: GuessPuzzle[] = [
 ];
 
 /** Fisher–Yates shuffle (copy); play order is random, not Firestore `sortOrder`. */
-function shuffleArray<T>(items: T[]): T[] {
+export function shuffleGuessPuzzles<T>(items: T[]): T[] {
   const next = [...items];
   for (let i = next.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -62,7 +62,7 @@ export const GuessPuzzlesProvider = ({ children }: GuessPuzzlesProviderProps) =>
     setError(null);
     try {
       const docs = await fetchGuessPuzzlesOrdered();
-      setPuzzles(docs.length > 0 ? shuffleArray(docs.map(mapDocToPuzzle)) : []);
+      setPuzzles(docs.length > 0 ? shuffleGuessPuzzles(docs.map(mapDocToPuzzle)) : []);
     } catch (e) {
       const message = e instanceof Error ? e.message : 'Failed to load guesses';
       setError(message);
@@ -105,7 +105,7 @@ export const useGuessPuzzlesOrFallback = (): GuessPuzzle[] => {
     if (puzzles.length > 0) {
       return puzzles;
     }
-    return shuffleArray([...FALLBACK_PUZZLES]);
+    return shuffleGuessPuzzles([...FALLBACK_PUZZLES]);
   }, [puzzles]);
 };
 

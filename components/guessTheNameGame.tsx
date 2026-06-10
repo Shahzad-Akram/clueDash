@@ -1,9 +1,10 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import * as Haptics from 'expo-haptics';
 import { Image } from 'expo-image';
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useFocusEffect, useLocalSearchParams, useRouter } from 'expo-router';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
+  Alert,
   Modal,
   Platform,
   Pressable,
@@ -17,7 +18,12 @@ import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { AppScreenHeader } from '@/components/app-screen-header';
 import { useAuth } from '@/contexts/auth-context';
-import { useGuessPuzzlesOrFallback, type GuessPuzzle } from '@/contexts/guess-puzzles-context';
+import {
+  shuffleGuessPuzzles,
+  useGuessPuzzlesOrFallback,
+  type GuessPuzzle,
+} from '@/contexts/guess-puzzles-context';
+import { useGameMusic } from '@/hooks/use-game-music';
 import { usePaidHintActions } from '@/hooks/use-paid-hint-actions';
 import { tryInitFirebase } from '@/lib/firebase';
 import { fetchSolvedGuessIds, getPuzzleFirestoreId, recordPuzzleSolved } from '@/lib/firebase/guess-progress';
@@ -151,6 +157,7 @@ const GuessTheNameGame = () => {
 
   const [solvedIds, setSolvedIds] = useState<Set<string>>(() => new Set());
   const [winBonusLine, setWinBonusLine] = useState<string | null>(null);
+  const [playPuzzles, setPlayPuzzles] = useState<GuessPuzzle[]>([]);
   const [puzzleIndex, setPuzzleIndex] = useState(0);
   /** Active round puzzle — stays fixed while the win modal is open. */
   const [roundPuzzle, setRoundPuzzle] = useState<GuessPuzzle | null>(null);
@@ -174,15 +181,65 @@ const GuessTheNameGame = () => {
     };
   }, [user?.uid]);
 
-  const puzzles = useMemo(() => {
-    if (!isLoggedIn || !user) {
-      return categoryPuzzles;
+  const categoryPuzzlesRef = useRef(categoryPuzzles);
+  const solvedIdsRef = useRef(solvedIds);
+  const isLoggedInRef = useRef(isLoggedIn);
+  categoryPuzzlesRef.current = categoryPuzzles;
+  solvedIdsRef.current = solvedIds;
+  isLoggedInRef.current = isLoggedIn;
+
+  const buildPlayablePuzzles = useCallback((): GuessPuzzle[] => {
+    const pool = categoryPuzzlesRef.current;
+    if (!isLoggedInRef.current) {
+      return pool;
     }
-    return categoryPuzzles.filter((p) => !solvedIds.has(getPuzzleFirestoreId(p)));
-  }, [categoryPuzzles, isLoggedIn, solvedIds, user]);
+    return pool.filter((p) => !solvedIdsRef.current.has(getPuzzleFirestoreId(p)));
+  }, []);
+
+  const resetSessionRound = useCallback(() => {
+    setPuzzleIndex(0);
+    setRoundPuzzle(null);
+    winRecordedRef.current = null;
+    setGuessedLetters(new Set());
+    setWrongCount(0);
+    setClueRevealed(false);
+    setClueEmojiRevealed(false);
+    setWinBonusLine(null);
+  }, []);
+
+  const initPlayPuzzles = useCallback(() => {
+    const playable = buildPlayablePuzzles();
+    setPlayPuzzles(categoryFilter ? playable : shuffleGuessPuzzles(playable));
+    resetSessionRound();
+  }, [buildPlayablePuzzles, categoryFilter, resetSessionRound]);
+
+  useFocusEffect(
+    useCallback(() => {
+      initPlayPuzzles();
+    }, [initPlayPuzzles]),
+  );
+
+  useEffect(() => {
+    if (playPuzzles.length > 0 || categoryPuzzles.length === 0) {
+      return;
+    }
+    initPlayPuzzles();
+  }, [categoryPuzzles.length, initPlayPuzzles, playPuzzles.length]);
+
+  useEffect(() => {
+    if (!isLoggedIn || !user?.uid) {
+      return;
+    }
+    setPlayPuzzles((prev) => {
+      if (prev.length === 0) {
+        return prev;
+      }
+      return prev.filter((p) => !solvedIds.has(getPuzzleFirestoreId(p)));
+    });
+  }, [isLoggedIn, solvedIds, user?.uid]);
 
   const hasCategoryPuzzles = categoryPuzzles.length > 0;
-  const showPlayableBoard = puzzles.length > 0;
+  const showPlayableBoard = playPuzzles.length > 0;
 
   const placeholderPuzzle = useMemo(
     (): GuessPuzzle => ({ phrase: ' ', clue: '', category: '', id: '__placeholder__' }),
@@ -226,26 +283,11 @@ const GuessTheNameGame = () => {
   const [clueEmojiRevealed, setClueEmojiRevealed] = useState(false);
 
   useEffect(() => {
-    setPuzzleIndex(0);
-    setRoundPuzzle(null);
-    winRecordedRef.current = null;
-    setGuessedLetters(new Set());
-    setWrongCount(0);
-    setClueRevealed(false);
-    setClueEmojiRevealed(false);
-    setWinBonusLine(null);
-  }, [categoryFilter]);
-
-  useEffect(() => {
     setClueRevealed(false);
     setClueEmojiRevealed(false);
   }, [puzzle.id, puzzle.phrase]);
 
   const heartsLeft = Math.max(0, MAX_WRONG - wrongCount);
-
-  const handleBack = useCallback(() => {
-    router.back();
-  }, [router]);
 
   const hasWon = useMemo(
     () =>
@@ -262,17 +304,17 @@ const GuessTheNameGame = () => {
     if (hasWon) {
       return;
     }
-    if (puzzles.length === 0) {
+    if (playPuzzles.length === 0) {
       setRoundPuzzle(null);
       return;
     }
-    const safeIndex = puzzleIndex >= puzzles.length ? 0 : puzzleIndex;
+    const safeIndex = puzzleIndex >= playPuzzles.length ? 0 : puzzleIndex;
     if (safeIndex !== puzzleIndex) {
       setPuzzleIndex(safeIndex);
       return;
     }
-    setRoundPuzzle(puzzles[safeIndex] ?? null);
-  }, [hasWon, puzzleIndex, puzzles]);
+    setRoundPuzzle(playPuzzles[safeIndex] ?? null);
+  }, [hasWon, playPuzzles, puzzleIndex]);
 
   const handleLetterPress = useCallback(
     (letter: string) => {
@@ -313,27 +355,17 @@ const GuessTheNameGame = () => {
       return;
     }
     void Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+    const currentId = getPuzzleFirestoreId(roundPuzzle);
     if (isLoggedIn && user) {
-      const solvedId = getPuzzleFirestoreId(roundPuzzle);
-      setSolvedIds((prev) => new Set(prev).add(solvedId));
-      winRecordedRef.current = null;
-      resetRound();
-      setPuzzleIndex(0);
-      return;
+      setSolvedIds((prev) => new Set(prev).add(currentId));
     }
     winRecordedRef.current = null;
     resetRound();
-    setPuzzleIndex((i) => (categoryPuzzles.length > 0 ? (i + 1) % categoryPuzzles.length : 0));
-  }, [categoryPuzzles.length, isLoggedIn, resetRound, roundPuzzle, user]);
+    setPlayPuzzles((prev) => prev.filter((p) => getPuzzleFirestoreId(p) !== currentId));
+    setPuzzleIndex(0);
+  }, [isLoggedIn, resetRound, roundPuzzle, user]);
 
-  const handleTryAgain = useCallback(() => {
-    void Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-    resetRound();
-  }, [resetRound]);
-
-  const handleModalHome = useCallback(() => {
-    router.back();
-  }, [router]);
+  const hintsLocked = isGameLocked || !showPlayableBoard;
 
   const {
     hintDisabled,
@@ -346,28 +378,70 @@ const GuessTheNameGame = () => {
     isLoggedIn,
     user,
     refreshProfile,
-    isGameLocked: isGameLocked || !showPlayableBoard,
+    isGameLocked: hintsLocked,
     clueRevealed,
     clueEmojiRevealed,
     onHintRevealed: () => setClueRevealed(true),
     onEmojiRevealed: () => setClueEmojiRevealed(true),
   });
 
-  const handleSettingsPress = useCallback(() => {
-    void Haptics.selectionAsync();
-  }, []);
+  const hintButtonDisabled = useMemo(() => {
+    if (!isLoggedIn) {
+      return hintsLocked || clueRevealed;
+    }
+    return hintDisabled;
+  }, [clueRevealed, hintDisabled, hintsLocked, isLoggedIn]);
 
-  const handlePausePress = useCallback(() => {
-    void Haptics.selectionAsync();
-  }, []);
+  const revealClueButtonDisabled = useMemo(() => {
+    if (!isLoggedIn) {
+      return hintsLocked || clueEmojiRevealed;
+    }
+    return revealClueDisabled;
+  }, [clueEmojiRevealed, hintsLocked, isLoggedIn, revealClueDisabled]);
 
-  const handleSoundPress = useCallback(() => {
+  const promptLoginForHint = useCallback(() => {
     void Haptics.selectionAsync();
-  }, []);
+    Alert.alert('Login required', 'Log in to use hints.', [
+      { text: 'Cancel', style: 'cancel' },
+      { text: 'Log in', onPress: () => router.push('/login') },
+    ]);
+  }, [router]);
 
-  const handleStarPress = useCallback(() => {
-    void Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-  }, []);
+  const promptLoginForRevealClue = useCallback(() => {
+    void Haptics.selectionAsync();
+    Alert.alert('Login required', 'Log in to reveal the clue.', [
+      { text: 'Cancel', style: 'cancel' },
+      { text: 'Log in', onPress: () => router.push('/login') },
+    ]);
+  }, [router]);
+
+  const handleHintButtonPress = useCallback(() => {
+    if (!isLoggedIn) {
+      promptLoginForHint();
+      return;
+    }
+    void handleHintPress();
+  }, [handleHintPress, isLoggedIn, promptLoginForHint]);
+
+  const handleRevealClueButtonPress = useCallback(() => {
+    if (!isLoggedIn) {
+      promptLoginForRevealClue();
+      return;
+    }
+    void handleRevealCluePress();
+  }, [handleRevealCluePress, isLoggedIn, promptLoginForRevealClue]);
+
+  const { musicEnabled, toggleMusic, pauseMusic } = useGameMusic();
+
+  const handleBack = useCallback(() => {
+    pauseMusic();
+    router.back();
+  }, [pauseMusic, router]);
+
+  const handleModalHome = useCallback(() => {
+    pauseMusic();
+    router.back();
+  }, [pauseMusic, router]);
 
   useEffect(() => {
     if (!hasWon) {
@@ -420,7 +494,9 @@ const GuessTheNameGame = () => {
           <AppScreenHeader
             title={screenTitle}
             onBack={handleBack}
-            onSettingsPress={handleSettingsPress}
+            showSettings={false}
+            musicEnabled={musicEnabled}
+            onMusicToggle={toggleMusic}
           />
 
         {showPlayableBoard ? (
@@ -557,24 +633,26 @@ const GuessTheNameGame = () => {
           </View>
         </ScrollView>
 
-        <View style={styles.keyboardDock}>
+        <View style={[styles.keyboardDock, { paddingBottom: Math.max(10, insets.bottom) }]}>
           <View style={styles.actionRow}>
             <Pressable
               accessibilityRole="button"
               accessibilityLabel={
                 clueRevealed
                   ? 'Clue already revealed'
-                  : hintDisabled
-                    ? 'Use hint. Log in and have enough points to use'
-                    : `Use hint for ${hintCost} points`
+                  : !isLoggedIn
+                    ? 'Use hint. Log in to use'
+                    : hintDisabled
+                      ? 'Use hint. You need enough points to use'
+                      : `Use hint for ${hintCost} points`
               }
-              accessibilityState={{ disabled: hintDisabled }}
-              disabled={hintDisabled}
-              onPress={() => void handleHintPress()}
+              accessibilityState={{ disabled: hintButtonDisabled }}
+              disabled={hintButtonDisabled}
+              onPress={handleHintButtonPress}
               style={({ pressed }) => [
                 styles.hintBtn,
-                hintDisabled && styles.hintBtnDisabled,
-                pressed && !hintDisabled && styles.pressed,
+                hintButtonDisabled && styles.hintBtnDisabled,
+                pressed && !hintButtonDisabled && styles.pressed,
               ]}>
               <MaterialCommunityIcons name="lightbulb-on" size={21} color="#FFD54F" />
               <Text style={styles.actionBtnText}>USE HINT</Text>
@@ -585,17 +663,19 @@ const GuessTheNameGame = () => {
               accessibilityLabel={
                 clueEmojiRevealed
                   ? 'Clue picture already revealed'
-                  : revealClueDisabled
-                    ? 'Reveal clue picture. Log in and have enough points to use'
-                    : `Reveal clue picture for ${revealClueCost} points`
+                  : !isLoggedIn
+                    ? 'Reveal clue picture. Log in to use'
+                    : revealClueDisabled
+                      ? 'Reveal clue picture. You need enough points to use'
+                      : `Reveal clue picture for ${revealClueCost} points`
               }
-              accessibilityState={{ disabled: revealClueDisabled }}
-              disabled={revealClueDisabled}
-              onPress={() => void handleRevealCluePress()}
+              accessibilityState={{ disabled: revealClueButtonDisabled }}
+              disabled={revealClueButtonDisabled}
+              onPress={handleRevealClueButtonPress}
               style={({ pressed }) => [
                 styles.revealBtn,
-                revealClueDisabled && styles.revealBtnDisabled,
-                pressed && !revealClueDisabled && styles.pressed,
+                revealClueButtonDisabled && styles.revealBtnDisabled,
+                pressed && !revealClueButtonDisabled && styles.pressed,
               ]}>
               <MaterialCommunityIcons name="eye-outline" size={21} color="#fff" />
               <Text style={styles.actionBtnText}>REVEAL CLUE</Text>
@@ -634,51 +714,7 @@ const GuessTheNameGame = () => {
                 })}
               </View>
             ))}
-            <View style={styles.keyRow}>
-              <Pressable
-                accessibilityRole="button"
-                accessibilityLabel="Delete"
-                style={({ pressed }) => [styles.keySpecial, styles.keyDelete, pressed && styles.pressed]}>
-                <MaterialCommunityIcons name="close" size={22} color="#fff" />
-              </Pressable>
-              <View style={styles.keySpacer} />
-              <Pressable
-                accessibilityRole="button"
-                accessibilityLabel="Enter"
-                style={({ pressed }) => [styles.keySpecial, styles.keyEnter, pressed && styles.pressed]}>
-                <MaterialCommunityIcons name="keyboard-return" size={22} color="#fff" />
-              </Pressable>
-            </View>
           </View>
-        </View>
-
-        <View style={[styles.footer, { paddingBottom: Math.max(10, insets.bottom) }]}>
-          <Pressable
-            accessibilityRole="button"
-            accessibilityLabel="Pause game"
-            onPress={handlePausePress}
-            style={({ pressed }) => [styles.footerPill, styles.footerPause, pressed && styles.pressed]}>
-            <Text style={styles.footerPillText}>PAUSE</Text>
-          </Pressable>
-          <Pressable
-            accessibilityRole="button"
-            accessibilityLabel="Bonus action"
-            onPress={handleStarPress}
-            style={({ pressed }) => [styles.starFab, pressed && styles.pressed]}>
-            <Image
-              source={require('@/assets/images/starIcon.png')}
-              style={styles.starFabImage}
-              contentFit="contain"
-            />
-          </Pressable>
-          <Pressable
-            accessibilityRole="button"
-            accessibilityLabel="Sound on"
-            onPress={handleSoundPress}
-            style={({ pressed }) => [styles.footerPill, styles.footerSound, pressed && styles.pressed]}>
-            <MaterialCommunityIcons name="volume-high" size={16} color="#fff" />
-            <Text style={styles.footerPillText}>SOUND ON</Text>
-          </Pressable>
         </View>
           </>
         ) : (
@@ -754,6 +790,10 @@ const GuessTheNameGame = () => {
             />
             <Text style={styles.modalTitle}>You lost</Text>
             <Text style={styles.modalSubtitle}>No more lives. You lost.</Text>
+            <Text style={styles.modalAnswerLabel}>The answer was:</Text>
+            <Text style={styles.modalAnswerText} accessibilityLabel={`Answer: ${answer}`}>
+              {answer}
+            </Text>
             <View style={styles.modalButtonRow}>
               <Pressable
                 accessibilityRole="button"
@@ -765,10 +805,10 @@ const GuessTheNameGame = () => {
               </Pressable>
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Try again"
-                onPress={handleTryAgain}
+                accessibilityLabel="Next word"
+                onPress={handleNextWord}
                 style={({ pressed }) => [styles.modalPrimaryBtnFlex, pressed && styles.pressed]}>
-                <Text style={styles.modalPrimaryBtnText}>TRY AGAIN</Text>
+                <Text style={styles.modalPrimaryBtnText}>NEXT WORD</Text>
               </Pressable>
             </View>
           </View>
@@ -1223,7 +1263,6 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingHorizontal: 6,
     paddingTop: 8,
-    paddingBottom: 4,
     backgroundColor: 'rgba(0,0,0,0.06)',
     borderTopWidth: 1,
     borderTopColor: 'rgba(0,0,0,0.1)',
@@ -1267,78 +1306,6 @@ const styles = StyleSheet.create({
   keyCapTextOn: {
     color: '#fff',
   },
-  keySpecial: {
-    height: 42,
-    minWidth: 54,
-    borderRadius: 9,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 2,
-  },
-  keyDelete: {
-    backgroundColor: '#E74C3C',
-    borderColor: '#C0392B',
-  },
-  keyEnter: {
-    backgroundColor: '#F2992E',
-    borderColor: '#D97510',
-  },
-  keySpacer: {
-    flex: 1,
-  },
-  footer: {
-    width: '100%',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: 14,
-    paddingVertical: 10,
-    backgroundColor: 'transparent',
-    borderTopWidth: 2,
-    borderTopColor: 'rgba(255, 255, 255, 0.35)',
-  },
-  footerPill: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 6,
-    borderRadius: 18,
-    borderWidth: 2,
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-  },
-  footerPause: {
-    backgroundColor: '#2A93F4',
-    borderColor: '#1B6ED4',
-  },
-  footerSound: {
-    backgroundColor: '#72BE2C',
-    borderColor: '#4E961B',
-  },
-  footerPillText: {
-    color: '#fff',
-    fontWeight: '900',
-    fontSize: 11,
-  },
-  starFab: {
-    width: 56,
-    height: 56,
-    borderRadius: 28,
-    backgroundColor: '#FFD54F',
-    borderWidth: 3,
-    borderColor: '#E6B800',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 0,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 6,
-  },
-  starFabImage: {
-    width: 34,
-    height: 34,
-  },
   modalOverlay: {
     flex: 1,
     backgroundColor: 'rgba(0,0,0,0.55)',
@@ -1371,6 +1338,21 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 4,
   },
+  modalAnswerLabel: {
+    fontSize: 14,
+    fontWeight: '700',
+    color: '#6B5344',
+    textAlign: 'center',
+    marginTop: 4,
+  },
+  modalAnswerText: {
+    fontSize: 18,
+    fontWeight: '900',
+    color: '#5A3A0A',
+    textAlign: 'center',
+    letterSpacing: 0.5,
+    marginBottom: 4,
+  },
   modalPrimaryBtn: {
     marginTop: 8,
     backgroundColor: '#72BE2C',
@@ -1384,9 +1366,9 @@ const styles = StyleSheet.create({
   },
   modalPrimaryBtnFlex: {
     flex: 1,
-    backgroundColor: '#F2992E',
+    backgroundColor: '#72BE2C',
     borderWidth: 2,
-    borderColor: '#D97510',
+    borderColor: '#4E961B',
     borderRadius: 16,
     paddingVertical: 12,
     alignItems: 'center',

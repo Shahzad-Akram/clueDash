@@ -1,12 +1,12 @@
 import { Fredoka_600SemiBold, Fredoka_700Bold, useFonts } from '@expo-google-fonts/fredoka';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Image } from 'expo-image';
+import * as Linking from 'expo-linking';
 import { useFocusEffect, useRouter } from 'expo-router';
 import { useCallback, useState } from 'react';
-import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, Platform, Pressable, ScrollView, Share, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { AppBottomNav, APP_BOTTOM_NAV_LEADERBOARD, APP_BOTTOM_NAV_PROFILE } from '@/components/app-bottom-nav';
 import { useAuth } from '@/contexts/auth-context';
 import { useLeaderboard } from '@/hooks/use-leaderboard';
 import { loadDailyChallengeState } from '@/lib/daily-challenge-storage';
@@ -104,7 +104,6 @@ export default function LandingPage() {
   const router = useRouter();
   const { user, isLoggedIn } = useAuth();
   const { topThree: leaderboardTopThree, loading: leaderboardLoading } = useLeaderboard(3);
-  const [activeNavIndex, setActiveNavIndex] = useState(0);
   const [dailyStreak, setDailyStreak] = useState(0);
   const [fontsLoaded] = useFonts({
     Fredoka_700Bold,
@@ -144,19 +143,36 @@ export default function LandingPage() {
     router.push('/leaderboard');
   }, [router]);
 
-  const handleBottomNavPress = useCallback(
-    (index: number) => {
-      setActiveNavIndex(index);
-      if (index === APP_BOTTOM_NAV_LEADERBOARD) {
-        router.push('/leaderboard');
+  const handleProfilePress = useCallback(() => {
+    router.push(isLoggedIn ? '/profile' : '/login');
+  }, [isLoggedIn, router]);
+
+  const handleShareWithFriendsPress = useCallback(async () => {
+    const appLink = Linking.createURL('/');
+    const shareMessage = `Think you can beat me? Play ClueDash — solve clues, guess the name, and climb the leaderboard!\n\n${appLink}`;
+
+    try {
+      if (Platform.OS === 'web') {
+        if (typeof navigator !== 'undefined' && typeof navigator.share === 'function') {
+          await navigator.share({
+            title: 'ClueDash',
+            text: shareMessage,
+          });
+          return;
+        }
+        await Share.share({ message: shareMessage, title: 'ClueDash' });
         return;
       }
-      if (index === APP_BOTTOM_NAV_PROFILE) {
-        router.push(isLoggedIn ? '/profile' : '/login');
-      }
-    },
-    [isLoggedIn, router],
-  );
+
+      await Share.share(
+        Platform.OS === 'ios'
+          ? { message: shareMessage }
+          : { message: shareMessage, title: 'ClueDash' },
+      );
+    } catch {
+      // User dismissed the share sheet.
+    }
+  }, []);
 
   return (
     <SafeAreaView style={styles.safeArea} edges={['top', 'left', 'right']}>
@@ -284,26 +300,28 @@ export default function LandingPage() {
               onPress={handleGuessTheNamePress}
             />
             <GameCard
-              title="HANGMAN"
-              subtitle="A classic game with a twist."
-              imageSource={require('@/assets/images/hangman.png')}
-              colors={['#72BE2C', '#4E961B']}
-              fontsLoaded={fontsLoaded}
-            />
-            <GameCard
-              title="PLAY WITH FRIENDS"
-              subtitle="Challenge your friends!"
-              imageSource={require('@/assets/images/friends.png')}
-              colors={['#F2992E', '#D97510']}
-              fontsLoaded={fontsLoaded}
-            />
-            <GameCard
               title="CATEGORIES"
               subtitle="Explore topics you love!"
               imageSource={require('@/assets/images/categories.png')}
               colors={['#7B57D7', '#5D3BB3']}
               fontsLoaded={fontsLoaded}
               onPress={handleCategoriesPress}
+            />
+            <GameCard
+              title="SHARE WITH FRIENDS"
+              subtitle="Invite your friends to play!"
+              imageSource={require('@/assets/images/friends.png')}
+              colors={['#F2992E', '#D97510']}
+              fontsLoaded={fontsLoaded}
+              onPress={() => void handleShareWithFriendsPress()}
+            />
+            <GameCard
+              title="PROFILE"
+              subtitle="View your stats and settings."
+              imageSource={require('@/assets/images/profile.png')}
+              colors={['#72BE2C', '#4E961B']}
+              fontsLoaded={fontsLoaded}
+              onPress={handleProfilePress}
             />
           </View>
 
@@ -388,8 +406,6 @@ export default function LandingPage() {
             </View>
           </View>
         </ScrollView>
-
-        <AppBottomNav activeIndex={activeNavIndex} onTabPress={handleBottomNavPress} />
       </View>
     </SafeAreaView>
   );

@@ -6,14 +6,7 @@ import { useCallback, useMemo, useState } from 'react';
 import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import {
-  AppBottomNav,
-  APP_BOTTOM_NAV_HOME,
-  APP_BOTTOM_NAV_LEADERBOARD,
-  APP_BOTTOM_NAV_PROFILE,
-} from '@/components/app-bottom-nav';
 import { AppScreenHeader } from '@/components/app-screen-header';
-import { useAuth } from '@/contexts/auth-context';
 import { useLeaderboard, type LeaderboardRow } from '@/hooks/use-leaderboard';
 
 type LeaderTab = 'global' | 'friends' | 'weekly';
@@ -119,7 +112,6 @@ const ACHIEVEMENTS: Achievement[] = [
 const LeaderboardScreen = () => {
   const router = useRouter();
   const insets = useSafeAreaInsets();
-  const { isLoggedIn } = useAuth();
   const { topThree, rest, loading, error } = useLeaderboard(50);
   const podiumDisplay = useMemo(() => buildPodiumDisplay(topThree), [topThree]);
   const [fontsLoaded] = useFonts({
@@ -128,7 +120,6 @@ const LeaderboardScreen = () => {
   });
 
   const [tab, setTab] = useState<LeaderTab>('global');
-  const [activeNavIndex, setActiveNavIndex] = useState(APP_BOTTOM_NAV_LEADERBOARD);
 
   const titleFont = fontsLoaded ? ({ fontFamily: 'Fredoka_700Bold' } as const) : undefined;
   const bodyFont = fontsLoaded ? ({ fontFamily: 'Fredoka_600SemiBold' } as const) : undefined;
@@ -136,23 +127,6 @@ const LeaderboardScreen = () => {
   const handleBack = useCallback(() => {
     router.back();
   }, [router]);
-
-  const handleBottomNavPress = useCallback(
-    (index: number) => {
-      setActiveNavIndex(index);
-      if (index === APP_BOTTOM_NAV_HOME) {
-        router.push('/');
-        return;
-      }
-      if (index === APP_BOTTOM_NAV_LEADERBOARD) {
-        return;
-      }
-      if (index === APP_BOTTOM_NAV_PROFILE) {
-        router.push(isLoggedIn ? '/profile' : '/login');
-      }
-    },
-    [isLoggedIn, router],
-  );
 
   const handleTabPress = useCallback((next: LeaderTab) => {
     setTab(next);
@@ -164,7 +138,7 @@ const LeaderboardScreen = () => {
         <AppScreenHeader title="LEADERBOARD" onBack={handleBack} />
         <ScrollView
           style={styles.scroll}
-          contentContainerStyle={[styles.scrollContent, { paddingBottom: 88 + insets.bottom }]}
+          contentContainerStyle={[styles.scrollContent, { paddingBottom: Math.max(16, insets.bottom) }]}
           showsVerticalScrollIndicator={false}
           nestedScrollEnabled>
           <View style={styles.body}>
@@ -406,8 +380,6 @@ const LeaderboardScreen = () => {
           </Text>
           </View>
         </ScrollView>
-
-        <AppBottomNav activeIndex={activeNavIndex} onTabPress={handleBottomNavPress} />
       </View>
     </SafeAreaView>
   );

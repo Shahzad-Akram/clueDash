@@ -13,13 +13,6 @@ import {
 } from 'react-native';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import {
-  AppBottomNav,
-  APP_BOTTOM_NAV_HOME,
-  APP_BOTTOM_NAV_LEADERBOARD,
-  APP_BOTTOM_NAV_PLAY,
-  APP_BOTTOM_NAV_PROFILE,
-} from '@/components/app-bottom-nav';
 import { AppScreenHeader } from '@/components/app-screen-header';
 import { useAuth } from '@/contexts/auth-context';
 import { useGuessPuzzles } from '@/contexts/guess-puzzles-context';
@@ -274,7 +267,6 @@ const CategoriesScreen = () => {
     Fredoka_600SemiBold,
   });
 
-  const [activeNavIndex, setActiveNavIndex] = useState(APP_BOTTOM_NAV_PLAY);
   const [search, setSearch] = useState('');
   const [activeTab, setActiveTab] = useState<CategoryTab>('all');
 
@@ -323,24 +315,6 @@ const CategoriesScreen = () => {
   const handleBack = useCallback(() => {
     router.back();
   }, [router]);
-
-  const handleBottomNavPress = useCallback(
-    (index: number) => {
-      setActiveNavIndex(index);
-      if (index === APP_BOTTOM_NAV_HOME) {
-        router.push('/');
-        return;
-      }
-      if (index === APP_BOTTOM_NAV_LEADERBOARD) {
-        router.push('/leaderboard');
-        return;
-      }
-      if (index === APP_BOTTOM_NAV_PROFILE) {
-        router.push(isLoggedIn ? '/profile' : '/login');
-      }
-    },
-    [isLoggedIn, router],
-  );
 
   const handleTabPress = useCallback((tab: CategoryTab) => {
     setActiveTab(tab);
@@ -408,7 +382,7 @@ const CategoriesScreen = () => {
             numColumns={2}
             style={styles.list}
             columnWrapperStyle={styles.gridRow}
-            contentContainerStyle={[styles.gridContent, { paddingBottom: 88 + insets.bottom }]}
+            contentContainerStyle={[styles.gridContent, { paddingBottom: Math.max(16, insets.bottom) }]}
             showsVerticalScrollIndicator={false}
             ListEmptyComponent={
               <Text style={[styles.emptyText, bodyFont, !fontsLoaded && styles.fontFallbackSemi]}>
@@ -430,8 +404,6 @@ const CategoriesScreen = () => {
             )}
           />
         </View>
-
-        <AppBottomNav activeIndex={activeNavIndex} onTabPress={handleBottomNavPress} />
       </View>
     </SafeAreaView>
   );
