@@ -17,9 +17,9 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = join(__dirname, '..');
 
 function loadDotEnv() {
-  const envPath = join(root, '.env');
-  if (!existsSync(envPath)) {
-    console.error('Missing .env — copy .env.example to .env and add Firebase keys.');
+  const envPath = [join(root, '.env'), join(root, '.env.local')].find((p) => existsSync(p));
+  if (!envPath) {
+    console.error('Missing .env / .env.local — add Firebase EXPO_PUBLIC_* keys.');
     process.exit(1);
   }
   const raw = readFileSync(envPath, 'utf8');

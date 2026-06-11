@@ -22,6 +22,7 @@ import { useInterstitialAd } from '@/hooks/use-interstitial-ad';
 import {
   shuffleGuessPuzzles,
   useGuessPuzzlesOrFallback,
+  useGuessPuzzles,
   type GuessPuzzle,
 } from '@/contexts/guess-puzzles-context';
 import { useGameMusic } from '@/hooks/use-game-music';
@@ -137,7 +138,11 @@ const normalizeRouteParam = (value: string | string[] | undefined): string | und
 
 const GuessTheNameGame = () => {
   const router = useRouter();
-  const params = useLocalSearchParams<{ category?: string | string[]; categoryTitle?: string | string[] }>();
+  const params = useLocalSearchParams<{
+    category?: string | string[];
+    categoryTitle?: string | string[];
+    difficulty?: string | string[];
+  }>();
   const insets = useSafeAreaInsets();
   const { width: windowWidth } = useWindowDimensions();
   const { user, isLoggedIn, refreshProfile } = useAuth();
@@ -147,14 +152,23 @@ const GuessTheNameGame = () => {
     [params.category],
   );
   const categoryTitle = useMemo(() => normalizeRouteParam(params.categoryTitle), [params.categoryTitle]);
+  const difficultyFilter = useMemo(() => {
+    const raw = normalizeRouteParam(params.difficulty)?.toLowerCase();
+    return raw === 'easy' || raw === 'medium' || raw === 'hard' ? raw : undefined;
+  }, [params.difficulty]);
 
+  const { refetch: refetchPuzzles } = useGuessPuzzles();
   const allPuzzles = useGuessPuzzlesOrFallback();
   const categoryPuzzles = useMemo(() => {
-    if (!categoryFilter) {
-      return allPuzzles;
+    let pool = allPuzzles;
+    if (categoryFilter) {
+      pool = pool.filter((p) => p.category.trim().toUpperCase() === categoryFilter);
     }
-    return allPuzzles.filter((p) => p.category.trim().toUpperCase() === categoryFilter);
-  }, [allPuzzles, categoryFilter]);
+    if (difficultyFilter) {
+      pool = pool.filter((p) => p.difficulty === difficultyFilter);
+    }
+    return pool;
+  }, [allPuzzles, categoryFilter, difficultyFilter]);
 
   const [solvedIds, setSolvedIds] = useState<Set<string>>(() => new Set());
   const [winBonusLine, setWinBonusLine] = useState<string | null>(null);
@@ -164,7 +178,10 @@ const GuessTheNameGame = () => {
   const [roundPuzzle, setRoundPuzzle] = useState<GuessPuzzle | null>(null);
   const winRecordedRef = useRef<string | null>(null);
 
-  const screenTitle = categoryTitle?.toUpperCase() ?? (categoryFilter ?? 'GUESS THE NAME');
+  const screenTitle =
+    categoryTitle?.toUpperCase() ??
+    categoryFilter ??
+    (difficultyFilter ? `${difficultyFilter.toUpperCase()} MODE` : 'RANDOM MIX');
 
   useEffect(() => {
     if (!user?.uid || !tryInitFirebase()) {
@@ -216,8 +233,9 @@ const GuessTheNameGame = () => {
 
   useFocusEffect(
     useCallback(() => {
+      void refetchPuzzles();
       initPlayPuzzles();
-    }, [initPlayPuzzles]),
+    }, [initPlayPuzzles, refetchPuzzles]),
   );
 
   useEffect(() => {
@@ -303,17 +321,33 @@ const GuessTheNameGame = () => {
 
   const { showInterstitialAfterGameComplete } = useInterstitialAd();
   const adShownForRoundRef = useRef(false);
+  /**
+   * Result modals stay hidden until the interstitial finishes — on iOS a visible
+   * RN Modal blocks the ad's view controller ("view controller is not being presented").
+   */
+  const [resultModalReady, setResultModalReady] = useState(false);
 
   useEffect(() => {
     if (!hasWon && !hasLost) {
       adShownForRoundRef.current = false;
+      setResultModalReady(false);
       return;
     }
-    if (adShownForRoundRef.current || !roundPuzzle) {
+    if (adShownForRoundRef.current) {
       return;
     }
     adShownForRoundRef.current = true;
-    void showInterstitialAfterGameComplete();
+    if (!roundPuzzle) {
+      setResultModalReady(true);
+      return;
+    }
+    void (async () => {
+      try {
+        await showInterstitialAfterGameComplete();
+      } finally {
+        setResultModalReady(true);
+      }
+    })();
   }, [hasLost, hasWon, roundPuzzle, showInterstitialAfterGameComplete]);
 
   useEffect(() => {
@@ -747,10 +781,14 @@ const GuessTheNameGame = () => {
               {hasCategoryPuzzles
                 ? categoryFilter
                   ? `You have solved every ${categoryTitle ?? categoryFilter} phrase. Try another category or come back later.`
-                  : 'You have guessed every phrase available to you. Check back later for more puzzles.'
+                  : difficultyFilter
+                    ? `You have solved every ${difficultyFilter} phrase. Try another difficulty or come back later.`
+                    : 'You have guessed every phrase available to you. Check back later for more puzzles.'
                 : categoryFilter
                   ? `There are no ${categoryTitle ?? categoryFilter} phrases in the game yet.`
-                  : 'No phrases are available right now.'}
+                  : difficultyFilter
+                    ? `There are no ${difficultyFilter} phrases in the game yet.`
+                    : 'No phrases are available right now.'}
             </Text>
             <Pressable
               accessibilityRole="button"
@@ -765,7 +803,7 @@ const GuessTheNameGame = () => {
       </SafeAreaView>
 
       <Modal
-        visible={hasWon && showPlayableBoard}
+        visible={hasWon && showPlayableBoard && resultModalReady}
         transparent
         animationType="fade"
         statusBarTranslucent
@@ -789,7 +827,7 @@ const GuessTheNameGame = () => {
       </Modal>
 
       <Modal
-        visible={hasLost && !hasWon && showPlayableBoard}
+        visible={hasLost && !hasWon && showPlayableBoard && resultModalReady}
         transparent
         animationType="fade"
         statusBarTranslucent

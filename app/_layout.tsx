@@ -112,6 +112,7 @@ export default function RootLayout() {
               <Stack.Screen name="guess-the-name" options={{ headerShown: false }} />
               <Stack.Screen name="daily-challenge" options={{ headerShown: false }} />
               <Stack.Screen name="categories" options={{ headerShown: false }} />
+              <Stack.Screen name="difficulty" options={{ headerShown: false }} />
               <Stack.Screen name="leaderboard" options={{ headerShown: false }} />
               <Stack.Screen name="profile" options={{ headerShown: false }} />
               <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />

@@ -1,7 +1,10 @@
 import type { ReactNode } from 'react';
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { AppState, type AppStateStatus } from 'react-native';
 
 import { fetchGuessPuzzlesOrdered, type GuessPuzzleDoc } from '@/lib/firebase';
+
+export type GuessDifficulty = 'easy' | 'medium' | 'hard';
 
 /** In-app shape for “guess the name” rounds (shared across the app). */
 export type GuessPuzzle = {
@@ -10,6 +13,7 @@ export type GuessPuzzle = {
   clue: string;
   category: string;
   clueEmoji?: string;
+  difficulty?: GuessDifficulty;
 };
 
 const FALLBACK_PUZZLES: GuessPuzzle[] = [
@@ -36,6 +40,7 @@ const mapDocToPuzzle = (d: GuessPuzzleDoc): GuessPuzzle => ({
   clue: d.clue,
   category: d.category,
   clueEmoji: d.clueEmoji,
+  difficulty: d.difficulty,
 });
 
 type GuessPuzzlesContextValue = {
@@ -57,8 +62,10 @@ export const GuessPuzzlesProvider = ({ children }: GuessPuzzlesProviderProps) =>
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const load = useCallback(async () => {
-    setLoading(true);
+  const load = useCallback(async (opts?: { silent?: boolean }) => {
+    if (!opts?.silent) {
+      setLoading(true);
+    }
     setError(null);
     try {
       const docs = await fetchGuessPuzzlesOrdered();
@@ -66,10 +73,14 @@ export const GuessPuzzlesProvider = ({ children }: GuessPuzzlesProviderProps) =>
     } catch (e) {
       const message = e instanceof Error ? e.message : 'Failed to load guesses';
       setError(message);
-      setPuzzles([]);
+      if (!opts?.silent) {
+        setPuzzles([]);
+      }
       console.warn('[GuessPuzzles]', message, e);
     } finally {
-      setLoading(false);
+      if (!opts?.silent) {
+        setLoading(false);
+      }
     }
   }, []);
 
@@ -77,14 +88,27 @@ export const GuessPuzzlesProvider = ({ children }: GuessPuzzlesProviderProps) =>
     void load();
   }, [load]);
 
+  // Refresh puzzle list when the app returns to foreground (picks up Firestore seed updates).
+  useEffect(() => {
+    const handleAppState = (next: AppStateStatus) => {
+      if (next === 'active') {
+        void load({ silent: true });
+      }
+    };
+    const sub = AppState.addEventListener('change', handleAppState);
+    return () => sub.remove();
+  }, [load]);
+
+  const refetch = useCallback(() => load({ silent: true }), [load]);
+
   const value = useMemo<GuessPuzzlesContextValue>(
     () => ({
       puzzles,
       loading,
       error,
-      refetch: load,
+      refetch,
     }),
-    [puzzles, loading, error, load],
+    [puzzles, loading, error, refetch],
   );
 
   return <GuessPuzzlesContext.Provider value={value}>{children}</GuessPuzzlesContext.Provider>;

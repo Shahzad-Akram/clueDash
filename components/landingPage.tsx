@@ -10,6 +10,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAuth } from '@/contexts/auth-context';
 import { useLeaderboard } from '@/hooks/use-leaderboard';
 import { loadDailyChallengeState } from '@/lib/daily-challenge-storage';
+import { getProfileAvatarSource } from '@/lib/profile-avatars';
 
 const LANDING_RANK_IMAGES = [
   require('@/assets/images/rank1.png'),
@@ -139,6 +140,10 @@ export default function LandingPage() {
     router.push('/categories');
   }, [router]);
 
+  const handleDifficultyPress = useCallback(() => {
+    router.push('/difficulty');
+  }, [router]);
+
   const handleViewAllLeaderboard = useCallback(() => {
     router.push('/leaderboard');
   }, [router]);
@@ -190,29 +195,43 @@ export default function LandingPage() {
                 accessibilityLabel="ClueDash"
               />
             </View>
-            {isLoggedIn && user ? (
-              <View
-                style={styles.coinPill}
-                accessibilityLabel={`Points: ${user.points.toLocaleString()}`}>
-                <Pressable
-                  accessibilityRole="button"
-                  accessibilityLabel="Open leaderboard"
-                  onPress={handleViewAllLeaderboard}
-                  style={({ pressed }) => [styles.headerCoinDisc, pressed && styles.coinActionPressed]}>
-                  <MaterialCommunityIcons name="star" size={12} color="#FFF8E1" />
-                </Pressable>
-                <Text style={styles.coinText} numberOfLines={1}>
-                  {user.points.toLocaleString()}
-                </Text>
-                <Pressable
-                  accessibilityRole="button"
-                  accessibilityLabel="Play guess the name"
-                  onPress={handleGuessTheNamePress}
-                  style={({ pressed }) => [styles.plusBadge, pressed && styles.coinActionPressed]}>
-                  <Text style={styles.plusText}>+</Text>
-                </Pressable>
-              </View>
-            ) : null}
+            <View style={styles.topBarRight}>
+              {isLoggedIn && user ? (
+                <View
+                  style={styles.coinPill}
+                  accessibilityLabel={`Points: ${user.points.toLocaleString()}`}>
+                  <Pressable
+                    accessibilityRole="button"
+                    accessibilityLabel="Open leaderboard"
+                    onPress={handleViewAllLeaderboard}
+                    style={({ pressed }) => [styles.headerCoinDisc, pressed && styles.coinActionPressed]}>
+                    <MaterialCommunityIcons name="star" size={12} color="#FFF8E1" />
+                  </Pressable>
+                  <Text style={styles.coinText} numberOfLines={1}>
+                    {user.points.toLocaleString()}
+                  </Text>
+                  <Pressable
+                    accessibilityRole="button"
+                    accessibilityLabel="Play guess the name"
+                    onPress={handleGuessTheNamePress}
+                    style={({ pressed }) => [styles.plusBadge, pressed && styles.coinActionPressed]}>
+                    <Text style={styles.plusText}>+</Text>
+                  </Pressable>
+                </View>
+              ) : null}
+              <Pressable
+                accessibilityRole="button"
+                accessibilityLabel="Open profile"
+                onPress={handleProfilePress}
+                style={({ pressed }) => [styles.avatarBtn, pressed && styles.coinActionPressed]}>
+                <Image
+                  source={getProfileAvatarSource(user?.avatarId ?? 'user1')}
+                  style={styles.avatarImage}
+                  contentFit="cover"
+                  accessibilityLabel="Your avatar"
+                />
+              </Pressable>
+            </View>
           </View>
 
           <View style={styles.dailyRowSection}>
@@ -228,7 +247,7 @@ export default function LandingPage() {
                   <View style={styles.dailyMainInset}>
                     <View style={styles.dailyMainBody}>
                       <Image
-                        source={require('@/assets/images/cinema.png')}
+                        source={require('@/assets/images/guesswhat.png')}
                         style={styles.dailyCameraImage}
                         contentFit="contain"
                         accessibilityLabel="Movie camera"
@@ -299,7 +318,7 @@ export default function LandingPage() {
 
           <View style={styles.grid}>
             <GameCard
-              title="GUESS THE NAME"
+              title="RANDOM MIX"
               subtitle="Solve clues and reveal letters!"
               imageSource={require('@/assets/images/Guess.png')}
               colors={['#2A93F4', '#1B6ED4']}
@@ -315,20 +334,20 @@ export default function LandingPage() {
               onPress={handleCategoriesPress}
             />
             <GameCard
+              title="DIFFICULTY LEVELS"
+              subtitle="Easy, medium or hard?"
+              imageSource={require('@/assets/images/fire.png')}
+              colors={['#F25C54', '#D63B33']}
+              fontsLoaded={fontsLoaded}
+              onPress={handleDifficultyPress}
+            />
+            <GameCard
               title="SHARE WITH FRIENDS"
               subtitle="Invite your friends to play!"
               imageSource={require('@/assets/images/friends.png')}
               colors={['#F2992E', '#D97510']}
               fontsLoaded={fontsLoaded}
               onPress={() => void handleShareWithFriendsPress()}
-            />
-            <GameCard
-              title="PROFILE"
-              subtitle="View your stats and settings."
-              imageSource={require('@/assets/images/profile.png')}
-              colors={['#72BE2C', '#4E961B']}
-              fontsLoaded={fontsLoaded}
-              onPress={handleProfilePress}
             />
           </View>
 
@@ -451,6 +470,30 @@ const styles = StyleSheet.create({
     height: 48,
     width: 200,
     maxWidth: '100%',
+  },
+  topBarRight: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    flexShrink: 0,
+  },
+  avatarBtn: {
+    width: 42,
+    height: 42,
+    borderRadius: 21,
+    borderWidth: 2,
+    borderColor: '#FFD54F',
+    backgroundColor: '#FFF8EF',
+    overflow: 'hidden',
+    shadowColor: '#5C3D00',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.28,
+    shadowRadius: 1,
+    elevation: 3,
+  },
+  avatarImage: {
+    width: '100%',
+    height: '100%',
   },
   coinPill: {
     flexDirection: 'row',
@@ -733,15 +776,15 @@ const styles = StyleSheet.create({
     transform: [{ scale: 0.98 }],
   },
   cardIconCol: {
-    width: 74,
+    width: 58,
     flexShrink: 0,
     flexGrow: 0,
     alignItems: 'center',
     justifyContent: 'center',
   },
   gameCardImage: {
-    width: 70,
-    height: 70,
+    width: 56,
+    height: 56,
   },
   cardText: {
     flex: 1,
@@ -752,9 +795,9 @@ const styles = StyleSheet.create({
   },
   gameCardTitle: {
     color: '#FFFFFF',
-    fontSize: 14,
-    lineHeight: 17,
-    letterSpacing: 0.12,
+    fontSize: 13,
+    lineHeight: 16,
+    letterSpacing: 0,
     textAlign: 'left',
     textShadowColor: 'rgba(0, 0, 0, 0.28)',
     textShadowOffset: { width: 0, height: 1 },

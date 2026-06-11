@@ -1,0 +1,4504 @@
+{
+  "guesses": [
+    {
+      "id": "cat-movies-01",
+      "sortOrder": 1,
+      "phrase": "FINDING NEMO",
+      "clue": "Pixar clownfish lost in the ocean",
+      "category": "MOVIES",
+      "clueEmoji": "🐠",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-movies-02",
+      "sortOrder": 2,
+      "phrase": "TITANIC",
+      "clue": "Romance on a doomed luxury liner",
+      "category": "MOVIES",
+      "clueEmoji": "🚢",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-movies-03",
+      "sortOrder": 3,
+      "phrase": "THE LION KING",
+      "clue": "Disney tale of Simba and the pride",
+      "category": "MOVIES",
+      "clueEmoji": "🦁",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-movies-04",
+      "sortOrder": 4,
+      "phrase": "FORREST GUMP",
+      "clue": "Life is like a box of chocolates",
+      "category": "MOVIES",
+      "clueEmoji": "🍫",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-movies-05",
+      "sortOrder": 5,
+      "phrase": "SPIDER MAN",
+      "clue": "Friendly neighborhood web-slinger",
+      "category": "MOVIES",
+      "clueEmoji": "🕸️",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-movies-06",
+      "sortOrder": 6,
+      "phrase": "HARRY POTTER",
+      "clue": "Boy wizard at Hogwarts School",
+      "category": "MOVIES",
+      "clueEmoji": "⚡",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-movies-07",
+      "sortOrder": 7,
+      "phrase": "FROZEN",
+      "clue": "Disney sisters in an icy kingdom",
+      "category": "MOVIES",
+      "clueEmoji": "❄️",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-movies-08",
+      "sortOrder": 8,
+      "phrase": "TOY STORY",
+      "clue": "Toys come alive when humans leave",
+      "category": "MOVIES",
+      "clueEmoji": "🧸",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-movies-09",
+      "sortOrder": 9,
+      "phrase": "HOME ALONE",
+      "clue": "Kid defends his house at Christmas",
+      "category": "MOVIES",
+      "clueEmoji": "🏠",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-movies-10",
+      "sortOrder": 10,
+      "phrase": "SHREK",
+      "clue": "Green ogre saves a princess",
+      "category": "MOVIES",
+      "clueEmoji": "🟢",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-movies-11",
+      "sortOrder": 11,
+      "phrase": "JUMANJI",
+      "clue": "Dangerous magical board game adventure",
+      "category": "MOVIES",
+      "clueEmoji": "🎲",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-movies-12",
+      "sortOrder": 12,
+      "phrase": "MINIONS",
+      "clue": "Yellow helpers from Despicable Me",
+      "category": "MOVIES",
+      "clueEmoji": "🍌",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-movies-13",
+      "sortOrder": 13,
+      "phrase": "BLACK PANTHER",
+      "clue": "Wakanda's superhero king",
+      "category": "MOVIES",
+      "clueEmoji": "🐆",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-movies-14",
+      "sortOrder": 14,
+      "phrase": "WONDER WOMAN",
+      "clue": "Amazon warrior superhero film",
+      "category": "MOVIES",
+      "clueEmoji": "🛡️",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-movies-15",
+      "sortOrder": 15,
+      "phrase": "THE INCREDIBLES",
+      "clue": "Animated family of superheroes",
+      "category": "MOVIES",
+      "clueEmoji": "🦸",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-movies-16",
+      "sortOrder": 16,
+      "phrase": "KUNG FU PANDA",
+      "clue": "Panda becomes a martial arts hero",
+      "category": "MOVIES",
+      "clueEmoji": "🐼",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-movies-17",
+      "sortOrder": 17,
+      "phrase": "MOANA",
+      "clue": "Island girl sails beyond the reef",
+      "category": "MOVIES",
+      "clueEmoji": "🌊",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-movies-18",
+      "sortOrder": 18,
+      "phrase": "COCO",
+      "clue": "Animated journey through family memories",
+      "category": "MOVIES",
+      "clueEmoji": "🎸",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-movies-19",
+      "sortOrder": 19,
+      "phrase": "ALADDIN",
+      "clue": "Street thief finds a magical lamp",
+      "category": "MOVIES",
+      "clueEmoji": "🪔",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-movies-20",
+      "sortOrder": 20,
+      "phrase": "THE LITTLE MERMAID",
+      "clue": "Ariel dreams of life on land",
+      "category": "MOVIES",
+      "clueEmoji": "🧜",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-movies-21",
+      "sortOrder": 21,
+      "phrase": "THE DARK KNIGHT",
+      "clue": "Batman faces the Joker in Gotham",
+      "category": "MOVIES",
+      "clueEmoji": "🦇",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-movies-22",
+      "sortOrder": 22,
+      "phrase": "AVENGERS ENDGAME",
+      "clue": "Marvel heroes undo the snap",
+      "category": "MOVIES",
+      "clueEmoji": "🦸",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-movies-23",
+      "sortOrder": 23,
+      "phrase": "JURASSIC PARK",
+      "clue": "Theme park with cloned dinosaurs",
+      "category": "MOVIES",
+      "clueEmoji": "🦖",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-movies-24",
+      "sortOrder": 24,
+      "phrase": "THE MATRIX",
+      "clue": "Red pill sci-fi rebellion",
+      "category": "MOVIES",
+      "clueEmoji": "💊",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-movies-25",
+      "sortOrder": 25,
+      "phrase": "TOP GUN MAVERICK",
+      "clue": "Sequel with fighter jets and speed",
+      "category": "MOVIES",
+      "clueEmoji": "✈️",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-movies-26",
+      "sortOrder": 26,
+      "phrase": "STAR WARS",
+      "clue": "Space saga of Jedi and Sith",
+      "category": "MOVIES",
+      "clueEmoji": "🌌",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-movies-27",
+      "sortOrder": 27,
+      "phrase": "THE GODFATHER",
+      "clue": "Mafia family led by Don Corleone",
+      "category": "MOVIES",
+      "clueEmoji": "🍝",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-movies-28",
+      "sortOrder": 28,
+      "phrase": "PIRATES OF THE CARIBBEAN",
+      "clue": "Jack Sparrow searches for treasure",
+      "category": "MOVIES",
+      "clueEmoji": "🏴‍☠️",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-movies-29",
+      "sortOrder": 29,
+      "phrase": "GLADIATOR",
+      "clue": "Roman general becomes arena warrior",
+      "category": "MOVIES",
+      "clueEmoji": "⚔️",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-movies-30",
+      "sortOrder": 30,
+      "phrase": "BACK TO THE FUTURE",
+      "clue": "Teen travels through time in a DeLorean",
+      "category": "MOVIES",
+      "clueEmoji": "⏰",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-movies-31",
+      "sortOrder": 31,
+      "phrase": "ROCKY",
+      "clue": "Philadelphia boxer gets his big chance",
+      "category": "MOVIES",
+      "clueEmoji": "🥊",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-movies-32",
+      "sortOrder": 32,
+      "phrase": "JAWS",
+      "clue": "Killer shark terrorizes a beach town",
+      "category": "MOVIES",
+      "clueEmoji": "🦈",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-movies-33",
+      "sortOrder": 33,
+      "phrase": "INTERSTELLAR",
+      "clue": "Astronauts cross space to save humanity",
+      "category": "MOVIES",
+      "clueEmoji": "🪐",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-movies-34",
+      "sortOrder": 34,
+      "phrase": "THE HUNGER GAMES",
+      "clue": "Katniss fights in a televised arena",
+      "category": "MOVIES",
+      "clueEmoji": "🏹",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-movies-35",
+      "sortOrder": 35,
+      "phrase": "MISSION IMPOSSIBLE",
+      "clue": "Ethan Hunt handles impossible spy missions",
+      "category": "MOVIES",
+      "clueEmoji": "🕵️",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-movies-36",
+      "sortOrder": 36,
+      "phrase": "THE TERMINATOR",
+      "clue": "Cyborg assassin sent from the future",
+      "category": "MOVIES",
+      "clueEmoji": "🤖",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-movies-37",
+      "sortOrder": 37,
+      "phrase": "INDIANA JONES",
+      "clue": "Archaeologist adventurer with a whip",
+      "category": "MOVIES",
+      "clueEmoji": "🤠",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-movies-38",
+      "sortOrder": 38,
+      "phrase": "THE LORD OF THE RINGS",
+      "clue": "Quest to destroy the One Ring",
+      "category": "MOVIES",
+      "clueEmoji": "💍",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-movies-39",
+      "sortOrder": 39,
+      "phrase": "WALL E",
+      "clue": "Lonely robot cleans an abandoned Earth",
+      "category": "MOVIES",
+      "clueEmoji": "🤖",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-movies-40",
+      "sortOrder": 40,
+      "phrase": "INSIDE OUT",
+      "clue": "Emotions guide a young girl's mind",
+      "category": "MOVIES",
+      "clueEmoji": "🧠",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-movies-41",
+      "sortOrder": 41,
+      "phrase": "INCEPTION",
+      "clue": "Dreams within dreams heist thriller",
+      "category": "MOVIES",
+      "clueEmoji": "🌀",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-movies-42",
+      "sortOrder": 42,
+      "phrase": "PULP FICTION",
+      "clue": "Tarantino crime stories told out of order",
+      "category": "MOVIES",
+      "clueEmoji": "💼",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-movies-43",
+      "sortOrder": 43,
+      "phrase": "CASABLANCA",
+      "clue": "Wartime romance with Rick's cafe",
+      "category": "MOVIES",
+      "clueEmoji": "🎹",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-movies-44",
+      "sortOrder": 44,
+      "phrase": "CITIZEN KANE",
+      "clue": "Mystery of the word Rosebud",
+      "category": "MOVIES",
+      "clueEmoji": "📰",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-movies-45",
+      "sortOrder": 45,
+      "phrase": "PAN'S LABYRINTH",
+      "clue": "Dark fairy tale in Franco-era Spain",
+      "category": "MOVIES",
+      "clueEmoji": "🗝️",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-movies-46",
+      "sortOrder": 46,
+      "phrase": "PARASITE",
+      "clue": "Korean thriller about class deception",
+      "category": "MOVIES",
+      "clueEmoji": "🏠",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-movies-47",
+      "sortOrder": 47,
+      "phrase": "MEMENTO",
+      "clue": "Memory-loss mystery told backwards",
+      "category": "MOVIES",
+      "clueEmoji": "🧩",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-movies-48",
+      "sortOrder": 48,
+      "phrase": "BLADE RUNNER",
+      "clue": "Replicants hunted in a neon future",
+      "category": "MOVIES",
+      "clueEmoji": "🌃",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-movies-49",
+      "sortOrder": 49,
+      "phrase": "SEVEN SAMURAI",
+      "clue": "Kurosawa warriors defend a village",
+      "category": "MOVIES",
+      "clueEmoji": "⚔️",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-movies-50",
+      "sortOrder": 50,
+      "phrase": "AMELIE",
+      "clue": "Whimsical Paris story of secret kindness",
+      "category": "MOVIES",
+      "clueEmoji": "☕",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-actors-01",
+      "sortOrder": 51,
+      "phrase": "TOM HANKS",
+      "clue": "Cast Away and Forrest Gump star",
+      "category": "ACTORS",
+      "clueEmoji": "🎬",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-actors-02",
+      "sortOrder": 52,
+      "phrase": "MORGAN FREEMAN",
+      "clue": "Deep-voiced Shawshank narrator",
+      "category": "ACTORS",
+      "clueEmoji": "🎙️",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-actors-03",
+      "sortOrder": 53,
+      "phrase": "DWAYNE JOHNSON",
+      "clue": "The Rock, wrestler turned movie star",
+      "category": "ACTORS",
+      "clueEmoji": "💪",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-actors-04",
+      "sortOrder": 54,
+      "phrase": "EMMA WATSON",
+      "clue": "Played Hermione in Harry Potter",
+      "category": "ACTORS",
+      "clueEmoji": "📚",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-actors-05",
+      "sortOrder": 55,
+      "phrase": "WILL SMITH",
+      "clue": "Fresh Prince and Men in Black star",
+      "category": "ACTORS",
+      "clueEmoji": "😎",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-actors-06",
+      "sortOrder": 56,
+      "phrase": "ZENDAYA",
+      "clue": "Euphoria and Spider-Man actress",
+      "category": "ACTORS",
+      "clueEmoji": "🌟",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-actors-07",
+      "sortOrder": 57,
+      "phrase": "JOHNNY DEPP",
+      "clue": "Known for Captain Jack Sparrow",
+      "category": "ACTORS",
+      "clueEmoji": "🏴‍☠️",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-actors-08",
+      "sortOrder": 58,
+      "phrase": "JACKIE CHAN",
+      "clue": "Action star famous for stunt comedy",
+      "category": "ACTORS",
+      "clueEmoji": "🥋",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-actors-09",
+      "sortOrder": 59,
+      "phrase": "TOM CRUISE",
+      "clue": "Mission Impossible action star",
+      "category": "ACTORS",
+      "clueEmoji": "🏍️",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-actors-10",
+      "sortOrder": 60,
+      "phrase": "CHRIS EVANS",
+      "clue": "Played Captain America in Marvel films",
+      "category": "ACTORS",
+      "clueEmoji": "🛡️",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-actors-11",
+      "sortOrder": 61,
+      "phrase": "CHRIS HEMSWORTH",
+      "clue": "Played Thor with a mighty hammer",
+      "category": "ACTORS",
+      "clueEmoji": "⚡",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-actors-12",
+      "sortOrder": 62,
+      "phrase": "SCARLETT JOHANSSON",
+      "clue": "Marvel's Black Widow spy hero",
+      "category": "ACTORS",
+      "clueEmoji": "🕷️",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-actors-13",
+      "sortOrder": 63,
+      "phrase": "ROBERT DOWNEY JR",
+      "clue": "Played Iron Man in the MCU",
+      "category": "ACTORS",
+      "clueEmoji": "🤖",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-actors-14",
+      "sortOrder": 64,
+      "phrase": "DANIEL RADCLIFFE",
+      "clue": "Played the boy wizard Harry Potter",
+      "category": "ACTORS",
+      "clueEmoji": "⚡",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-actors-15",
+      "sortOrder": 65,
+      "phrase": "JENNIFER LAWRENCE",
+      "clue": "Hunger Games Katniss actress",
+      "category": "ACTORS",
+      "clueEmoji": "🏹",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-actors-16",
+      "sortOrder": 66,
+      "phrase": "ANGELINA JOLIE",
+      "clue": "Played Lara Croft in Tomb Raider",
+      "category": "ACTORS",
+      "clueEmoji": "🏹",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-actors-17",
+      "sortOrder": 67,
+      "phrase": "KEANU REEVES",
+      "clue": "Matrix and John Wick star",
+      "category": "ACTORS",
+      "clueEmoji": "🕶️",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-actors-18",
+      "sortOrder": 68,
+      "phrase": "RYAN REYNOLDS",
+      "clue": "Deadpool actor with sharp humor",
+      "category": "ACTORS",
+      "clueEmoji": "⚔️",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-actors-19",
+      "sortOrder": 69,
+      "phrase": "MARGOT ROBBIE",
+      "clue": "Barbie and Harley Quinn actress",
+      "category": "ACTORS",
+      "clueEmoji": "🎀",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-actors-20",
+      "sortOrder": 70,
+      "phrase": "ADAM SANDLER",
+      "clue": "Comedy actor in Happy Gilmore",
+      "category": "ACTORS",
+      "clueEmoji": "😂",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-actors-21",
+      "sortOrder": 71,
+      "phrase": "MERYL STREEP",
+      "clue": "Highly Oscar-nominated dramatic actress",
+      "category": "ACTORS",
+      "clueEmoji": "⭐",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-actors-22",
+      "sortOrder": 72,
+      "phrase": "LEONARDO DICAPRIO",
+      "clue": "Titanic and Revenant leading man",
+      "category": "ACTORS",
+      "clueEmoji": "🚢",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-actors-23",
+      "sortOrder": 73,
+      "phrase": "BRAD PITT",
+      "clue": "Fight Club and Once Upon a Time star",
+      "category": "ACTORS",
+      "clueEmoji": "🎞️",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-actors-24",
+      "sortOrder": 74,
+      "phrase": "DENZEL WASHINGTON",
+      "clue": "Training Day and Malcolm X actor",
+      "category": "ACTORS",
+      "clueEmoji": "🏆",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-actors-25",
+      "sortOrder": 75,
+      "phrase": "NATALIE PORTMAN",
+      "clue": "Black Swan and Star Wars actress",
+      "category": "ACTORS",
+      "clueEmoji": "🩰",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-actors-26",
+      "sortOrder": 76,
+      "phrase": "ANNE HATHAWAY",
+      "clue": "Les Miserables and Devil Wears Prada star",
+      "category": "ACTORS",
+      "clueEmoji": "👠",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-actors-27",
+      "sortOrder": 77,
+      "phrase": "HUGH JACKMAN",
+      "clue": "Wolverine and musical leading man",
+      "category": "ACTORS",
+      "clueEmoji": "🧬",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-actors-28",
+      "sortOrder": 78,
+      "phrase": "SAMUEL L JACKSON",
+      "clue": "Pulp Fiction and Nick Fury actor",
+      "category": "ACTORS",
+      "clueEmoji": "🕶️",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-actors-29",
+      "sortOrder": 79,
+      "phrase": "VIOLA DAVIS",
+      "clue": "Powerful actress from Fences",
+      "category": "ACTORS",
+      "clueEmoji": "🎭",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-actors-30",
+      "sortOrder": 80,
+      "phrase": "JOAQUIN PHOENIX",
+      "clue": "Oscar-winning Joker actor",
+      "category": "ACTORS",
+      "clueEmoji": "🃏",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-actors-31",
+      "sortOrder": 81,
+      "phrase": "KATE WINSLET",
+      "clue": "Titanic and Mare of Easttown actress",
+      "category": "ACTORS",
+      "clueEmoji": "🚢",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-actors-32",
+      "sortOrder": 82,
+      "phrase": "MATTHEW MCCONAUGHEY",
+      "clue": "Dallas Buyers Club leading man",
+      "category": "ACTORS",
+      "clueEmoji": "🤠",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-actors-33",
+      "sortOrder": 83,
+      "phrase": "JULIA ROBERTS",
+      "clue": "Pretty Woman and Erin Brockovich star",
+      "category": "ACTORS",
+      "clueEmoji": "🌹",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-actors-34",
+      "sortOrder": 84,
+      "phrase": "BENEDICT CUMBERBATCH",
+      "clue": "Sherlock and Doctor Strange actor",
+      "category": "ACTORS",
+      "clueEmoji": "🧙",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-actors-35",
+      "sortOrder": 85,
+      "phrase": "GAL GADOT",
+      "clue": "Played Wonder Woman on screen",
+      "category": "ACTORS",
+      "clueEmoji": "🛡️",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-actors-36",
+      "sortOrder": 86,
+      "phrase": "IDRIS ELBA",
+      "clue": "Luther actor and action star",
+      "category": "ACTORS",
+      "clueEmoji": "🧥",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-actors-37",
+      "sortOrder": 87,
+      "phrase": "ANTHONY HOPKINS",
+      "clue": "Hannibal Lecter and Welsh acting legend",
+      "category": "ACTORS",
+      "clueEmoji": "🎭",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-actors-38",
+      "sortOrder": 88,
+      "phrase": "HEATH LEDGER",
+      "clue": "Memorable Joker in The Dark Knight",
+      "category": "ACTORS",
+      "clueEmoji": "🃏",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-actors-39",
+      "sortOrder": 89,
+      "phrase": "CATE BLANCHETT",
+      "clue": "Australian star of Elizabeth and Tar",
+      "category": "ACTORS",
+      "clueEmoji": "👑",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-actors-40",
+      "sortOrder": 90,
+      "phrase": "MATT DAMON",
+      "clue": "Bourne and Martian leading man",
+      "category": "ACTORS",
+      "clueEmoji": "🚀",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-actors-41",
+      "sortOrder": 91,
+      "phrase": "CHRISTOPHER NOLAN",
+      "clue": "Director of Inception and Oppenheimer",
+      "category": "ACTORS",
+      "clueEmoji": "🎥",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-actors-42",
+      "sortOrder": 92,
+      "phrase": "TILDA SWINTON",
+      "clue": "Distinctive actress in arthouse and fantasy films",
+      "category": "ACTORS",
+      "clueEmoji": "🌀",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-actors-43",
+      "sortOrder": 93,
+      "phrase": "SAOIRSE RONAN",
+      "clue": "Irish actress from Lady Bird",
+      "category": "ACTORS",
+      "clueEmoji": "🍀",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-actors-44",
+      "sortOrder": 94,
+      "phrase": "DANIEL DAY LEWIS",
+      "clue": "Intense three-time Oscar-winning actor",
+      "category": "ACTORS",
+      "clueEmoji": "🎩",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-actors-45",
+      "sortOrder": 95,
+      "phrase": "FRANCES MCDORMAND",
+      "clue": "Fargo and Nomadland actress",
+      "category": "ACTORS",
+      "clueEmoji": "🏕️",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-actors-46",
+      "sortOrder": 96,
+      "phrase": "JAVIER BARDEM",
+      "clue": "Spanish actor from No Country for Old Men",
+      "category": "ACTORS",
+      "clueEmoji": "💰",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-actors-47",
+      "sortOrder": 97,
+      "phrase": "RIZ AHMED",
+      "clue": "Actor and rapper from Sound of Metal",
+      "category": "ACTORS",
+      "clueEmoji": "🥁",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-actors-48",
+      "sortOrder": 98,
+      "phrase": "LUPITA NYONGO",
+      "clue": "Oscar winner from 12 Years a Slave",
+      "category": "ACTORS",
+      "clueEmoji": "🌺",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-actors-49",
+      "sortOrder": 99,
+      "phrase": "MAHERSHALA ALI",
+      "clue": "Moonlight and Green Book actor",
+      "category": "ACTORS",
+      "clueEmoji": "🌙",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-actors-50",
+      "sortOrder": 100,
+      "phrase": "TONY LEUNG",
+      "clue": "Hong Kong star of In the Mood for Love",
+      "category": "ACTORS",
+      "clueEmoji": "🌧️",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-cricket-01",
+      "sortOrder": 101,
+      "phrase": "WICKET KEEPER",
+      "clue": "Player behind the stumps with gloves",
+      "category": "CRICKET",
+      "clueEmoji": "🧤",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-cricket-02",
+      "sortOrder": 102,
+      "phrase": "TEST MATCH",
+      "clue": "Five-day longest format of cricket",
+      "category": "CRICKET",
+      "clueEmoji": "📅",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-cricket-03",
+      "sortOrder": 103,
+      "phrase": "BATSMAN",
+      "clue": "Player who tries to score runs",
+      "category": "CRICKET",
+      "clueEmoji": "🏏",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-cricket-04",
+      "sortOrder": 104,
+      "phrase": "BOWLER",
+      "clue": "Player who delivers the ball",
+      "category": "CRICKET",
+      "clueEmoji": "🎯",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-cricket-05",
+      "sortOrder": 105,
+      "phrase": "SIX RUNS",
+      "clue": "Ball hit over the boundary without bouncing",
+      "category": "CRICKET",
+      "clueEmoji": "6️⃣",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-cricket-06",
+      "sortOrder": 106,
+      "phrase": "FOUR RUNS",
+      "clue": "Ball reaches the boundary after touching ground",
+      "category": "CRICKET",
+      "clueEmoji": "4️⃣",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-cricket-07",
+      "sortOrder": 107,
+      "phrase": "CRICKET BAT",
+      "clue": "Wooden tool used to hit the ball",
+      "category": "CRICKET",
+      "clueEmoji": "🏏",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-cricket-08",
+      "sortOrder": 108,
+      "phrase": "CRICKET BALL",
+      "clue": "Hard red or white ball in the game",
+      "category": "CRICKET",
+      "clueEmoji": "🔴",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-cricket-09",
+      "sortOrder": 109,
+      "phrase": "UMPIRE",
+      "clue": "Official who makes decisions on the field",
+      "category": "CRICKET",
+      "clueEmoji": "☝️",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-cricket-10",
+      "sortOrder": 110,
+      "phrase": "STUMPS",
+      "clue": "Three wooden posts behind the batter",
+      "category": "CRICKET",
+      "clueEmoji": "🥢",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-cricket-11",
+      "sortOrder": 111,
+      "phrase": "RUN OUT",
+      "clue": "Batsman dismissed before reaching the crease",
+      "category": "CRICKET",
+      "clueEmoji": "🏃",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-cricket-12",
+      "sortOrder": 112,
+      "phrase": "CATCH OUT",
+      "clue": "Dismissal when a fielder catches the ball",
+      "category": "CRICKET",
+      "clueEmoji": "🙌",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-cricket-13",
+      "sortOrder": 113,
+      "phrase": "BOUNDARY LINE",
+      "clue": "Edge of the cricket field",
+      "category": "CRICKET",
+      "clueEmoji": "➰",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-cricket-14",
+      "sortOrder": 114,
+      "phrase": "OPENING BATSMAN",
+      "clue": "Player who starts the innings",
+      "category": "CRICKET",
+      "clueEmoji": "🚪",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-cricket-15",
+      "sortOrder": 115,
+      "phrase": "TEAM CAPTAIN",
+      "clue": "Player who leads the side",
+      "category": "CRICKET",
+      "clueEmoji": "🧢",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-cricket-16",
+      "sortOrder": 116,
+      "phrase": "TOSS",
+      "clue": "Coin flip before the match begins",
+      "category": "CRICKET",
+      "clueEmoji": "🪙",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-cricket-17",
+      "sortOrder": 117,
+      "phrase": "OVER",
+      "clue": "Set of six legal deliveries",
+      "category": "CRICKET",
+      "clueEmoji": "6️⃣",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-cricket-18",
+      "sortOrder": 118,
+      "phrase": "WORLD CUP",
+      "clue": "Global cricket tournament trophy",
+      "category": "CRICKET",
+      "clueEmoji": "🏆",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-cricket-19",
+      "sortOrder": 119,
+      "phrase": "T20 CRICKET",
+      "clue": "Fast twenty-over cricket format",
+      "category": "CRICKET",
+      "clueEmoji": "⚡",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-cricket-20",
+      "sortOrder": 120,
+      "phrase": "BAT AND BALL",
+      "clue": "Basic equipment of cricket",
+      "category": "CRICKET",
+      "clueEmoji": "🏏",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-cricket-21",
+      "sortOrder": 121,
+      "phrase": "SACHIN TENDULKAR",
+      "clue": "India's Little Master batting legend",
+      "category": "CRICKET",
+      "clueEmoji": "🇮🇳",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-cricket-22",
+      "sortOrder": 122,
+      "phrase": "VIRAT KOHLI",
+      "clue": "Aggressive former India captain",
+      "category": "CRICKET",
+      "clueEmoji": "🇮🇳",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-cricket-23",
+      "sortOrder": 123,
+      "phrase": "THE ASHES",
+      "clue": "England vs Australia Test rivalry trophy",
+      "category": "CRICKET",
+      "clueEmoji": "🏆",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-cricket-24",
+      "sortOrder": 124,
+      "phrase": "INDIAN PREMIER LEAGUE",
+      "clue": "Colorful franchise T20 tournament in India",
+      "category": "CRICKET",
+      "clueEmoji": "🎉",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-cricket-25",
+      "sortOrder": 125,
+      "phrase": "MS DHONI",
+      "clue": "Captain Cool who led India to World Cup glory",
+      "category": "CRICKET",
+      "clueEmoji": "🧢",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-cricket-26",
+      "sortOrder": 126,
+      "phrase": "BEN STOKES",
+      "clue": "England hero of the 2019 final",
+      "category": "CRICKET",
+      "clueEmoji": "🏴",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-cricket-27",
+      "sortOrder": 127,
+      "phrase": "SPIN BOWLING",
+      "clue": "Bowling style that turns the ball",
+      "category": "CRICKET",
+      "clueEmoji": "🌀",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-cricket-28",
+      "sortOrder": 128,
+      "phrase": "FAST BOWLING",
+      "clue": "High-speed bowling with pace",
+      "category": "CRICKET",
+      "clueEmoji": "💨",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-cricket-29",
+      "sortOrder": 129,
+      "phrase": "LEG BEFORE WICKET",
+      "clue": "Dismissal when pads block the stumps",
+      "category": "CRICKET",
+      "clueEmoji": "🦵",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-cricket-30",
+      "sortOrder": 130,
+      "phrase": "POWERPLAY OVERS",
+      "clue": "Fielding limits early in limited overs",
+      "category": "CRICKET",
+      "clueEmoji": "⚡",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-cricket-31",
+      "sortOrder": 131,
+      "phrase": "YORKER BALL",
+      "clue": "Full-length delivery at the batsman's toes",
+      "category": "CRICKET",
+      "clueEmoji": "🎯",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-cricket-32",
+      "sortOrder": 132,
+      "phrase": "GOOGLY",
+      "clue": "Leg-spinner's deceptive turning delivery",
+      "category": "CRICKET",
+      "clueEmoji": "🌀",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-cricket-33",
+      "sortOrder": 133,
+      "phrase": "MAIDEN OVER",
+      "clue": "Over with no runs conceded",
+      "category": "CRICKET",
+      "clueEmoji": "0️⃣",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-cricket-34",
+      "sortOrder": 134,
+      "phrase": "DUCKWORTH LEWIS",
+      "clue": "Rain-affected target calculation method",
+      "category": "CRICKET",
+      "clueEmoji": "🌧️",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-cricket-35",
+      "sortOrder": 135,
+      "phrase": "COVER DRIVE",
+      "clue": "Elegant shot through the covers",
+      "category": "CRICKET",
+      "clueEmoji": "✨",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-cricket-36",
+      "sortOrder": 136,
+      "phrase": "REVERSE SWEEP",
+      "clue": "Unusual shot played across the body",
+      "category": "CRICKET",
+      "clueEmoji": "🔄",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-cricket-37",
+      "sortOrder": 137,
+      "phrase": "SLIP FIELDERS",
+      "clue": "Catchers standing beside the wicketkeeper",
+      "category": "CRICKET",
+      "clueEmoji": "🙌",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-cricket-38",
+      "sortOrder": 138,
+      "phrase": "WIDE BALL",
+      "clue": "Illegal delivery too far from the batter",
+      "category": "CRICKET",
+      "clueEmoji": "↔️",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-cricket-39",
+      "sortOrder": 139,
+      "phrase": "NO BALL",
+      "clue": "Illegal delivery that gives an extra run",
+      "category": "CRICKET",
+      "clueEmoji": "🚫",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-cricket-40",
+      "sortOrder": 140,
+      "phrase": "SUPER OVER",
+      "clue": "Tie-breaker over in limited cricket",
+      "category": "CRICKET",
+      "clueEmoji": "🔥",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-cricket-41",
+      "sortOrder": 141,
+      "phrase": "LORDS CRICKET GROUND",
+      "clue": "London venue known as the home of cricket",
+      "category": "CRICKET",
+      "clueEmoji": "🏟️",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-cricket-42",
+      "sortOrder": 142,
+      "phrase": "DON BRADMAN",
+      "clue": "Australian with a 99.94 Test average",
+      "category": "CRICKET",
+      "clueEmoji": "🇦🇺",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-cricket-43",
+      "sortOrder": 143,
+      "phrase": "SILLY POINT",
+      "clue": "Close catching position near the batter",
+      "category": "CRICKET",
+      "clueEmoji": "🤏",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-cricket-44",
+      "sortOrder": 144,
+      "phrase": "THIRD MAN",
+      "clue": "Fielding position behind square on off side",
+      "category": "CRICKET",
+      "clueEmoji": "3️⃣",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-cricket-45",
+      "sortOrder": 145,
+      "phrase": "CHINAMAN BOWLING",
+      "clue": "Left-arm wrist-spin style",
+      "category": "CRICKET",
+      "clueEmoji": "🌀",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-cricket-46",
+      "sortOrder": 146,
+      "phrase": "BOSIE",
+      "clue": "Another name for a googly delivery",
+      "category": "CRICKET",
+      "clueEmoji": "🎩",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-cricket-47",
+      "sortOrder": 147,
+      "phrase": "FOLLOW ON",
+      "clue": "Team bats again after a big first-innings deficit",
+      "category": "CRICKET",
+      "clueEmoji": "🔁",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-cricket-48",
+      "sortOrder": 148,
+      "phrase": "NIGHTWATCHMAN",
+      "clue": "Lower-order batter sent in late to survive",
+      "category": "CRICKET",
+      "clueEmoji": "🌙",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-cricket-49",
+      "sortOrder": 149,
+      "phrase": "DOOSRA",
+      "clue": "Off-spinner's delivery turning the other way",
+      "category": "CRICKET",
+      "clueEmoji": "🔄",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-cricket-50",
+      "sortOrder": 150,
+      "phrase": "COW CORNER",
+      "clue": "Leg-side boundary area for big hits",
+      "category": "CRICKET",
+      "clueEmoji": "🐄",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-football-01",
+      "sortOrder": 151,
+      "phrase": "LIONEL MESSI",
+      "clue": "Argentine maestro with many Ballon d'Ors",
+      "category": "FOOTBALL",
+      "clueEmoji": "⚽",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-football-02",
+      "sortOrder": 152,
+      "phrase": "CRISTIANO RONALDO",
+      "clue": "Portuguese superstar known as CR7",
+      "category": "FOOTBALL",
+      "clueEmoji": "7️⃣",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-football-03",
+      "sortOrder": 153,
+      "phrase": "FIFA WORLD CUP",
+      "clue": "Global trophy won every four years",
+      "category": "FOOTBALL",
+      "clueEmoji": "🏆",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-football-04",
+      "sortOrder": 154,
+      "phrase": "PENALTY KICK",
+      "clue": "Twelve-yard shot from the spot",
+      "category": "FOOTBALL",
+      "clueEmoji": "🥅",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-football-05",
+      "sortOrder": 155,
+      "phrase": "HAT TRICK",
+      "clue": "Three goals scored in one match",
+      "category": "FOOTBALL",
+      "clueEmoji": "🎩",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-football-06",
+      "sortOrder": 156,
+      "phrase": "YELLOW CARD",
+      "clue": "Referee warning shown for a foul",
+      "category": "FOOTBALL",
+      "clueEmoji": "🟨",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-football-07",
+      "sortOrder": 157,
+      "phrase": "RED CARD",
+      "clue": "Referee sends a player off",
+      "category": "FOOTBALL",
+      "clueEmoji": "🟥",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-football-08",
+      "sortOrder": 158,
+      "phrase": "GOALKEEPER",
+      "clue": "Player allowed to use hands in the box",
+      "category": "FOOTBALL",
+      "clueEmoji": "🧤",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-football-09",
+      "sortOrder": 159,
+      "phrase": "CORNER KICK",
+      "clue": "Restart taken from the corner flag",
+      "category": "FOOTBALL",
+      "clueEmoji": "🚩",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-football-10",
+      "sortOrder": 160,
+      "phrase": "FREE KICK",
+      "clue": "Set-piece awarded after a foul",
+      "category": "FOOTBALL",
+      "clueEmoji": "🎯",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-football-11",
+      "sortOrder": 161,
+      "phrase": "SOCCER BALL",
+      "clue": "Round ball used in the game",
+      "category": "FOOTBALL",
+      "clueEmoji": "⚽",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-football-12",
+      "sortOrder": 162,
+      "phrase": "GOAL POST",
+      "clue": "Frame players shoot the ball into",
+      "category": "FOOTBALL",
+      "clueEmoji": "🥅",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-football-13",
+      "sortOrder": 163,
+      "phrase": "REFEREE",
+      "clue": "Official who controls the match",
+      "category": "FOOTBALL",
+      "clueEmoji": "📣",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-football-14",
+      "sortOrder": 164,
+      "phrase": "TEAM CAPTAIN",
+      "clue": "Leader wearing the armband",
+      "category": "FOOTBALL",
+      "clueEmoji": "🟦",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-football-15",
+      "sortOrder": 165,
+      "phrase": "HALF TIME",
+      "clue": "Break between two halves",
+      "category": "FOOTBALL",
+      "clueEmoji": "⏱️",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-football-16",
+      "sortOrder": 166,
+      "phrase": "EXTRA TIME",
+      "clue": "Additional period after a draw",
+      "category": "FOOTBALL",
+      "clueEmoji": "⏳",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-football-17",
+      "sortOrder": 167,
+      "phrase": "PENALTY SHOOTOUT",
+      "clue": "Spot kicks decide a tied game",
+      "category": "FOOTBALL",
+      "clueEmoji": "🎯",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-football-18",
+      "sortOrder": 168,
+      "phrase": "STRIKER",
+      "clue": "Forward player focused on scoring",
+      "category": "FOOTBALL",
+      "clueEmoji": "🎯",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-football-19",
+      "sortOrder": 169,
+      "phrase": "DEFENDER",
+      "clue": "Player who protects the goal",
+      "category": "FOOTBALL",
+      "clueEmoji": "🛡️",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-football-20",
+      "sortOrder": 170,
+      "phrase": "MIDFIELDER",
+      "clue": "Player linking defense and attack",
+      "category": "FOOTBALL",
+      "clueEmoji": "🔗",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-football-21",
+      "sortOrder": 171,
+      "phrase": "MANCHESTER UNITED",
+      "clue": "Red Devils of Old Trafford",
+      "category": "FOOTBALL",
+      "clueEmoji": "🔴",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-football-22",
+      "sortOrder": 172,
+      "phrase": "CHAMPIONS LEAGUE",
+      "clue": "Europe's top club competition",
+      "category": "FOOTBALL",
+      "clueEmoji": "⭐",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-football-23",
+      "sortOrder": 173,
+      "phrase": "REAL MADRID",
+      "clue": "Galacticos of the Santiago Bernabeu",
+      "category": "FOOTBALL",
+      "clueEmoji": "👑",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-football-24",
+      "sortOrder": 174,
+      "phrase": "DIEGO MARADONA",
+      "clue": "Argentine legend of the Hand of God",
+      "category": "FOOTBALL",
+      "clueEmoji": "✋",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-football-25",
+      "sortOrder": 175,
+      "phrase": "LIVERPOOL FC",
+      "clue": "You'll Never Walk Alone at Anfield",
+      "category": "FOOTBALL",
+      "clueEmoji": "🔴",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-football-26",
+      "sortOrder": 176,
+      "phrase": "BARCELONA FC",
+      "clue": "Catalan club known as Barca",
+      "category": "FOOTBALL",
+      "clueEmoji": "🔵",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-football-27",
+      "sortOrder": 177,
+      "phrase": "NEYMAR JR",
+      "clue": "Brazilian forward known for flair",
+      "category": "FOOTBALL",
+      "clueEmoji": "🇧🇷",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-football-28",
+      "sortOrder": 178,
+      "phrase": "KYLIAN MBAPPE",
+      "clue": "French star known for speed",
+      "category": "FOOTBALL",
+      "clueEmoji": "💨",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-football-29",
+      "sortOrder": 179,
+      "phrase": "PELE",
+      "clue": "Brazilian legend with three World Cups",
+      "category": "FOOTBALL",
+      "clueEmoji": "👑",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-football-30",
+      "sortOrder": 180,
+      "phrase": "ZINEDINE ZIDANE",
+      "clue": "French playmaker and World Cup winner",
+      "category": "FOOTBALL",
+      "clueEmoji": "🇫🇷",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-football-31",
+      "sortOrder": 181,
+      "phrase": "PREMIER LEAGUE",
+      "clue": "Top professional league in England",
+      "category": "FOOTBALL",
+      "clueEmoji": "🏴",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-football-32",
+      "sortOrder": 182,
+      "phrase": "LA LIGA",
+      "clue": "Spain's top football league",
+      "category": "FOOTBALL",
+      "clueEmoji": "🇪🇸",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-football-33",
+      "sortOrder": 183,
+      "phrase": "SERIE A",
+      "clue": "Italy's top football league",
+      "category": "FOOTBALL",
+      "clueEmoji": "🇮🇹",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-football-34",
+      "sortOrder": 184,
+      "phrase": "BUNDESLIGA",
+      "clue": "Germany's top football league",
+      "category": "FOOTBALL",
+      "clueEmoji": "🇩🇪",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-football-35",
+      "sortOrder": 185,
+      "phrase": "COPA AMERICA",
+      "clue": "South America's major national tournament",
+      "category": "FOOTBALL",
+      "clueEmoji": "🌎",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-football-36",
+      "sortOrder": 186,
+      "phrase": "EUROPEAN CHAMPIONSHIP",
+      "clue": "UEFA national team tournament",
+      "category": "FOOTBALL",
+      "clueEmoji": "🇪🇺",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-football-37",
+      "sortOrder": 187,
+      "phrase": "GOLDEN BOOT",
+      "clue": "Award for the top goal scorer",
+      "category": "FOOTBALL",
+      "clueEmoji": "🥾",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-football-38",
+      "sortOrder": 188,
+      "phrase": "VAR REVIEW",
+      "clue": "Video check for referee decisions",
+      "category": "FOOTBALL",
+      "clueEmoji": "📺",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-football-39",
+      "sortOrder": 189,
+      "phrase": "BICYCLE KICK",
+      "clue": "Acrobatic overhead shot",
+      "category": "FOOTBALL",
+      "clueEmoji": "🚲",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-football-40",
+      "sortOrder": 190,
+      "phrase": "OWN GOAL",
+      "clue": "Accidental goal into your own net",
+      "category": "FOOTBALL",
+      "clueEmoji": "😬",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-football-41",
+      "sortOrder": 191,
+      "phrase": "OFFSIDE RULE",
+      "clue": "Flag raised when ahead of the line",
+      "category": "FOOTBALL",
+      "clueEmoji": "🚩",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-football-42",
+      "sortOrder": 192,
+      "phrase": "FALSE NINE",
+      "clue": "Forward who drops into midfield",
+      "category": "FOOTBALL",
+      "clueEmoji": "9️⃣",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-football-43",
+      "sortOrder": 193,
+      "phrase": "TREQUARTISTA",
+      "clue": "Italian term for creative attacking midfielder",
+      "category": "FOOTBALL",
+      "clueEmoji": "🎨",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-football-44",
+      "sortOrder": 194,
+      "phrase": "GEGENPRESSING",
+      "clue": "High-intensity counter-pressing tactic",
+      "category": "FOOTBALL",
+      "clueEmoji": "🔁",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-football-45",
+      "sortOrder": 195,
+      "phrase": "PANENKA PENALTY",
+      "clue": "Soft chipped penalty down the middle",
+      "category": "FOOTBALL",
+      "clueEmoji": "🪶",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-football-46",
+      "sortOrder": 196,
+      "phrase": "LIBERO",
+      "clue": "Sweeper role behind the defense",
+      "category": "FOOTBALL",
+      "clueEmoji": "🧹",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-football-47",
+      "sortOrder": 197,
+      "phrase": "TOTAL FOOTBALL",
+      "clue": "Fluid Dutch tactical philosophy",
+      "category": "FOOTBALL",
+      "clueEmoji": "🇳🇱",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-football-48",
+      "sortOrder": 198,
+      "phrase": "RABONA CROSS",
+      "clue": "Cross made by wrapping one leg behind",
+      "category": "FOOTBALL",
+      "clueEmoji": "🦵",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-football-49",
+      "sortOrder": 199,
+      "phrase": "CATENACCIO",
+      "clue": "Italian defensive tactical system",
+      "category": "FOOTBALL",
+      "clueEmoji": "🔒",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-football-50",
+      "sortOrder": 200,
+      "phrase": "MEZZALA",
+      "clue": "Half-wing midfielder role",
+      "category": "FOOTBALL",
+      "clueEmoji": "↗️",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-countries-01",
+      "sortOrder": 201,
+      "phrase": "UNITED STATES",
+      "clue": "Fifty states under the Stars and Stripes",
+      "category": "COUNTRIES",
+      "clueEmoji": "🇺🇸",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-countries-02",
+      "sortOrder": 202,
+      "phrase": "JAPAN",
+      "clue": "Land of the Rising Sun",
+      "category": "COUNTRIES",
+      "clueEmoji": "🇯🇵",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-countries-03",
+      "sortOrder": 203,
+      "phrase": "BRAZIL",
+      "clue": "Largest country in South America",
+      "category": "COUNTRIES",
+      "clueEmoji": "🇧🇷",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-countries-04",
+      "sortOrder": 204,
+      "phrase": "EGYPT",
+      "clue": "Nile nation of pyramids and pharaohs",
+      "category": "COUNTRIES",
+      "clueEmoji": "🇪🇬",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-countries-05",
+      "sortOrder": 205,
+      "phrase": "FRANCE",
+      "clue": "Eiffel Tower country with capital Paris",
+      "category": "COUNTRIES",
+      "clueEmoji": "🇫🇷",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-countries-06",
+      "sortOrder": 206,
+      "phrase": "AUSTRALIA",
+      "clue": "Island continent down under",
+      "category": "COUNTRIES",
+      "clueEmoji": "🇦🇺",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-countries-07",
+      "sortOrder": 207,
+      "phrase": "CANADA",
+      "clue": "Maple leaf nation north of the USA",
+      "category": "COUNTRIES",
+      "clueEmoji": "🇨🇦",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-countries-08",
+      "sortOrder": 208,
+      "phrase": "INDIA",
+      "clue": "Home of the Taj Mahal and the Ganges",
+      "category": "COUNTRIES",
+      "clueEmoji": "🇮🇳",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-countries-09",
+      "sortOrder": 209,
+      "phrase": "GERMANY",
+      "clue": "Brandenburg Gate nation in central Europe",
+      "category": "COUNTRIES",
+      "clueEmoji": "🇩🇪",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-countries-10",
+      "sortOrder": 210,
+      "phrase": "MEXICO",
+      "clue": "Aztec heritage nation south of the USA",
+      "category": "COUNTRIES",
+      "clueEmoji": "🇲🇽",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-countries-11",
+      "sortOrder": 211,
+      "phrase": "ITALY",
+      "clue": "Boot-shaped nation famous for pasta",
+      "category": "COUNTRIES",
+      "clueEmoji": "🇮🇹",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-countries-12",
+      "sortOrder": 212,
+      "phrase": "SPAIN",
+      "clue": "Iberian country known for flamenco",
+      "category": "COUNTRIES",
+      "clueEmoji": "🇪🇸",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-countries-13",
+      "sortOrder": 213,
+      "phrase": "CHINA",
+      "clue": "Great Wall country in East Asia",
+      "category": "COUNTRIES",
+      "clueEmoji": "🇨🇳",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-countries-14",
+      "sortOrder": 214,
+      "phrase": "UNITED KINGDOM",
+      "clue": "Island nation of England, Scotland, Wales, and Northern Ireland",
+      "category": "COUNTRIES",
+      "clueEmoji": "🇬🇧",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-countries-15",
+      "sortOrder": 215,
+      "phrase": "RUSSIA",
+      "clue": "Largest country in the world by area",
+      "category": "COUNTRIES",
+      "clueEmoji": "🇷🇺",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-countries-16",
+      "sortOrder": 216,
+      "phrase": "TURKEY",
+      "clue": "Country bridging Europe and Asia",
+      "category": "COUNTRIES",
+      "clueEmoji": "🇹🇷",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-countries-17",
+      "sortOrder": 217,
+      "phrase": "GREECE",
+      "clue": "Mediterranean nation of ancient temples",
+      "category": "COUNTRIES",
+      "clueEmoji": "🇬🇷",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-countries-18",
+      "sortOrder": 218,
+      "phrase": "PORTUGAL",
+      "clue": "Western Iberian country of Lisbon",
+      "category": "COUNTRIES",
+      "clueEmoji": "🇵🇹",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-countries-19",
+      "sortOrder": 219,
+      "phrase": "THAILAND",
+      "clue": "Southeast Asian country known as Land of Smiles",
+      "category": "COUNTRIES",
+      "clueEmoji": "🇹🇭",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-countries-20",
+      "sortOrder": 220,
+      "phrase": "PAKISTAN",
+      "clue": "South Asian country with capital Islamabad",
+      "category": "COUNTRIES",
+      "clueEmoji": "🇵🇰",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-countries-21",
+      "sortOrder": 221,
+      "phrase": "SOUTH AFRICA",
+      "clue": "Rainbow Nation with Cape Town and safaris",
+      "category": "COUNTRIES",
+      "clueEmoji": "🇿🇦",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-countries-22",
+      "sortOrder": 222,
+      "phrase": "ARGENTINA",
+      "clue": "Tango nation at the southern cone",
+      "category": "COUNTRIES",
+      "clueEmoji": "🇦🇷",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-countries-23",
+      "sortOrder": 223,
+      "phrase": "NEW ZEALAND",
+      "clue": "Kiwi nation in the South Pacific",
+      "category": "COUNTRIES",
+      "clueEmoji": "🇳🇿",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-countries-24",
+      "sortOrder": 224,
+      "phrase": "NETHERLANDS",
+      "clue": "Low country famous for canals and tulips",
+      "category": "COUNTRIES",
+      "clueEmoji": "🇳🇱",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-countries-25",
+      "sortOrder": 225,
+      "phrase": "SWITZERLAND",
+      "clue": "Alpine nation known for neutrality",
+      "category": "COUNTRIES",
+      "clueEmoji": "🇨🇭",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-countries-26",
+      "sortOrder": 226,
+      "phrase": "SWEDEN",
+      "clue": "Nordic country of Stockholm",
+      "category": "COUNTRIES",
+      "clueEmoji": "🇸🇪",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-countries-27",
+      "sortOrder": 227,
+      "phrase": "NORWAY",
+      "clue": "Fjord-filled Scandinavian country",
+      "category": "COUNTRIES",
+      "clueEmoji": "🇳🇴",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-countries-28",
+      "sortOrder": 228,
+      "phrase": "DENMARK",
+      "clue": "Scandinavian country of Copenhagen",
+      "category": "COUNTRIES",
+      "clueEmoji": "🇩🇰",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-countries-29",
+      "sortOrder": 229,
+      "phrase": "IRELAND",
+      "clue": "Emerald Isle west of Great Britain",
+      "category": "COUNTRIES",
+      "clueEmoji": "🇮🇪",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-countries-30",
+      "sortOrder": 230,
+      "phrase": "SOUTH KOREA",
+      "clue": "K-pop powerhouse on the Korean peninsula",
+      "category": "COUNTRIES",
+      "clueEmoji": "🇰🇷",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-countries-31",
+      "sortOrder": 231,
+      "phrase": "INDONESIA",
+      "clue": "Island nation with Jakarta and Bali",
+      "category": "COUNTRIES",
+      "clueEmoji": "🇮🇩",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-countries-32",
+      "sortOrder": 232,
+      "phrase": "PHILIPPINES",
+      "clue": "Archipelago country in Southeast Asia",
+      "category": "COUNTRIES",
+      "clueEmoji": "🇵🇭",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-countries-33",
+      "sortOrder": 233,
+      "phrase": "SAUDI ARABIA",
+      "clue": "Desert kingdom home to Mecca",
+      "category": "COUNTRIES",
+      "clueEmoji": "🇸🇦",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-countries-34",
+      "sortOrder": 234,
+      "phrase": "UNITED ARAB EMIRATES",
+      "clue": "Gulf country home to Dubai",
+      "category": "COUNTRIES",
+      "clueEmoji": "🇦🇪",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-countries-35",
+      "sortOrder": 235,
+      "phrase": "MOROCCO",
+      "clue": "North African kingdom with Marrakech",
+      "category": "COUNTRIES",
+      "clueEmoji": "🇲🇦",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-countries-36",
+      "sortOrder": 236,
+      "phrase": "KENYA",
+      "clue": "East African country famous for wildlife",
+      "category": "COUNTRIES",
+      "clueEmoji": "🇰🇪",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-countries-37",
+      "sortOrder": 237,
+      "phrase": "NIGERIA",
+      "clue": "Africa's most populous country",
+      "category": "COUNTRIES",
+      "clueEmoji": "🇳🇬",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-countries-38",
+      "sortOrder": 238,
+      "phrase": "COLOMBIA",
+      "clue": "Coffee-growing country in South America",
+      "category": "COUNTRIES",
+      "clueEmoji": "🇨🇴",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-countries-39",
+      "sortOrder": 239,
+      "phrase": "PERU",
+      "clue": "Andean country home to Machu Picchu",
+      "category": "COUNTRIES",
+      "clueEmoji": "🇵🇪",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-countries-40",
+      "sortOrder": 240,
+      "phrase": "VIETNAM",
+      "clue": "Southeast Asian country with Hanoi",
+      "category": "COUNTRIES",
+      "clueEmoji": "🇻🇳",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-countries-41",
+      "sortOrder": 241,
+      "phrase": "BHUTAN",
+      "clue": "Himalayan kingdom known for Gross National Happiness",
+      "category": "COUNTRIES",
+      "clueEmoji": "🇧🇹",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-countries-42",
+      "sortOrder": 242,
+      "phrase": "KYRGYZSTAN",
+      "clue": "Mountainous Central Asian nation",
+      "category": "COUNTRIES",
+      "clueEmoji": "🇰🇬",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-countries-43",
+      "sortOrder": 243,
+      "phrase": "UZBEKISTAN",
+      "clue": "Central Asian country on the Silk Road",
+      "category": "COUNTRIES",
+      "clueEmoji": "🇺🇿",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-countries-44",
+      "sortOrder": 244,
+      "phrase": "MADAGASCAR",
+      "clue": "Large island nation off southeast Africa",
+      "category": "COUNTRIES",
+      "clueEmoji": "🇲🇬",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-countries-45",
+      "sortOrder": 245,
+      "phrase": "ESTONIA",
+      "clue": "Baltic digital nation with capital Tallinn",
+      "category": "COUNTRIES",
+      "clueEmoji": "🇪🇪",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-countries-46",
+      "sortOrder": 246,
+      "phrase": "SLOVENIA",
+      "clue": "Alpine Balkan country with Lake Bled",
+      "category": "COUNTRIES",
+      "clueEmoji": "🇸🇮",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-countries-47",
+      "sortOrder": 247,
+      "phrase": "URUGUAY",
+      "clue": "Small South American country east of Argentina",
+      "category": "COUNTRIES",
+      "clueEmoji": "🇺🇾",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-countries-48",
+      "sortOrder": 248,
+      "phrase": "OMAN",
+      "clue": "Arabian country with capital Muscat",
+      "category": "COUNTRIES",
+      "clueEmoji": "🇴🇲",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-countries-49",
+      "sortOrder": 249,
+      "phrase": "MONGOLIA",
+      "clue": "Landlocked nation of steppes and Genghis Khan",
+      "category": "COUNTRIES",
+      "clueEmoji": "🇲🇳",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-countries-50",
+      "sortOrder": 250,
+      "phrase": "MALTA",
+      "clue": "Tiny Mediterranean island country",
+      "category": "COUNTRIES",
+      "clueEmoji": "🇲🇹",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-music-01",
+      "sortOrder": 251,
+      "phrase": "THE BEATLES",
+      "clue": "Fab Four from Liverpool",
+      "category": "MUSIC",
+      "clueEmoji": "🎸",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-music-02",
+      "sortOrder": 252,
+      "phrase": "MICHAEL JACKSON",
+      "clue": "King of Pop who moonwalked",
+      "category": "MUSIC",
+      "clueEmoji": "🕺",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-music-03",
+      "sortOrder": 253,
+      "phrase": "TAYLOR SWIFT",
+      "clue": "Pop superstar behind the Eras tour",
+      "category": "MUSIC",
+      "clueEmoji": "🎤",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-music-04",
+      "sortOrder": 254,
+      "phrase": "ELECTRIC GUITAR",
+      "clue": "Amplified six-string rock instrument",
+      "category": "MUSIC",
+      "clueEmoji": "🎸",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-music-05",
+      "sortOrder": 255,
+      "phrase": "SPOTIFY PLAYLIST",
+      "clue": "Streaming queue of favorite songs",
+      "category": "MUSIC",
+      "clueEmoji": "🎧",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-music-06",
+      "sortOrder": 256,
+      "phrase": "BEYONCE",
+      "clue": "Queen Bey of pop and R&B",
+      "category": "MUSIC",
+      "clueEmoji": "👸",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-music-07",
+      "sortOrder": 257,
+      "phrase": "PIANO KEYS",
+      "clue": "Black and white keyboard instrument",
+      "category": "MUSIC",
+      "clueEmoji": "🎹",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-music-08",
+      "sortOrder": 258,
+      "phrase": "DRUM KIT",
+      "clue": "Snare, cymbals, and kick pedal set",
+      "category": "MUSIC",
+      "clueEmoji": "🥁",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-music-09",
+      "sortOrder": 259,
+      "phrase": "ED SHEERAN",
+      "clue": "Singer of Shape of You",
+      "category": "MUSIC",
+      "clueEmoji": "🎶",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-music-10",
+      "sortOrder": 260,
+      "phrase": "EMINEM",
+      "clue": "Rap superstar from Detroit",
+      "category": "MUSIC",
+      "clueEmoji": "🎤",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-music-11",
+      "sortOrder": 261,
+      "phrase": "ARIANA GRANDE",
+      "clue": "Pop singer known for high notes",
+      "category": "MUSIC",
+      "clueEmoji": "🎀",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-music-12",
+      "sortOrder": 262,
+      "phrase": "JUSTIN BIEBER",
+      "clue": "Canadian pop singer discovered young",
+      "category": "MUSIC",
+      "clueEmoji": "🇨🇦",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-music-13",
+      "sortOrder": 263,
+      "phrase": "BILLIE EILISH",
+      "clue": "Pop singer with whispery dark style",
+      "category": "MUSIC",
+      "clueEmoji": "🕷️",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-music-14",
+      "sortOrder": 264,
+      "phrase": "SHAKIRA",
+      "clue": "Colombian singer with famous hips",
+      "category": "MUSIC",
+      "clueEmoji": "💃",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-music-15",
+      "sortOrder": 265,
+      "phrase": "DRAKE",
+      "clue": "Canadian rapper and singer",
+      "category": "MUSIC",
+      "clueEmoji": "🦉",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-music-16",
+      "sortOrder": 266,
+      "phrase": "LADY GAGA",
+      "clue": "Pop star known for bold costumes",
+      "category": "MUSIC",
+      "clueEmoji": "⭐",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-music-17",
+      "sortOrder": 267,
+      "phrase": "BRUNO MARS",
+      "clue": "Singer of Uptown Funk",
+      "category": "MUSIC",
+      "clueEmoji": "🕺",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-music-18",
+      "sortOrder": 268,
+      "phrase": "RIHANNA",
+      "clue": "Barbadian singer and business mogul",
+      "category": "MUSIC",
+      "clueEmoji": "💎",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-music-19",
+      "sortOrder": 269,
+      "phrase": "KATY PERRY",
+      "clue": "Pop singer of Firework",
+      "category": "MUSIC",
+      "clueEmoji": "🎆",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-music-20",
+      "sortOrder": 270,
+      "phrase": "ONE DIRECTION",
+      "clue": "British-Irish boy band phenomenon",
+      "category": "MUSIC",
+      "clueEmoji": "5️⃣",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-music-21",
+      "sortOrder": 271,
+      "phrase": "BOHEMIAN RHAPSODY",
+      "clue": "Queen's operatic rock epic",
+      "category": "MUSIC",
+      "clueEmoji": "👑",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-music-22",
+      "sortOrder": 272,
+      "phrase": "GRAMMY AWARDS",
+      "clue": "Golden gramophone music prizes",
+      "category": "MUSIC",
+      "clueEmoji": "🏆",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-music-23",
+      "sortOrder": 273,
+      "phrase": "ELVIS PRESLEY",
+      "clue": "Rock and roll king from Memphis",
+      "category": "MUSIC",
+      "clueEmoji": "🎙️",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-music-24",
+      "sortOrder": 274,
+      "phrase": "FREDDIE MERCURY",
+      "clue": "Queen frontman with huge stage presence",
+      "category": "MUSIC",
+      "clueEmoji": "👑",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-music-25",
+      "sortOrder": 275,
+      "phrase": "BOB MARLEY",
+      "clue": "Reggae legend from Jamaica",
+      "category": "MUSIC",
+      "clueEmoji": "🇯🇲",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-music-26",
+      "sortOrder": 276,
+      "phrase": "ADELE",
+      "clue": "British singer known for emotional ballads",
+      "category": "MUSIC",
+      "clueEmoji": "🎼",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-music-27",
+      "sortOrder": 277,
+      "phrase": "COLDPLAY",
+      "clue": "British band behind Yellow and Fix You",
+      "category": "MUSIC",
+      "clueEmoji": "💛",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-music-28",
+      "sortOrder": 278,
+      "phrase": "MAROON FIVE",
+      "clue": "Pop rock band led by Adam Levine",
+      "category": "MUSIC",
+      "clueEmoji": "🎸",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-music-29",
+      "sortOrder": 279,
+      "phrase": "NIRVANA",
+      "clue": "Grunge band led by Kurt Cobain",
+      "category": "MUSIC",
+      "clueEmoji": "🎸",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-music-30",
+      "sortOrder": 280,
+      "phrase": "METALLICA",
+      "clue": "Heavy metal band behind Enter Sandman",
+      "category": "MUSIC",
+      "clueEmoji": "⚡",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-music-31",
+      "sortOrder": 281,
+      "phrase": "QUEEN BAND",
+      "clue": "British rock band with theatrical anthems",
+      "category": "MUSIC",
+      "clueEmoji": "👑",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-music-32",
+      "sortOrder": 282,
+      "phrase": "HIP HOP",
+      "clue": "Music genre born from rap culture",
+      "category": "MUSIC",
+      "clueEmoji": "🎤",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-music-33",
+      "sortOrder": 283,
+      "phrase": "JAZZ MUSIC",
+      "clue": "Improvisational style with swing roots",
+      "category": "MUSIC",
+      "clueEmoji": "🎷",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-music-34",
+      "sortOrder": 284,
+      "phrase": "CLASSICAL MUSIC",
+      "clue": "Orchestral tradition of Mozart and Beethoven",
+      "category": "MUSIC",
+      "clueEmoji": "🎻",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-music-35",
+      "sortOrder": 285,
+      "phrase": "COUNTRY MUSIC",
+      "clue": "Storytelling genre with guitars and twang",
+      "category": "MUSIC",
+      "clueEmoji": "🤠",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-music-36",
+      "sortOrder": 286,
+      "phrase": "REGGAE MUSIC",
+      "clue": "Jamaican rhythm with offbeat chords",
+      "category": "MUSIC",
+      "clueEmoji": "🇯🇲",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-music-37",
+      "sortOrder": 287,
+      "phrase": "ROCK AND ROLL",
+      "clue": "Guitar-driven genre from the 1950s",
+      "category": "MUSIC",
+      "clueEmoji": "🎸",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-music-38",
+      "sortOrder": 288,
+      "phrase": "K POP",
+      "clue": "Korean pop music phenomenon",
+      "category": "MUSIC",
+      "clueEmoji": "🇰🇷",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-music-39",
+      "sortOrder": 289,
+      "phrase": "MUSIC FESTIVAL",
+      "clue": "Large live event with many performers",
+      "category": "MUSIC",
+      "clueEmoji": "🎪",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-music-40",
+      "sortOrder": 290,
+      "phrase": "VINYL RECORD",
+      "clue": "Grooved disc for analog music",
+      "category": "MUSIC",
+      "clueEmoji": "💿",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-music-41",
+      "sortOrder": 291,
+      "phrase": "SERGEANT PEPPER",
+      "clue": "Beatles album with a colorful cover",
+      "category": "MUSIC",
+      "clueEmoji": "🌈",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-music-42",
+      "sortOrder": 292,
+      "phrase": "KIND OF BLUE",
+      "clue": "Miles Davis jazz landmark album",
+      "category": "MUSIC",
+      "clueEmoji": "🎺",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-music-43",
+      "sortOrder": 293,
+      "phrase": "SITAR",
+      "clue": "String instrument central to Indian classical music",
+      "category": "MUSIC",
+      "clueEmoji": "🪕",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-music-44",
+      "sortOrder": 294,
+      "phrase": "THEREMIN",
+      "clue": "Electronic instrument played without touch",
+      "category": "MUSIC",
+      "clueEmoji": "👋",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-music-45",
+      "sortOrder": 295,
+      "phrase": "POLYRHYTHM",
+      "clue": "Multiple rhythms played at once",
+      "category": "MUSIC",
+      "clueEmoji": "🥁",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-music-46",
+      "sortOrder": 296,
+      "phrase": "SYNCOPATION",
+      "clue": "Accent placed off the expected beat",
+      "category": "MUSIC",
+      "clueEmoji": "🎵",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-music-47",
+      "sortOrder": 297,
+      "phrase": "CONCEPT ALBUM",
+      "clue": "Record built around one idea or story",
+      "category": "MUSIC",
+      "clueEmoji": "📀",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-music-48",
+      "sortOrder": 298,
+      "phrase": "BOSSA NOVA",
+      "clue": "Brazilian style blending samba and jazz",
+      "category": "MUSIC",
+      "clueEmoji": "🇧🇷",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-music-49",
+      "sortOrder": 299,
+      "phrase": "MOTOWN SOUND",
+      "clue": "Soul pop style from Detroit's famous label",
+      "category": "MUSIC",
+      "clueEmoji": "🏙️",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-music-50",
+      "sortOrder": 300,
+      "phrase": "BAROQUE ERA",
+      "clue": "Ornate classical period of Bach and Handel",
+      "category": "MUSIC",
+      "clueEmoji": "🎻",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-brands-01",
+      "sortOrder": 301,
+      "phrase": "APPLE INC",
+      "clue": "iPhone maker with a bitten logo",
+      "category": "BRANDS",
+      "clueEmoji": "🍎",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-brands-02",
+      "sortOrder": 302,
+      "phrase": "NIKE SWOOSH",
+      "clue": "Just Do It sportswear brand",
+      "category": "BRANDS",
+      "clueEmoji": "👟",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-brands-03",
+      "sortOrder": 303,
+      "phrase": "COCA COLA",
+      "clue": "Red-can fizzy cola classic",
+      "category": "BRANDS",
+      "clueEmoji": "🥤",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-brands-04",
+      "sortOrder": 304,
+      "phrase": "MCDONALDS",
+      "clue": "Golden arches fast-food chain",
+      "category": "BRANDS",
+      "clueEmoji": "🍟",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-brands-05",
+      "sortOrder": 305,
+      "phrase": "GOOGLE SEARCH",
+      "clue": "Colorful-letter search engine giant",
+      "category": "BRANDS",
+      "clueEmoji": "🔍",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-brands-06",
+      "sortOrder": 306,
+      "phrase": "STARBUCKS COFFEE",
+      "clue": "Green siren cafe chain",
+      "category": "BRANDS",
+      "clueEmoji": "☕",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-brands-07",
+      "sortOrder": 307,
+      "phrase": "ADIDAS STRIPES",
+      "clue": "German sportswear with three stripes",
+      "category": "BRANDS",
+      "clueEmoji": "👕",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-brands-08",
+      "sortOrder": 308,
+      "phrase": "SAMSUNG GALAXY",
+      "clue": "Korean smartphone and tablet series",
+      "category": "BRANDS",
+      "clueEmoji": "📱",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-brands-09",
+      "sortOrder": 309,
+      "phrase": "NETFLIX STREAM",
+      "clue": "Red N logo binge-watch platform",
+      "category": "BRANDS",
+      "clueEmoji": "📺",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-brands-10",
+      "sortOrder": 310,
+      "phrase": "DISNEY PLUS",
+      "clue": "Streaming home of Marvel and Star Wars",
+      "category": "BRANDS",
+      "clueEmoji": "🏰",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-brands-11",
+      "sortOrder": 311,
+      "phrase": "PLAYSTATION FIVE",
+      "clue": "Sony's white and black gaming console",
+      "category": "BRANDS",
+      "clueEmoji": "🎮",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-brands-12",
+      "sortOrder": 312,
+      "phrase": "LEGO BRICKS",
+      "clue": "Colorful toy blocks that snap together",
+      "category": "BRANDS",
+      "clueEmoji": "🧱",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-brands-13",
+      "sortOrder": 313,
+      "phrase": "KFC BUCKET",
+      "clue": "Fried chicken chain with a colonel",
+      "category": "BRANDS",
+      "clueEmoji": "🍗",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-brands-14",
+      "sortOrder": 314,
+      "phrase": "PEPSI COLA",
+      "clue": "Blue-label fizzy cola rival",
+      "category": "BRANDS",
+      "clueEmoji": "🥤",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-brands-15",
+      "sortOrder": 315,
+      "phrase": "PUMA SHOES",
+      "clue": "Sportswear brand with leaping cat logo",
+      "category": "BRANDS",
+      "clueEmoji": "🐆",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-brands-16",
+      "sortOrder": 316,
+      "phrase": "BURGER KING",
+      "clue": "Fast-food chain known for Whopper",
+      "category": "BRANDS",
+      "clueEmoji": "🍔",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-brands-17",
+      "sortOrder": 317,
+      "phrase": "YOUTUBE",
+      "clue": "Video platform with a red play button",
+      "category": "BRANDS",
+      "clueEmoji": "▶️",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-brands-18",
+      "sortOrder": 318,
+      "phrase": "INSTAGRAM",
+      "clue": "Photo app with camera-style logo",
+      "category": "BRANDS",
+      "clueEmoji": "📸",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-brands-19",
+      "sortOrder": 319,
+      "phrase": "WHATSAPP",
+      "clue": "Messaging app with green speech bubble",
+      "category": "BRANDS",
+      "clueEmoji": "💬",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-brands-20",
+      "sortOrder": 320,
+      "phrase": "UBER RIDE",
+      "clue": "App-based ride-hailing service",
+      "category": "BRANDS",
+      "clueEmoji": "🚗",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-brands-21",
+      "sortOrder": 321,
+      "phrase": "AMAZON PRIME",
+      "clue": "Smile-arrow online retail membership",
+      "category": "BRANDS",
+      "clueEmoji": "📦",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-brands-22",
+      "sortOrder": 322,
+      "phrase": "TESLA MOTORS",
+      "clue": "Electric car company led by Elon Musk",
+      "category": "BRANDS",
+      "clueEmoji": "⚡",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-brands-23",
+      "sortOrder": 323,
+      "phrase": "MICROSOFT WINDOWS",
+      "clue": "Software giant's desktop operating system",
+      "category": "BRANDS",
+      "clueEmoji": "🪟",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-brands-24",
+      "sortOrder": 324,
+      "phrase": "XBOX SERIES",
+      "clue": "Microsoft gaming console line",
+      "category": "BRANDS",
+      "clueEmoji": "🎮",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-brands-25",
+      "sortOrder": 325,
+      "phrase": "NINTENDO SWITCH",
+      "clue": "Hybrid console for docked and handheld play",
+      "category": "BRANDS",
+      "clueEmoji": "🎮",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-brands-26",
+      "sortOrder": 326,
+      "phrase": "AIR JORDAN",
+      "clue": "Nike basketball sneaker line",
+      "category": "BRANDS",
+      "clueEmoji": "🏀",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-brands-27",
+      "sortOrder": 327,
+      "phrase": "LOUIS VUITTON",
+      "clue": "Luxury brand with monogram bags",
+      "category": "BRANDS",
+      "clueEmoji": "👜",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-brands-28",
+      "sortOrder": 328,
+      "phrase": "GUCCI",
+      "clue": "Italian luxury fashion house",
+      "category": "BRANDS",
+      "clueEmoji": "🐝",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-brands-29",
+      "sortOrder": 329,
+      "phrase": "ROLEX WATCH",
+      "clue": "Luxury watch brand with crown logo",
+      "category": "BRANDS",
+      "clueEmoji": "⌚",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-brands-30",
+      "sortOrder": 330,
+      "phrase": "BMW",
+      "clue": "German carmaker with blue-white roundel",
+      "category": "BRANDS",
+      "clueEmoji": "🚘",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-brands-31",
+      "sortOrder": 331,
+      "phrase": "MERCEDES BENZ",
+      "clue": "Luxury car brand with three-pointed star",
+      "category": "BRANDS",
+      "clueEmoji": "⭐",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-brands-32",
+      "sortOrder": 332,
+      "phrase": "TOYOTA",
+      "clue": "Japanese car brand known for reliability",
+      "category": "BRANDS",
+      "clueEmoji": "🚗",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-brands-33",
+      "sortOrder": 333,
+      "phrase": "HONDA",
+      "clue": "Japanese maker of cars and motorbikes",
+      "category": "BRANDS",
+      "clueEmoji": "🏍️",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-brands-34",
+      "sortOrder": 334,
+      "phrase": "SONY PICTURES",
+      "clue": "Entertainment brand with film studio roots",
+      "category": "BRANDS",
+      "clueEmoji": "🎥",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-brands-35",
+      "sortOrder": 335,
+      "phrase": "PARAMOUNT PLUS",
+      "clue": "Streaming service with mountain logo",
+      "category": "BRANDS",
+      "clueEmoji": "⛰️",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-brands-36",
+      "sortOrder": 336,
+      "phrase": "HBO MAX",
+      "clue": "Streaming brand known for prestige TV",
+      "category": "BRANDS",
+      "clueEmoji": "📺",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-brands-37",
+      "sortOrder": 337,
+      "phrase": "RED BULL",
+      "clue": "Energy drink that gives you wings",
+      "category": "BRANDS",
+      "clueEmoji": "🪽",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-brands-38",
+      "sortOrder": 338,
+      "phrase": "DORITOS",
+      "clue": "Triangular flavored tortilla chips",
+      "category": "BRANDS",
+      "clueEmoji": "🔺",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-brands-39",
+      "sortOrder": 339,
+      "phrase": "OREO COOKIES",
+      "clue": "Chocolate sandwich cookie with cream",
+      "category": "BRANDS",
+      "clueEmoji": "🍪",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-brands-40",
+      "sortOrder": 340,
+      "phrase": "IKEA",
+      "clue": "Swedish furniture brand with flat packs",
+      "category": "BRANDS",
+      "clueEmoji": "🪑",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-brands-41",
+      "sortOrder": 341,
+      "phrase": "SUPREME BOX LOGO",
+      "clue": "Streetwear brand with red rectangular logo",
+      "category": "BRANDS",
+      "clueEmoji": "🟥",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-brands-42",
+      "sortOrder": 342,
+      "phrase": "BALENCIAGA",
+      "clue": "Luxury fashion house known for bold designs",
+      "category": "BRANDS",
+      "clueEmoji": "👟",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-brands-43",
+      "sortOrder": 343,
+      "phrase": "PATAGONIA",
+      "clue": "Outdoor brand with mountain logo",
+      "category": "BRANDS",
+      "clueEmoji": "🏔️",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-brands-44",
+      "sortOrder": 344,
+      "phrase": "NVIDIA GEFORCE",
+      "clue": "Graphics card brand for gaming PCs",
+      "category": "BRANDS",
+      "clueEmoji": "🖥️",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-brands-45",
+      "sortOrder": 345,
+      "phrase": "INTEL CORE",
+      "clue": "Processor line found in many computers",
+      "category": "BRANDS",
+      "clueEmoji": "💻",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-brands-46",
+      "sortOrder": 346,
+      "phrase": "AMD RYZEN",
+      "clue": "Processor brand competing in PCs",
+      "category": "BRANDS",
+      "clueEmoji": "⚙️",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-brands-47",
+      "sortOrder": 347,
+      "phrase": "HERMES BIRKIN",
+      "clue": "Luxury handbag associated with exclusivity",
+      "category": "BRANDS",
+      "clueEmoji": "👜",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-brands-48",
+      "sortOrder": 348,
+      "phrase": "ASTON MARTIN",
+      "clue": "British luxury car brand linked to Bond",
+      "category": "BRANDS",
+      "clueEmoji": "🚘",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-brands-49",
+      "sortOrder": 349,
+      "phrase": "TAG HEUER",
+      "clue": "Swiss watch brand tied to racing",
+      "category": "BRANDS",
+      "clueEmoji": "⏱️",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-brands-50",
+      "sortOrder": 350,
+      "phrase": "UNIQLO",
+      "clue": "Japanese casual clothing retailer",
+      "category": "BRANDS",
+      "clueEmoji": "👕",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-history-01",
+      "sortOrder": 351,
+      "phrase": "WORLD WAR TWO",
+      "clue": "Global conflict from 1939 to 1945",
+      "category": "HISTORY",
+      "clueEmoji": "🌍",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-history-02",
+      "sortOrder": 352,
+      "phrase": "MOON LANDING",
+      "clue": "Apollo 11 put Armstrong on the lunar surface",
+      "category": "HISTORY",
+      "clueEmoji": "🌙",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-history-03",
+      "sortOrder": 353,
+      "phrase": "BERLIN WALL",
+      "clue": "Barrier that divided East and West Germany",
+      "category": "HISTORY",
+      "clueEmoji": "🧱",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-history-04",
+      "sortOrder": 354,
+      "phrase": "ANCIENT EGYPT",
+      "clue": "Civilization of pharaohs and pyramids",
+      "category": "HISTORY",
+      "clueEmoji": "🐪",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-history-05",
+      "sortOrder": 355,
+      "phrase": "ANCIENT ROME",
+      "clue": "Empire of gladiators and the Colosseum",
+      "category": "HISTORY",
+      "clueEmoji": "🏛️",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-history-06",
+      "sortOrder": 356,
+      "phrase": "GREAT WALL CHINA",
+      "clue": "Ancient fortification in northern China",
+      "category": "HISTORY",
+      "clueEmoji": "🧱",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-history-07",
+      "sortOrder": 357,
+      "phrase": "TITANIC SINKING",
+      "clue": "Famous ship disaster in 1912",
+      "category": "HISTORY",
+      "clueEmoji": "🚢",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-history-08",
+      "sortOrder": 358,
+      "phrase": "VIKING AGE",
+      "clue": "Norse seafarers who raided Europe",
+      "category": "HISTORY",
+      "clueEmoji": "⛵",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-history-09",
+      "sortOrder": 359,
+      "phrase": "BLACK DEATH",
+      "clue": "Medieval plague that devastated Europe",
+      "category": "HISTORY",
+      "clueEmoji": "🦠",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-history-10",
+      "sortOrder": 360,
+      "phrase": "AMERICAN CIVIL WAR",
+      "clue": "North vs South conflict in the 1860s",
+      "category": "HISTORY",
+      "clueEmoji": "⚔️",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-history-11",
+      "sortOrder": 361,
+      "phrase": "MARTIN LUTHER KING",
+      "clue": "Civil rights leader with a famous dream",
+      "category": "HISTORY",
+      "clueEmoji": "🕊️",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-history-12",
+      "sortOrder": 362,
+      "phrase": "NELSON MANDELA",
+      "clue": "South African anti-apartheid leader",
+      "category": "HISTORY",
+      "clueEmoji": "🇿🇦",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-history-13",
+      "sortOrder": 363,
+      "phrase": "GEORGE WASHINGTON",
+      "clue": "First president of the United States",
+      "category": "HISTORY",
+      "clueEmoji": "🇺🇸",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-history-14",
+      "sortOrder": 364,
+      "phrase": "ABRAHAM LINCOLN",
+      "clue": "US president during the Civil War",
+      "category": "HISTORY",
+      "clueEmoji": "🎩",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-history-15",
+      "sortOrder": 365,
+      "phrase": "CLEOPATRA VII",
+      "clue": "Last pharaoh of ancient Egypt",
+      "category": "HISTORY",
+      "clueEmoji": "👑",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-history-16",
+      "sortOrder": 366,
+      "phrase": "JULIUS CAESAR",
+      "clue": "Roman leader assassinated in 44 BC",
+      "category": "HISTORY",
+      "clueEmoji": "🗡️",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-history-17",
+      "sortOrder": 367,
+      "phrase": "COLD WAR",
+      "clue": "Long rivalry between USA and USSR",
+      "category": "HISTORY",
+      "clueEmoji": "❄️",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-history-18",
+      "sortOrder": 368,
+      "phrase": "WORLD WAR ONE",
+      "clue": "Global conflict from 1914 to 1918",
+      "category": "HISTORY",
+      "clueEmoji": "🌍",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-history-19",
+      "sortOrder": 369,
+      "phrase": "STONE AGE",
+      "clue": "Early period of tools made from stone",
+      "category": "HISTORY",
+      "clueEmoji": "🪨",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-history-20",
+      "sortOrder": 370,
+      "phrase": "IRON AGE",
+      "clue": "Era marked by widespread iron tools",
+      "category": "HISTORY",
+      "clueEmoji": "⚒️",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-history-21",
+      "sortOrder": 371,
+      "phrase": "FRENCH REVOLUTION",
+      "clue": "1789 uprising that stormed the Bastille",
+      "category": "HISTORY",
+      "clueEmoji": "🇫🇷",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-history-22",
+      "sortOrder": 372,
+      "phrase": "INDUSTRIAL REVOLUTION",
+      "clue": "Era of factories and steam power",
+      "category": "HISTORY",
+      "clueEmoji": "🏭",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-history-23",
+      "sortOrder": 373,
+      "phrase": "MAGNA CARTA",
+      "clue": "1215 English charter of liberties",
+      "category": "HISTORY",
+      "clueEmoji": "📜",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-history-24",
+      "sortOrder": 374,
+      "phrase": "RENAISSANCE ERA",
+      "clue": "European rebirth of art and science",
+      "category": "HISTORY",
+      "clueEmoji": "🎨",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-history-25",
+      "sortOrder": 375,
+      "phrase": "ROMAN EMPIRE",
+      "clue": "Vast empire ruled from Rome",
+      "category": "HISTORY",
+      "clueEmoji": "🏛️",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-history-26",
+      "sortOrder": 376,
+      "phrase": "OTTOMAN EMPIRE",
+      "clue": "Empire centered on Istanbul for centuries",
+      "category": "HISTORY",
+      "clueEmoji": "🌙",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-history-27",
+      "sortOrder": 377,
+      "phrase": "MONGOL EMPIRE",
+      "clue": "Largest contiguous land empire in history",
+      "category": "HISTORY",
+      "clueEmoji": "🐎",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-history-28",
+      "sortOrder": 378,
+      "phrase": "SILK ROAD",
+      "clue": "Ancient trade routes linking East and West",
+      "category": "HISTORY",
+      "clueEmoji": "🐫",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-history-29",
+      "sortOrder": 379,
+      "phrase": "BOSTON TEA PARTY",
+      "clue": "Colonial protest involving dumped tea",
+      "category": "HISTORY",
+      "clueEmoji": "🫖",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-history-30",
+      "sortOrder": 380,
+      "phrase": "SPANISH ARMADA",
+      "clue": "Fleet defeated by England in 1588",
+      "category": "HISTORY",
+      "clueEmoji": "⛵",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-history-31",
+      "sortOrder": 381,
+      "phrase": "GUTENBERG PRESS",
+      "clue": "Printing invention that spread books widely",
+      "category": "HISTORY",
+      "clueEmoji": "📖",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-history-32",
+      "sortOrder": 382,
+      "phrase": "PROTESTANT REFORMATION",
+      "clue": "Religious movement sparked by Martin Luther",
+      "category": "HISTORY",
+      "clueEmoji": "⛪",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-history-33",
+      "sortOrder": 383,
+      "phrase": "MEIJI RESTORATION",
+      "clue": "Japan's rapid modernization era",
+      "category": "HISTORY",
+      "clueEmoji": "🇯🇵",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-history-34",
+      "sortOrder": 384,
+      "phrase": "RUSSIAN REVOLUTION",
+      "clue": "1917 uprising that ended the Romanovs",
+      "category": "HISTORY",
+      "clueEmoji": "🇷🇺",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-history-35",
+      "sortOrder": 385,
+      "phrase": "D DAY",
+      "clue": "Allied Normandy landings in 1944",
+      "category": "HISTORY",
+      "clueEmoji": "🪖",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-history-36",
+      "sortOrder": 386,
+      "phrase": "HUNDRED YEARS WAR",
+      "clue": "Long medieval conflict between England and France",
+      "category": "HISTORY",
+      "clueEmoji": "⚔️",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-history-37",
+      "sortOrder": 387,
+      "phrase": "PERSIAN EMPIRE",
+      "clue": "Ancient empire of Cyrus and Darius",
+      "category": "HISTORY",
+      "clueEmoji": "🏺",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-history-38",
+      "sortOrder": 388,
+      "phrase": "MESOPOTAMIA",
+      "clue": "Region known as the cradle of civilization",
+      "category": "HISTORY",
+      "clueEmoji": "🌾",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-history-39",
+      "sortOrder": 389,
+      "phrase": "AZTEC EMPIRE",
+      "clue": "Mesoamerican empire centered on Tenochtitlan",
+      "category": "HISTORY",
+      "clueEmoji": "🦅",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-history-40",
+      "sortOrder": 390,
+      "phrase": "MAYAN CIVILIZATION",
+      "clue": "Ancient civilization known for calendars and temples",
+      "category": "HISTORY",
+      "clueEmoji": "🛕",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-history-41",
+      "sortOrder": 391,
+      "phrase": "BATTLE OF HASTINGS",
+      "clue": "1066 clash that changed England",
+      "category": "HISTORY",
+      "clueEmoji": "⚔️",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-history-42",
+      "sortOrder": 392,
+      "phrase": "TREATY OF WESTPHALIA",
+      "clue": "1648 peace ending the Thirty Years War",
+      "category": "HISTORY",
+      "clueEmoji": "📜",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-history-43",
+      "sortOrder": 393,
+      "phrase": "TAIPING REBELLION",
+      "clue": "Massive nineteenth-century Chinese civil war",
+      "category": "HISTORY",
+      "clueEmoji": "🏯",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-history-44",
+      "sortOrder": 394,
+      "phrase": "PELOPONNESIAN WAR",
+      "clue": "Athens and Sparta fought this long conflict",
+      "category": "HISTORY",
+      "clueEmoji": "🏺",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-history-45",
+      "sortOrder": 395,
+      "phrase": "ASHOKA THE GREAT",
+      "clue": "Mauryan emperor who embraced Buddhism",
+      "category": "HISTORY",
+      "clueEmoji": "☸️",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-history-46",
+      "sortOrder": 396,
+      "phrase": "HANNIBAL BARCA",
+      "clue": "Carthaginian general who crossed the Alps",
+      "category": "HISTORY",
+      "clueEmoji": "🐘",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-history-47",
+      "sortOrder": 397,
+      "phrase": "BATTLE OF TOURS",
+      "clue": "Frankish victory often linked to Charles Martel",
+      "category": "HISTORY",
+      "clueEmoji": "🛡️",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-history-48",
+      "sortOrder": 398,
+      "phrase": "COUNCIL OF NICAEA",
+      "clue": "Early Christian council called in 325",
+      "category": "HISTORY",
+      "clueEmoji": "⛪",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-history-49",
+      "sortOrder": 399,
+      "phrase": "QING DYNASTY",
+      "clue": "China's last imperial dynasty",
+      "category": "HISTORY",
+      "clueEmoji": "🐉",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-history-50",
+      "sortOrder": 400,
+      "phrase": "SENGOKU PERIOD",
+      "clue": "Japan's age of warring states",
+      "category": "HISTORY",
+      "clueEmoji": "⚔️",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-science-01",
+      "sortOrder": 401,
+      "phrase": "GRAVITY",
+      "clue": "Force that pulls objects toward each other",
+      "category": "SCIENCE",
+      "clueEmoji": "🍎",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-science-02",
+      "sortOrder": 402,
+      "phrase": "SOLAR SYSTEM",
+      "clue": "The Sun and objects orbiting it",
+      "category": "SCIENCE",
+      "clueEmoji": "☀️",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-science-03",
+      "sortOrder": 403,
+      "phrase": "PLANET EARTH",
+      "clue": "Our home planet",
+      "category": "SCIENCE",
+      "clueEmoji": "🌍",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-science-04",
+      "sortOrder": 404,
+      "phrase": "WATER CYCLE",
+      "clue": "Evaporation, clouds, rain, and collection",
+      "category": "SCIENCE",
+      "clueEmoji": "💧",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-science-05",
+      "sortOrder": 405,
+      "phrase": "HUMAN HEART",
+      "clue": "Organ that pumps blood",
+      "category": "SCIENCE",
+      "clueEmoji": "❤️",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-science-06",
+      "sortOrder": 406,
+      "phrase": "LUNGS",
+      "clue": "Organs used for breathing",
+      "category": "SCIENCE",
+      "clueEmoji": "🫁",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-science-07",
+      "sortOrder": 407,
+      "phrase": "BRAIN",
+      "clue": "Organ that controls thoughts and actions",
+      "category": "SCIENCE",
+      "clueEmoji": "🧠",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-science-08",
+      "sortOrder": 408,
+      "phrase": "DINOSAURS",
+      "clue": "Ancient reptiles that once ruled Earth",
+      "category": "SCIENCE",
+      "clueEmoji": "🦖",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-science-09",
+      "sortOrder": 409,
+      "phrase": "MAGNET",
+      "clue": "Object that attracts iron",
+      "category": "SCIENCE",
+      "clueEmoji": "🧲",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-science-10",
+      "sortOrder": 410,
+      "phrase": "ELECTRICITY",
+      "clue": "Energy that powers lights and devices",
+      "category": "SCIENCE",
+      "clueEmoji": "⚡",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-science-11",
+      "sortOrder": 411,
+      "phrase": "RAINBOW",
+      "clue": "Colorful arc after sunlight meets rain",
+      "category": "SCIENCE",
+      "clueEmoji": "🌈",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-science-12",
+      "sortOrder": 412,
+      "phrase": "OXYGEN",
+      "clue": "Gas humans need to breathe",
+      "category": "SCIENCE",
+      "clueEmoji": "🫧",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-science-13",
+      "sortOrder": 413,
+      "phrase": "SUNLIGHT",
+      "clue": "Light and energy from the Sun",
+      "category": "SCIENCE",
+      "clueEmoji": "☀️",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-science-14",
+      "sortOrder": 414,
+      "phrase": "VOLCANO",
+      "clue": "Mountain that can erupt lava",
+      "category": "SCIENCE",
+      "clueEmoji": "🌋",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-science-15",
+      "sortOrder": 415,
+      "phrase": "EARTHQUAKE",
+      "clue": "Shaking caused by moving ground plates",
+      "category": "SCIENCE",
+      "clueEmoji": "🌎",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-science-16",
+      "sortOrder": 416,
+      "phrase": "MAMMAL",
+      "clue": "Warm-blooded animal that feeds milk",
+      "category": "SCIENCE",
+      "clueEmoji": "🐶",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-science-17",
+      "sortOrder": 417,
+      "phrase": "REPTILE",
+      "clue": "Cold-blooded animal such as a lizard",
+      "category": "SCIENCE",
+      "clueEmoji": "🦎",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-science-18",
+      "sortOrder": 418,
+      "phrase": "INSECT",
+      "clue": "Six-legged animal such as an ant",
+      "category": "SCIENCE",
+      "clueEmoji": "🐜",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-science-19",
+      "sortOrder": 419,
+      "phrase": "TELESCOPE",
+      "clue": "Tool used to see distant space objects",
+      "category": "SCIENCE",
+      "clueEmoji": "🔭",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-science-20",
+      "sortOrder": 420,
+      "phrase": "MICROSCOPE",
+      "clue": "Tool used to see tiny things",
+      "category": "SCIENCE",
+      "clueEmoji": "🔬",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-science-21",
+      "sortOrder": 421,
+      "phrase": "PHOTOSYNTHESIS",
+      "clue": "Plants make food using sunlight",
+      "category": "SCIENCE",
+      "clueEmoji": "🌱",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-science-22",
+      "sortOrder": 422,
+      "phrase": "DNA",
+      "clue": "Molecule carrying genetic instructions",
+      "category": "SCIENCE",
+      "clueEmoji": "🧬",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-science-23",
+      "sortOrder": 423,
+      "phrase": "ATOM",
+      "clue": "Tiny unit that makes up matter",
+      "category": "SCIENCE",
+      "clueEmoji": "⚛️",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-science-24",
+      "sortOrder": 424,
+      "phrase": "MOLECULE",
+      "clue": "Group of atoms bonded together",
+      "category": "SCIENCE",
+      "clueEmoji": "🧪",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-science-25",
+      "sortOrder": 425,
+      "phrase": "PERIODIC TABLE",
+      "clue": "Chart of chemical elements",
+      "category": "SCIENCE",
+      "clueEmoji": "📋",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-science-26",
+      "sortOrder": 426,
+      "phrase": "NEWTONS LAWS",
+      "clue": "Rules describing motion and forces",
+      "category": "SCIENCE",
+      "clueEmoji": "🍎",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-science-27",
+      "sortOrder": 427,
+      "phrase": "EVOLUTION",
+      "clue": "Change in living things over generations",
+      "category": "SCIENCE",
+      "clueEmoji": "🐒",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-science-28",
+      "sortOrder": 428,
+      "phrase": "NATURAL SELECTION",
+      "clue": "Survival advantage shaping species over time",
+      "category": "SCIENCE",
+      "clueEmoji": "🌿",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-science-29",
+      "sortOrder": 429,
+      "phrase": "ECOSYSTEM",
+      "clue": "Living things interacting with their environment",
+      "category": "SCIENCE",
+      "clueEmoji": "🌳",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-science-30",
+      "sortOrder": 430,
+      "phrase": "FOOD CHAIN",
+      "clue": "Energy path from plants to animals",
+      "category": "SCIENCE",
+      "clueEmoji": "🔗",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-science-31",
+      "sortOrder": 431,
+      "phrase": "CLIMATE CHANGE",
+      "clue": "Long-term shifts in Earth's climate",
+      "category": "SCIENCE",
+      "clueEmoji": "🌡️",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-science-32",
+      "sortOrder": 432,
+      "phrase": "PLATE TECTONICS",
+      "clue": "Moving plates shape continents and oceans",
+      "category": "SCIENCE",
+      "clueEmoji": "🧩",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-science-33",
+      "sortOrder": 433,
+      "phrase": "BLACK HOLE",
+      "clue": "Space object with gravity so strong light cannot escape",
+      "category": "SCIENCE",
+      "clueEmoji": "🕳️",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-science-34",
+      "sortOrder": 434,
+      "phrase": "GALAXY",
+      "clue": "Huge collection of stars and gas",
+      "category": "SCIENCE",
+      "clueEmoji": "🌌",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-science-35",
+      "sortOrder": 435,
+      "phrase": "LIGHT SPEED",
+      "clue": "Fastest speed for light in vacuum",
+      "category": "SCIENCE",
+      "clueEmoji": "💡",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-science-36",
+      "sortOrder": 436,
+      "phrase": "CHEMICAL REACTION",
+      "clue": "Process that changes substances into new ones",
+      "category": "SCIENCE",
+      "clueEmoji": "🧪",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-science-37",
+      "sortOrder": 437,
+      "phrase": "ACID AND BASE",
+      "clue": "Chemical opposites measured by pH",
+      "category": "SCIENCE",
+      "clueEmoji": "⚗️",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-science-38",
+      "sortOrder": 438,
+      "phrase": "RENEWABLE ENERGY",
+      "clue": "Energy from sources that naturally refill",
+      "category": "SCIENCE",
+      "clueEmoji": "♻️",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-science-39",
+      "sortOrder": 439,
+      "phrase": "VACCINE",
+      "clue": "Medicine that trains immune protection",
+      "category": "SCIENCE",
+      "clueEmoji": "💉",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-science-40",
+      "sortOrder": 440,
+      "phrase": "FOSSIL FUEL",
+      "clue": "Coal, oil, or gas from ancient life",
+      "category": "SCIENCE",
+      "clueEmoji": "⛽",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-science-41",
+      "sortOrder": 441,
+      "phrase": "QUANTUM MECHANICS",
+      "clue": "Physics of particles at tiny scales",
+      "category": "SCIENCE",
+      "clueEmoji": "⚛️",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-science-42",
+      "sortOrder": 442,
+      "phrase": "RELATIVITY",
+      "clue": "Einstein's theory of space, time, and gravity",
+      "category": "SCIENCE",
+      "clueEmoji": "🕰️",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-science-43",
+      "sortOrder": 443,
+      "phrase": "CRISPR",
+      "clue": "Gene-editing tool using molecular scissors",
+      "category": "SCIENCE",
+      "clueEmoji": "✂️",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-science-44",
+      "sortOrder": 444,
+      "phrase": "ENTROPY",
+      "clue": "Measure of disorder in a system",
+      "category": "SCIENCE",
+      "clueEmoji": "🌪️",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-science-45",
+      "sortOrder": 445,
+      "phrase": "DARK MATTER",
+      "clue": "Invisible matter inferred from gravity",
+      "category": "SCIENCE",
+      "clueEmoji": "🌌",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-science-46",
+      "sortOrder": 446,
+      "phrase": "DARK ENERGY",
+      "clue": "Mysterious force linked to cosmic expansion",
+      "category": "SCIENCE",
+      "clueEmoji": "✨",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-science-47",
+      "sortOrder": 447,
+      "phrase": "HIGGS BOSON",
+      "clue": "Particle linked to the Higgs field",
+      "category": "SCIENCE",
+      "clueEmoji": "⚛️",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-science-48",
+      "sortOrder": 448,
+      "phrase": "RNA INTERFERENCE",
+      "clue": "Gene silencing process using RNA",
+      "category": "SCIENCE",
+      "clueEmoji": "🧬",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-science-49",
+      "sortOrder": 449,
+      "phrase": "SUPERCONDUCTOR",
+      "clue": "Material with zero electrical resistance",
+      "category": "SCIENCE",
+      "clueEmoji": "❄️",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-science-50",
+      "sortOrder": 450,
+      "phrase": "FERMI PARADOX",
+      "clue": "Question of why aliens seem absent",
+      "category": "SCIENCE",
+      "clueEmoji": "👽",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-animals-01",
+      "sortOrder": 451,
+      "phrase": "LION",
+      "clue": "Big cat known as king of the jungle",
+      "category": "ANIMALS",
+      "clueEmoji": "🦁",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-animals-02",
+      "sortOrder": 452,
+      "phrase": "TIGER",
+      "clue": "Striped big cat from Asia",
+      "category": "ANIMALS",
+      "clueEmoji": "🐅",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-animals-03",
+      "sortOrder": 453,
+      "phrase": "ELEPHANT",
+      "clue": "Huge animal with a trunk",
+      "category": "ANIMALS",
+      "clueEmoji": "🐘",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-animals-04",
+      "sortOrder": 454,
+      "phrase": "GIRAFFE",
+      "clue": "Tall animal with a long neck",
+      "category": "ANIMALS",
+      "clueEmoji": "🦒",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-animals-05",
+      "sortOrder": 455,
+      "phrase": "ZEBRA",
+      "clue": "Striped horse-like African animal",
+      "category": "ANIMALS",
+      "clueEmoji": "🦓",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-animals-06",
+      "sortOrder": 456,
+      "phrase": "PANDA",
+      "clue": "Black-and-white bear that eats bamboo",
+      "category": "ANIMALS",
+      "clueEmoji": "🐼",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-animals-07",
+      "sortOrder": 457,
+      "phrase": "MONKEY",
+      "clue": "Tree-climbing primate",
+      "category": "ANIMALS",
+      "clueEmoji": "🐒",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-animals-08",
+      "sortOrder": 458,
+      "phrase": "DOG",
+      "clue": "Loyal pet that barks",
+      "category": "ANIMALS",
+      "clueEmoji": "🐶",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-animals-09",
+      "sortOrder": 459,
+      "phrase": "CAT",
+      "clue": "Popular pet that meows",
+      "category": "ANIMALS",
+      "clueEmoji": "🐱",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-animals-10",
+      "sortOrder": 460,
+      "phrase": "HORSE",
+      "clue": "Animal people ride",
+      "category": "ANIMALS",
+      "clueEmoji": "🐴",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-animals-11",
+      "sortOrder": 461,
+      "phrase": "COW",
+      "clue": "Farm animal that gives milk",
+      "category": "ANIMALS",
+      "clueEmoji": "🐄",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-animals-12",
+      "sortOrder": 462,
+      "phrase": "SHEEP",
+      "clue": "Woolly farm animal",
+      "category": "ANIMALS",
+      "clueEmoji": "🐑",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-animals-13",
+      "sortOrder": 463,
+      "phrase": "CHICKEN",
+      "clue": "Farm bird that lays eggs",
+      "category": "ANIMALS",
+      "clueEmoji": "🐔",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-animals-14",
+      "sortOrder": 464,
+      "phrase": "DUCK",
+      "clue": "Water bird that quacks",
+      "category": "ANIMALS",
+      "clueEmoji": "🦆",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-animals-15",
+      "sortOrder": 465,
+      "phrase": "EAGLE",
+      "clue": "Large bird of prey",
+      "category": "ANIMALS",
+      "clueEmoji": "🦅",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-animals-16",
+      "sortOrder": 466,
+      "phrase": "DOLPHIN",
+      "clue": "Smart marine mammal",
+      "category": "ANIMALS",
+      "clueEmoji": "🐬",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-animals-17",
+      "sortOrder": 467,
+      "phrase": "SHARK",
+      "clue": "Powerful ocean predator",
+      "category": "ANIMALS",
+      "clueEmoji": "🦈",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-animals-18",
+      "sortOrder": 468,
+      "phrase": "PENGUIN",
+      "clue": "Flightless bird that waddles",
+      "category": "ANIMALS",
+      "clueEmoji": "🐧",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-animals-19",
+      "sortOrder": 469,
+      "phrase": "KANGAROO",
+      "clue": "Australian animal that hops",
+      "category": "ANIMALS",
+      "clueEmoji": "🦘",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-animals-20",
+      "sortOrder": 470,
+      "phrase": "KOALA",
+      "clue": "Australian marsupial that eats eucalyptus",
+      "category": "ANIMALS",
+      "clueEmoji": "🐨",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-animals-21",
+      "sortOrder": 471,
+      "phrase": "CHEETAH",
+      "clue": "Fastest land animal",
+      "category": "ANIMALS",
+      "clueEmoji": "🐆",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-animals-22",
+      "sortOrder": 472,
+      "phrase": "RHINOCEROS",
+      "clue": "Large horned herbivore",
+      "category": "ANIMALS",
+      "clueEmoji": "🦏",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-animals-23",
+      "sortOrder": 473,
+      "phrase": "HIPPOPOTAMUS",
+      "clue": "Large river animal with huge jaws",
+      "category": "ANIMALS",
+      "clueEmoji": "🦛",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-animals-24",
+      "sortOrder": 474,
+      "phrase": "GORILLA",
+      "clue": "Powerful great ape",
+      "category": "ANIMALS",
+      "clueEmoji": "🦍",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-animals-25",
+      "sortOrder": 475,
+      "phrase": "ORANGUTAN",
+      "clue": "Red-haired great ape from rainforests",
+      "category": "ANIMALS",
+      "clueEmoji": "🦧",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-animals-26",
+      "sortOrder": 476,
+      "phrase": "WOLF",
+      "clue": "Wild canine that lives in packs",
+      "category": "ANIMALS",
+      "clueEmoji": "🐺",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-animals-27",
+      "sortOrder": 477,
+      "phrase": "FOX",
+      "clue": "Clever wild canine with a bushy tail",
+      "category": "ANIMALS",
+      "clueEmoji": "🦊",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-animals-28",
+      "sortOrder": 478,
+      "phrase": "POLAR BEAR",
+      "clue": "White bear of the Arctic",
+      "category": "ANIMALS",
+      "clueEmoji": "🐻‍❄️",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-animals-29",
+      "sortOrder": 479,
+      "phrase": "CAMEL",
+      "clue": "Desert animal with humps",
+      "category": "ANIMALS",
+      "clueEmoji": "🐪",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-animals-30",
+      "sortOrder": 480,
+      "phrase": "CROCODILE",
+      "clue": "Large reptile with strong jaws",
+      "category": "ANIMALS",
+      "clueEmoji": "🐊",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-animals-31",
+      "sortOrder": 481,
+      "phrase": "ALLIGATOR",
+      "clue": "Freshwater reptile similar to a crocodile",
+      "category": "ANIMALS",
+      "clueEmoji": "🐊",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-animals-32",
+      "sortOrder": 482,
+      "phrase": "OCTOPUS",
+      "clue": "Eight-armed sea animal",
+      "category": "ANIMALS",
+      "clueEmoji": "🐙",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-animals-33",
+      "sortOrder": 483,
+      "phrase": "JELLYFISH",
+      "clue": "Gel-like sea creature with tentacles",
+      "category": "ANIMALS",
+      "clueEmoji": "🪼",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-animals-34",
+      "sortOrder": 484,
+      "phrase": "SEA TURTLE",
+      "clue": "Ocean reptile with a hard shell",
+      "category": "ANIMALS",
+      "clueEmoji": "🐢",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-animals-35",
+      "sortOrder": 485,
+      "phrase": "PARROT",
+      "clue": "Colorful bird that can mimic sounds",
+      "category": "ANIMALS",
+      "clueEmoji": "🦜",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-animals-36",
+      "sortOrder": 486,
+      "phrase": "PEACOCK",
+      "clue": "Bird famous for colorful tail feathers",
+      "category": "ANIMALS",
+      "clueEmoji": "🦚",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-animals-37",
+      "sortOrder": 487,
+      "phrase": "FLAMINGO",
+      "clue": "Pink bird often standing on one leg",
+      "category": "ANIMALS",
+      "clueEmoji": "🦩",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-animals-38",
+      "sortOrder": 488,
+      "phrase": "SLOTH",
+      "clue": "Slow tree-dwelling mammal",
+      "category": "ANIMALS",
+      "clueEmoji": "🦥",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-animals-39",
+      "sortOrder": 489,
+      "phrase": "BEAVER",
+      "clue": "Rodent known for building dams",
+      "category": "ANIMALS",
+      "clueEmoji": "🦫",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-animals-40",
+      "sortOrder": 490,
+      "phrase": "OTTER",
+      "clue": "Playful water-loving mammal",
+      "category": "ANIMALS",
+      "clueEmoji": "🦦",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-animals-41",
+      "sortOrder": 491,
+      "phrase": "AXOLOTL",
+      "clue": "Mexican salamander that can regrow limbs",
+      "category": "ANIMALS",
+      "clueEmoji": "🦎",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-animals-42",
+      "sortOrder": 492,
+      "phrase": "OKAPI",
+      "clue": "Forest relative of the giraffe",
+      "category": "ANIMALS",
+      "clueEmoji": "🦓",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-animals-43",
+      "sortOrder": 493,
+      "phrase": "AARDVARK",
+      "clue": "Nocturnal animal that eats ants and termites",
+      "category": "ANIMALS",
+      "clueEmoji": "🐜",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-animals-44",
+      "sortOrder": 494,
+      "phrase": "PANGOLIN",
+      "clue": "Scaly mammal that curls into a ball",
+      "category": "ANIMALS",
+      "clueEmoji": "🛡️",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-animals-45",
+      "sortOrder": 495,
+      "phrase": "NARWHAL",
+      "clue": "Arctic whale with a long tusk",
+      "category": "ANIMALS",
+      "clueEmoji": "🦄",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-animals-46",
+      "sortOrder": 496,
+      "phrase": "TASMANIAN DEVIL",
+      "clue": "Noisy carnivorous marsupial",
+      "category": "ANIMALS",
+      "clueEmoji": "😈",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-animals-47",
+      "sortOrder": 497,
+      "phrase": "KOMODO DRAGON",
+      "clue": "Huge Indonesian monitor lizard",
+      "category": "ANIMALS",
+      "clueEmoji": "🦎",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-animals-48",
+      "sortOrder": 498,
+      "phrase": "PLATYPUS",
+      "clue": "Egg-laying mammal with a duck-like bill",
+      "category": "ANIMALS",
+      "clueEmoji": "🦆",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-animals-49",
+      "sortOrder": 499,
+      "phrase": "CAPYBARA",
+      "clue": "World's largest rodent",
+      "category": "ANIMALS",
+      "clueEmoji": "🦫",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-animals-50",
+      "sortOrder": 500,
+      "phrase": "QUOKKA",
+      "clue": "Small smiling marsupial from Australia",
+      "category": "ANIMALS",
+      "clueEmoji": "😊",
+      "difficulty": "hard"
+    }
+  ]
+}

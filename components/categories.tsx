@@ -31,7 +31,9 @@ type CategoryItem = {
   bgDepth: string;
   titleColor: string;
   descriptionColor: string;
-  imageSource: number;
+  /** PNG icon; falls back to `emojiIcon` when absent. */
+  imageSource?: number;
+  emojiIcon?: string;
   /** Matches `category` field on Firestore `guesses` documents. */
   firestoreCategory: string;
   tags: CategoryTab[];
@@ -139,6 +141,30 @@ const CATEGORY_DATA: CategoryItem[] = [
     firestoreCategory: 'HISTORY',
     tags: ['all'],
   },
+  {
+    id: 'science',
+    title: 'Science',
+    description: 'Discoveries, elements, and space.',
+    bg: '#D6E4FF',
+    bgDepth: '#A9C3F5',
+    titleColor: '#283593',
+    descriptionColor: '#3D4E8B',
+    imageSource: require('@/assets/images/science.png'),
+    firestoreCategory: 'SCIENCE',
+    tags: ['all', 'new'],
+  },
+  {
+    id: 'animals',
+    title: 'Animals',
+    description: 'Creatures from land, sea, and sky.',
+    bg: '#E4F3C8',
+    bgDepth: '#C2DE9A',
+    titleColor: '#558B2F',
+    descriptionColor: '#5E7A40',
+    imageSource: require('@/assets/images/animals.png'),
+    firestoreCategory: 'ANIMALS',
+    tags: ['all', 'new'],
+  },
 ];
 
 type CategoryCardProps = {
@@ -188,12 +214,18 @@ const CategoryCard = ({
           <View style={styles.cardBody}>
             <View style={styles.cardRow}>
               <View style={styles.cardIconWrap}>
-                <Image
-                  source={item.imageSource}
-                  style={styles.cardIconImage}
-                  contentFit="contain"
-                  accessibilityLabel={`${item.title} icon`}
-                />
+                {item.imageSource !== undefined ? (
+                  <Image
+                    source={item.imageSource}
+                    style={styles.cardIconImage}
+                    contentFit="contain"
+                    accessibilityLabel={`${item.title} icon`}
+                  />
+                ) : (
+                  <Text style={styles.cardIconEmoji} accessibilityLabel={`${item.title} icon`}>
+                    {item.emojiIcon}
+                  </Text>
+                )}
               </View>
               <View style={styles.cardTextCol}>
                 <Text
@@ -260,7 +292,7 @@ const CategoriesScreen = () => {
   const router = useRouter();
   const insets = useSafeAreaInsets();
   const { user, isLoggedIn } = useAuth();
-  const { puzzles } = useGuessPuzzles();
+  const { puzzles, refetch } = useGuessPuzzles();
   const [solvedIds, setSolvedIds] = useState<Set<string>>(() => new Set());
   const [fontsLoaded] = useFonts({
     Fredoka_700Bold,
@@ -272,6 +304,12 @@ const CategoriesScreen = () => {
 
   const titleFont = fontsLoaded ? ({ fontFamily: 'Fredoka_700Bold' } as const) : undefined;
   const bodyFont = fontsLoaded ? ({ fontFamily: 'Fredoka_600SemiBold' } as const) : undefined;
+
+  useFocusEffect(
+    useCallback(() => {
+      void refetch();
+    }, [refetch]),
+  );
 
   useFocusEffect(
     useCallback(() => {
@@ -564,6 +602,10 @@ const styles = StyleSheet.create({
   cardIconImage: {
     width: 86,
     height: 86,
+  },
+  cardIconEmoji: {
+    fontSize: 54,
+    lineHeight: 64,
   },
   cardTextCol: {
     flexShrink: 1,

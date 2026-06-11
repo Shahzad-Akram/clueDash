@@ -345,6 +345,11 @@ const DailyChallenge = () => {
 
   const { showInterstitialAfterGameComplete } = useInterstitialAd();
   const adShownForAttemptRef = useRef(false);
+  /**
+   * Result modals stay hidden until the interstitial finishes — on iOS a visible
+   * RN Modal blocks the ad's view controller ("view controller is not being presented").
+   */
+  const [resultModalReady, setResultModalReady] = useState(false);
 
   useEffect(() => {
     if (!roundStarted) {
@@ -355,7 +360,13 @@ const DailyChallenge = () => {
       return;
     }
     adShownForAttemptRef.current = true;
-    void showInterstitialAfterGameComplete();
+    void (async () => {
+      try {
+        await showInterstitialAfterGameComplete();
+      } finally {
+        setResultModalReady(true);
+      }
+    })();
   }, [hasLost, hasWon, roundStarted, showInterstitialAfterGameComplete, timedOut]);
 
   useEffect(() => {
@@ -776,7 +787,7 @@ const DailyChallenge = () => {
       </SafeAreaView>
 
       <Modal
-        visible={wonInTime}
+        visible={wonInTime && resultModalReady}
         transparent
         animationType="fade"
         statusBarTranslucent
@@ -803,7 +814,7 @@ const DailyChallenge = () => {
       </Modal>
 
       <Modal
-        visible={(timedOut || hasLost) && !hasWon}
+        visible={(timedOut || hasLost) && !hasWon && resultModalReady}
         transparent
         animationType="fade"
         statusBarTranslucent

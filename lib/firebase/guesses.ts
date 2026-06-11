@@ -1,4 +1,4 @@
-import { collection, getDocs, orderBy, query } from 'firebase/firestore';
+import { collection, getDocs, getDocsFromServer, orderBy, query } from 'firebase/firestore';
 
 import { getFirebaseDb } from './app';
 
@@ -20,7 +20,14 @@ const guessesCollection = () => collection(getFirebaseDb(), 'guesses');
 
 export const fetchGuessPuzzlesOrdered = async (): Promise<GuessPuzzleDoc[]> => {
   const q = query(guessesCollection(), orderBy('sortOrder', 'asc'));
-  const snap = await getDocs(q);
+  // Prefer the server so seeded/updated puzzles aren't masked by stale offline cache.
+  const snap = await (async () => {
+    try {
+      return await getDocsFromServer(q);
+    } catch {
+      return await getDocs(q);
+    }
+  })();
   return snap.docs.map((docSnap) => {
     const x = docSnap.data();
     return {
