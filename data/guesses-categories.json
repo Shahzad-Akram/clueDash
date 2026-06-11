@@ -2,7 +2,7 @@
   "guesses": [
     {
       "id": "cat-movies-01",
-      "sortOrder": 36,
+      "sortOrder": 1,
       "phrase": "THE DARK KNIGHT",
       "clue": "Batman faces the Joker in Gotham",
       "category": "MOVIES",
@@ -11,7 +11,7 @@
     },
     {
       "id": "cat-movies-02",
-      "sortOrder": 37,
+      "sortOrder": 2,
       "phrase": "FINDING NEMO",
       "clue": "Pixar clownfish lost in the ocean",
       "category": "MOVIES",
@@ -20,7 +20,7 @@
     },
     {
       "id": "cat-movies-03",
-      "sortOrder": 38,
+      "sortOrder": 3,
       "phrase": "TITANIC",
       "clue": "Romance on a doomed luxury liner",
       "category": "MOVIES",
@@ -29,7 +29,7 @@
     },
     {
       "id": "cat-movies-04",
-      "sortOrder": 39,
+      "sortOrder": 4,
       "phrase": "AVENGERS ENDGAME",
       "clue": "Marvel heroes undo the snap",
       "category": "MOVIES",
@@ -38,7 +38,7 @@
     },
     {
       "id": "cat-movies-05",
-      "sortOrder": 40,
+      "sortOrder": 5,
       "phrase": "THE LION KING",
       "clue": "Disney tale of Simba and the pride",
       "category": "MOVIES",
@@ -47,7 +47,7 @@
     },
     {
       "id": "cat-movies-06",
-      "sortOrder": 41,
+      "sortOrder": 6,
       "phrase": "JURASSIC PARK",
       "clue": "Theme park with cloned dinosaurs",
       "category": "MOVIES",
@@ -56,7 +56,7 @@
     },
     {
       "id": "cat-movies-07",
-      "sortOrder": 42,
+      "sortOrder": 7,
       "phrase": "FORREST GUMP",
       "clue": "Life is like a box of chocolates",
       "category": "MOVIES",
@@ -64,8 +64,35 @@
       "difficulty": "easy"
     },
     {
+      "id": "cat-movies-08",
+      "sortOrder": 8,
+      "phrase": "INCEPTION",
+      "clue": "Dreams within dreams heist thriller",
+      "category": "MOVIES",
+      "clueEmoji": "🌀",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-movies-09",
+      "sortOrder": 9,
+      "phrase": "THE MATRIX",
+      "clue": "Red pill sci-fi rebellion",
+      "category": "MOVIES",
+      "clueEmoji": "💊",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-movies-10",
+      "sortOrder": 10,
+      "phrase": "SPIDER MAN",
+      "clue": "Friendly neighborhood web-slinger",
+      "category": "MOVIES",
+      "clueEmoji": "🕸️",
+      "difficulty": "easy"
+    },
+    {
       "id": "cat-actors-01",
-      "sortOrder": 43,
+      "sortOrder": 11,
       "phrase": "TOM HANKS",
       "clue": "Cast Away and Forrest Gump star",
       "category": "ACTORS",
@@ -74,7 +101,7 @@
     },
     {
       "id": "cat-actors-02",
-      "sortOrder": 44,
+      "sortOrder": 12,
       "phrase": "MERYL STREEP",
       "clue": "Record-holding Oscar-nominated actress",
       "category": "ACTORS",
@@ -83,7 +110,7 @@
     },
     {
       "id": "cat-actors-03",
-      "sortOrder": 45,
+      "sortOrder": 13,
       "phrase": "LEONARDO DICAPRIO",
       "clue": "Titanic and Revenant leading man",
       "category": "ACTORS",
@@ -92,7 +119,7 @@
     },
     {
       "id": "cat-actors-04",
-      "sortOrder": 46,
+      "sortOrder": 14,
       "phrase": "SCARLETT JOHANSSON",
       "clue": "Marvel's Black Widow spy hero",
       "category": "ACTORS",
@@ -101,7 +128,7 @@
     },
     {
       "id": "cat-actors-05",
-      "sortOrder": 47,
+      "sortOrder": 15,
       "phrase": "MORGAN FREEMAN",
       "clue": "Deep-voiced Shawshank narrator",
       "category": "ACTORS",
@@ -110,7 +137,7 @@
     },
     {
       "id": "cat-actors-06",
-      "sortOrder": 48,
+      "sortOrder": 16,
       "phrase": "ANGELINA JOLIE",
       "clue": "Played Lara Croft in Tomb Raider",
       "category": "ACTORS",
@@ -119,7 +146,7 @@
     },
     {
       "id": "cat-actors-07",
-      "sortOrder": 49,
+      "sortOrder": 17,
       "phrase": "DWAYNE JOHNSON",
       "clue": "The Rock, wrestler turned blockbuster star",
       "category": "ACTORS",
@@ -127,8 +154,35 @@
       "difficulty": "easy"
     },
     {
+      "id": "cat-actors-08",
+      "sortOrder": 18,
+      "phrase": "ROBERT DOWNEY JR",
+      "clue": "Played Iron Man in the MCU",
+      "category": "ACTORS",
+      "clueEmoji": "🤖",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-actors-09",
+      "sortOrder": 19,
+      "phrase": "EMMA WATSON",
+      "clue": "Played Hermione in Harry Potter",
+      "category": "ACTORS",
+      "clueEmoji": "📚",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-actors-10",
+      "sortOrder": 20,
+      "phrase": "CHRISTOPHER NOLAN",
+      "clue": "Director of Inception and Dunkirk",
+      "category": "ACTORS",
+      "clueEmoji": "🎥",
+      "difficulty": "hard"
+    },
+    {
       "id": "cat-cricket-01",
-      "sortOrder": 50,
+      "sortOrder": 21,
       "phrase": "SACHIN TENDULKAR",
       "clue": "India's Little Master batting legend",
       "category": "CRICKET",
@@ -137,7 +191,7 @@
     },
     {
       "id": "cat-cricket-02",
-      "sortOrder": 51,
+      "sortOrder": 22,
       "phrase": "VIRAT KOHLI",
       "clue": "Aggressive former India captain",
       "category": "CRICKET",
@@ -146,7 +200,7 @@
     },
     {
       "id": "cat-cricket-03",
-      "sortOrder": 52,
+      "sortOrder": 23,
       "phrase": "LORDS CRICKET GROUND",
       "clue": "London home of cricket",
       "category": "CRICKET",
@@ -155,7 +209,7 @@
     },
     {
       "id": "cat-cricket-04",
-      "sortOrder": 53,
+      "sortOrder": 24,
       "phrase": "THE ASHES",
       "clue": "England vs Australia Test rivalry trophy",
       "category": "CRICKET",
@@ -164,7 +218,7 @@
     },
     {
       "id": "cat-cricket-05",
-      "sortOrder": 54,
+      "sortOrder": 25,
       "phrase": "INDIAN PREMIER LEAGUE",
       "clue": "Colorful franchise T20 tournament in India",
       "category": "CRICKET",
@@ -173,7 +227,7 @@
     },
     {
       "id": "cat-cricket-06",
-      "sortOrder": 55,
+      "sortOrder": 26,
       "phrase": "DON BRADMAN",
       "clue": "Australian with a 99.94 Test average",
       "category": "CRICKET",
@@ -182,7 +236,7 @@
     },
     {
       "id": "cat-cricket-07",
-      "sortOrder": 56,
+      "sortOrder": 27,
       "phrase": "WICKET KEEPER",
       "clue": "Player behind the stumps with gloves",
       "category": "CRICKET",
@@ -190,8 +244,35 @@
       "difficulty": "easy"
     },
     {
+      "id": "cat-cricket-08",
+      "sortOrder": 28,
+      "phrase": "MS DHONI",
+      "clue": "Captain Cool who led India to World Cup glory",
+      "category": "CRICKET",
+      "clueEmoji": "🧢",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-cricket-09",
+      "sortOrder": 29,
+      "phrase": "TEST MATCH",
+      "clue": "Five-day longest format of cricket",
+      "category": "CRICKET",
+      "clueEmoji": "📅",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-cricket-10",
+      "sortOrder": 30,
+      "phrase": "BEN STOKES",
+      "clue": "England hero of the 2019 World Cup final",
+      "category": "CRICKET",
+      "clueEmoji": "🏴",
+      "difficulty": "medium"
+    },
+    {
       "id": "cat-football-01",
-      "sortOrder": 57,
+      "sortOrder": 31,
       "phrase": "LIONEL MESSI",
       "clue": "Argentine maestro with many Ballon d'Ors",
       "category": "FOOTBALL",
@@ -200,7 +281,7 @@
     },
     {
       "id": "cat-football-02",
-      "sortOrder": 58,
+      "sortOrder": 32,
       "phrase": "CRISTIANO RONALDO",
       "clue": "Portuguese superstar known as CR7",
       "category": "FOOTBALL",
@@ -209,7 +290,7 @@
     },
     {
       "id": "cat-football-03",
-      "sortOrder": 59,
+      "sortOrder": 33,
       "phrase": "FIFA WORLD CUP",
       "clue": "Global trophy won every four years",
       "category": "FOOTBALL",
@@ -218,7 +299,7 @@
     },
     {
       "id": "cat-football-04",
-      "sortOrder": 60,
+      "sortOrder": 34,
       "phrase": "MANCHESTER UNITED",
       "clue": "Red Devils of Old Trafford",
       "category": "FOOTBALL",
@@ -227,7 +308,7 @@
     },
     {
       "id": "cat-football-05",
-      "sortOrder": 61,
+      "sortOrder": 35,
       "phrase": "CHAMPIONS LEAGUE",
       "clue": "Europe's top club competition",
       "category": "FOOTBALL",
@@ -236,7 +317,7 @@
     },
     {
       "id": "cat-football-06",
-      "sortOrder": 62,
+      "sortOrder": 36,
       "phrase": "PENALTY KICK",
       "clue": "Twelve-yard shot from the spot",
       "category": "FOOTBALL",
@@ -245,7 +326,7 @@
     },
     {
       "id": "cat-football-07",
-      "sortOrder": 63,
+      "sortOrder": 37,
       "phrase": "OFFSIDE RULE",
       "clue": "Flag raised when ahead of the line",
       "category": "FOOTBALL",
@@ -253,8 +334,35 @@
       "difficulty": "hard"
     },
     {
+      "id": "cat-football-08",
+      "sortOrder": 38,
+      "phrase": "REAL MADRID",
+      "clue": "Galacticos of the Santiago Bernabeu",
+      "category": "FOOTBALL",
+      "clueEmoji": "👑",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-football-09",
+      "sortOrder": 39,
+      "phrase": "HAT TRICK",
+      "clue": "Three goals scored in one match",
+      "category": "FOOTBALL",
+      "clueEmoji": "🎩",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-football-10",
+      "sortOrder": 40,
+      "phrase": "DIEGO MARADONA",
+      "clue": "Argentine legend of the Hand of God",
+      "category": "FOOTBALL",
+      "clueEmoji": "✋",
+      "difficulty": "medium"
+    },
+    {
       "id": "cat-countries-01",
-      "sortOrder": 64,
+      "sortOrder": 41,
       "phrase": "UNITED STATES",
       "clue": "Fifty states under the Stars and Stripes",
       "category": "COUNTRIES",
@@ -263,7 +371,7 @@
     },
     {
       "id": "cat-countries-02",
-      "sortOrder": 65,
+      "sortOrder": 42,
       "phrase": "JAPAN",
       "clue": "Land of the Rising Sun",
       "category": "COUNTRIES",
@@ -272,7 +380,7 @@
     },
     {
       "id": "cat-countries-03",
-      "sortOrder": 66,
+      "sortOrder": 43,
       "phrase": "BRAZIL",
       "clue": "Largest country in South America",
       "category": "COUNTRIES",
@@ -281,7 +389,7 @@
     },
     {
       "id": "cat-countries-04",
-      "sortOrder": 67,
+      "sortOrder": 44,
       "phrase": "EGYPT",
       "clue": "Nile nation of pyramids and pharaohs",
       "category": "COUNTRIES",
@@ -290,7 +398,7 @@
     },
     {
       "id": "cat-countries-05",
-      "sortOrder": 68,
+      "sortOrder": 45,
       "phrase": "FRANCE",
       "clue": "Eiffel Tower country with capital Paris",
       "category": "COUNTRIES",
@@ -299,7 +407,7 @@
     },
     {
       "id": "cat-countries-06",
-      "sortOrder": 69,
+      "sortOrder": 46,
       "phrase": "AUSTRALIA",
       "clue": "Island continent down under",
       "category": "COUNTRIES",
@@ -308,7 +416,7 @@
     },
     {
       "id": "cat-countries-07",
-      "sortOrder": 70,
+      "sortOrder": 47,
       "phrase": "CANADA",
       "clue": "Maple leaf nation north of the USA",
       "category": "COUNTRIES",
@@ -316,8 +424,35 @@
       "difficulty": "easy"
     },
     {
+      "id": "cat-countries-08",
+      "sortOrder": 48,
+      "phrase": "INDIA",
+      "clue": "Home of the Taj Mahal and the Ganges",
+      "category": "COUNTRIES",
+      "clueEmoji": "🇮🇳",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-countries-09",
+      "sortOrder": 49,
+      "phrase": "GERMANY",
+      "clue": "Brandenburg Gate nation in central Europe",
+      "category": "COUNTRIES",
+      "clueEmoji": "🇩🇪",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-countries-10",
+      "sortOrder": 50,
+      "phrase": "SOUTH AFRICA",
+      "clue": "Rainbow Nation with Cape Town and safaris",
+      "category": "COUNTRIES",
+      "clueEmoji": "🇿🇦",
+      "difficulty": "medium"
+    },
+    {
       "id": "cat-music-01",
-      "sortOrder": 71,
+      "sortOrder": 51,
       "phrase": "THE BEATLES",
       "clue": "Fab Four from Liverpool",
       "category": "MUSIC",
@@ -326,7 +461,7 @@
     },
     {
       "id": "cat-music-02",
-      "sortOrder": 72,
+      "sortOrder": 52,
       "phrase": "MICHAEL JACKSON",
       "clue": "King of Pop who moonwalked",
       "category": "MUSIC",
@@ -335,7 +470,7 @@
     },
     {
       "id": "cat-music-03",
-      "sortOrder": 73,
+      "sortOrder": 53,
       "phrase": "TAYLOR SWIFT",
       "clue": "Pop superstar behind the Eras tour",
       "category": "MUSIC",
@@ -344,7 +479,7 @@
     },
     {
       "id": "cat-music-04",
-      "sortOrder": 74,
+      "sortOrder": 54,
       "phrase": "BOHEMIAN RHAPSODY",
       "clue": "Queen's operatic rock epic",
       "category": "MUSIC",
@@ -353,7 +488,7 @@
     },
     {
       "id": "cat-music-05",
-      "sortOrder": 75,
+      "sortOrder": 55,
       "phrase": "GRAMMY AWARDS",
       "clue": "Golden gramophone music prizes",
       "category": "MUSIC",
@@ -362,7 +497,7 @@
     },
     {
       "id": "cat-music-06",
-      "sortOrder": 76,
+      "sortOrder": 56,
       "phrase": "ELECTRIC GUITAR",
       "clue": "Amplified six-string rock instrument",
       "category": "MUSIC",
@@ -371,7 +506,7 @@
     },
     {
       "id": "cat-music-07",
-      "sortOrder": 77,
+      "sortOrder": 57,
       "phrase": "SPOTIFY PLAYLIST",
       "clue": "Streaming queue of favorite songs",
       "category": "MUSIC",
@@ -379,8 +514,35 @@
       "difficulty": "easy"
     },
     {
+      "id": "cat-music-08",
+      "sortOrder": 58,
+      "phrase": "BEYONCE",
+      "clue": "Queen Bey of pop and R&B",
+      "category": "MUSIC",
+      "clueEmoji": "👸",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-music-09",
+      "sortOrder": 59,
+      "phrase": "PIANO KEYS",
+      "clue": "Black and white keyboard instrument",
+      "category": "MUSIC",
+      "clueEmoji": "🎹",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-music-10",
+      "sortOrder": 60,
+      "phrase": "EMINEM",
+      "clue": "Rap superstar from Detroit",
+      "category": "MUSIC",
+      "clueEmoji": "🎤",
+      "difficulty": "medium"
+    },
+    {
       "id": "cat-brands-01",
-      "sortOrder": 78,
+      "sortOrder": 61,
       "phrase": "APPLE INC",
       "clue": "iPhone maker with a bitten logo",
       "category": "BRANDS",
@@ -389,7 +551,7 @@
     },
     {
       "id": "cat-brands-02",
-      "sortOrder": 79,
+      "sortOrder": 62,
       "phrase": "NIKE SWOOSH",
       "clue": "Just Do It sportswear brand",
       "category": "BRANDS",
@@ -398,7 +560,7 @@
     },
     {
       "id": "cat-brands-03",
-      "sortOrder": 80,
+      "sortOrder": 63,
       "phrase": "COCA COLA",
       "clue": "Red-can fizzy cola classic",
       "category": "BRANDS",
@@ -407,7 +569,7 @@
     },
     {
       "id": "cat-brands-04",
-      "sortOrder": 81,
+      "sortOrder": 64,
       "phrase": "MCDONALDS",
       "clue": "Golden arches fast-food chain",
       "category": "BRANDS",
@@ -416,7 +578,7 @@
     },
     {
       "id": "cat-brands-05",
-      "sortOrder": 82,
+      "sortOrder": 65,
       "phrase": "GOOGLE SEARCH",
       "clue": "Colorful-letter search engine giant",
       "category": "BRANDS",
@@ -425,7 +587,7 @@
     },
     {
       "id": "cat-brands-06",
-      "sortOrder": 83,
+      "sortOrder": 66,
       "phrase": "AMAZON PRIME",
       "clue": "Smile-arrow online retail membership",
       "category": "BRANDS",
@@ -434,7 +596,7 @@
     },
     {
       "id": "cat-brands-07",
-      "sortOrder": 84,
+      "sortOrder": 67,
       "phrase": "STARBUCKS COFFEE",
       "clue": "Green siren cafe on every corner",
       "category": "BRANDS",
@@ -442,8 +604,35 @@
       "difficulty": "easy"
     },
     {
+      "id": "cat-brands-08",
+      "sortOrder": 68,
+      "phrase": "TESLA MOTORS",
+      "clue": "Electric car company led by Elon Musk",
+      "category": "BRANDS",
+      "clueEmoji": "⚡",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-brands-09",
+      "sortOrder": 69,
+      "phrase": "ADIDAS STRIPES",
+      "clue": "German sportswear with three stripes",
+      "category": "BRANDS",
+      "clueEmoji": "👕",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-brands-10",
+      "sortOrder": 70,
+      "phrase": "SAMSUNG GALAXY",
+      "clue": "Korean smartphone and tablet series",
+      "category": "BRANDS",
+      "clueEmoji": "📱",
+      "difficulty": "easy"
+    },
+    {
       "id": "cat-history-01",
-      "sortOrder": 85,
+      "sortOrder": 71,
       "phrase": "WORLD WAR TWO",
       "clue": "Global conflict from 1939 to 1945",
       "category": "HISTORY",
@@ -452,7 +641,7 @@
     },
     {
       "id": "cat-history-02",
-      "sortOrder": 86,
+      "sortOrder": 72,
       "phrase": "ANCIENT ROME",
       "clue": "Empire of gladiators and the Colosseum",
       "category": "HISTORY",
@@ -461,7 +650,7 @@
     },
     {
       "id": "cat-history-03",
-      "sortOrder": 87,
+      "sortOrder": 73,
       "phrase": "FRENCH REVOLUTION",
       "clue": "1789 uprising that stormed the Bastille",
       "category": "HISTORY",
@@ -470,7 +659,7 @@
     },
     {
       "id": "cat-history-04",
-      "sortOrder": 88,
+      "sortOrder": 74,
       "phrase": "MOON LANDING",
       "clue": "Apollo 11 put Armstrong on the lunar surface",
       "category": "HISTORY",
@@ -479,7 +668,7 @@
     },
     {
       "id": "cat-history-05",
-      "sortOrder": 89,
+      "sortOrder": 75,
       "phrase": "INDUSTRIAL REVOLUTION",
       "clue": "Era of factories and steam power",
       "category": "HISTORY",
@@ -488,7 +677,7 @@
     },
     {
       "id": "cat-history-06",
-      "sortOrder": 90,
+      "sortOrder": 76,
       "phrase": "CLEOPATRA VII",
       "clue": "Last pharaoh of ancient Egypt",
       "category": "HISTORY",
@@ -497,12 +686,219 @@
     },
     {
       "id": "cat-history-07",
-      "sortOrder": 91,
+      "sortOrder": 77,
       "phrase": "BERLIN WALL",
       "clue": "Barrier that divided East and West Germany",
       "category": "HISTORY",
       "clueEmoji": "🧱",
       "difficulty": "medium"
+    },
+    {
+      "id": "cat-history-08",
+      "sortOrder": 78,
+      "phrase": "MAGNA CARTA",
+      "clue": "1215 English charter of liberties",
+      "category": "HISTORY",
+      "clueEmoji": "📜",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-history-09",
+      "sortOrder": 79,
+      "phrase": "AMERICAN CIVIL WAR",
+      "clue": "North vs South conflict in the 1860s",
+      "category": "HISTORY",
+      "clueEmoji": "⚔️",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-history-10",
+      "sortOrder": 80,
+      "phrase": "RENAISSANCE ERA",
+      "clue": "European rebirth of art and science",
+      "category": "HISTORY",
+      "clueEmoji": "🎨",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-movies-11",
+      "sortOrder": 81,
+      "phrase": "TOP GUN MAVERICK",
+      "clue": "Sequel with fighter jets and volleyball",
+      "category": "MOVIES",
+      "clueEmoji": "✈️",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-actors-11",
+      "sortOrder": 82,
+      "phrase": "ZENDAYA",
+      "clue": "Euphoria and Spider-Man leading actress",
+      "category": "ACTORS",
+      "clueEmoji": "🌟",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-cricket-11",
+      "sortOrder": 83,
+      "phrase": "YORKER BALL",
+      "clue": "Full-length delivery at the batsman's toes",
+      "category": "CRICKET",
+      "clueEmoji": "🎯",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-football-11",
+      "sortOrder": 84,
+      "phrase": "LIVERPOOL FC",
+      "clue": "You'll Never Walk Alone at Anfield",
+      "category": "FOOTBALL",
+      "clueEmoji": "🔴",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-music-11",
+      "sortOrder": 85,
+      "phrase": "ED SHEERAN",
+      "clue": "Ginger-haired singer of Shape of You",
+      "category": "MUSIC",
+      "clueEmoji": "🎶",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-brands-11",
+      "sortOrder": 86,
+      "phrase": "NETFLIX STREAM",
+      "clue": "Red N logo binge-watch platform",
+      "category": "BRANDS",
+      "clueEmoji": "📺",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-history-11",
+      "sortOrder": 87,
+      "phrase": "VIKING AGE",
+      "clue": "Norse seafarers who raided Europe",
+      "category": "HISTORY",
+      "clueEmoji": "⛵",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-countries-11",
+      "sortOrder": 88,
+      "phrase": "MEXICO",
+      "clue": "Aztec heritage nation south of the USA",
+      "category": "COUNTRIES",
+      "clueEmoji": "🇲🇽",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-movies-12",
+      "sortOrder": 89,
+      "phrase": "HARRY POTTER",
+      "clue": "Boy wizard at Hogwarts School",
+      "category": "MOVIES",
+      "clueEmoji": "⚡",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-actors-12",
+      "sortOrder": 90,
+      "phrase": "WILL SMITH",
+      "clue": "Fresh Prince and Men in Black star",
+      "category": "ACTORS",
+      "clueEmoji": "😎",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-football-12",
+      "sortOrder": 91,
+      "phrase": "BARCELONA FC",
+      "clue": "Catalan club known as Barca",
+      "category": "FOOTBALL",
+      "clueEmoji": "🔵",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-cricket-12",
+      "sortOrder": 92,
+      "phrase": "POWERPLAY OVERS",
+      "clue": "Fielding limits in the first T20 overs",
+      "category": "CRICKET",
+      "clueEmoji": "⚡",
+      "difficulty": "hard"
+    },
+    {
+      "id": "cat-music-12",
+      "sortOrder": 93,
+      "phrase": "DRUM KIT",
+      "clue": "Snare, cymbals, and kick pedal set",
+      "category": "MUSIC",
+      "clueEmoji": "🥁",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-countries-12",
+      "sortOrder": 94,
+      "phrase": "ITALY",
+      "clue": "Boot-shaped nation famous for pasta",
+      "category": "COUNTRIES",
+      "clueEmoji": "🇮🇹",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-history-12",
+      "sortOrder": 95,
+      "phrase": "GREAT WALL CHINA",
+      "clue": "Ancient fortification stretching thousands of miles",
+      "category": "HISTORY",
+      "clueEmoji": "🧱",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-brands-12",
+      "sortOrder": 96,
+      "phrase": "PLAYSTATION FIVE",
+      "clue": "Sony's white and black gaming console",
+      "category": "BRANDS",
+      "clueEmoji": "🎮",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-actors-13",
+      "sortOrder": 97,
+      "phrase": "JENNIFER LAWRENCE",
+      "clue": "Hunger Games Katniss actress",
+      "category": "ACTORS",
+      "clueEmoji": "🏹",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-football-13",
+      "sortOrder": 98,
+      "phrase": "YELLOW CARD",
+      "clue": "Referee warning shown for a foul",
+      "category": "FOOTBALL",
+      "clueEmoji": "🟨",
+      "difficulty": "easy"
+    },
+    {
+      "id": "cat-cricket-13",
+      "sortOrder": 99,
+      "phrase": "RUN OUT",
+      "clue": "Batsman dismissed before reaching the crease",
+      "category": "CRICKET",
+      "clueEmoji": "🏃",
+      "difficulty": "medium"
+    },
+    {
+      "id": "cat-brands-13",
+      "sortOrder": 100,
+      "phrase": "DISNEY PLUS",
+      "clue": "Streaming home of Marvel and Star Wars",
+      "category": "BRANDS",
+      "clueEmoji": "🏰",
+      "difficulty": "easy"
     }
   ]
 }
