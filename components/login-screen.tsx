@@ -20,7 +20,7 @@ import { useAuth } from '@/contexts/auth-context';
 const LoginScreen = () => {
   const router = useRouter();
   const insets = useSafeAreaInsets();
-  const { signIn, isHydrated, isLoggedIn, isFirebaseReady } = useAuth();
+  const { signIn, resetPassword, isHydrated, isLoggedIn, isFirebaseReady } = useAuth();
   const [fontsLoaded] = useFonts({
     Fredoka_700Bold,
     Fredoka_600SemiBold,
@@ -29,7 +29,9 @@ const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [resetMessage, setResetMessage] = useState('');
   const [submitting, setSubmitting] = useState(false);
+  const [resetting, setResetting] = useState(false);
 
   const titleFont = fontsLoaded ? ({ fontFamily: 'Fredoka_700Bold' } as const) : undefined;
   const bodyFont = fontsLoaded ? ({ fontFamily: 'Fredoka_600SemiBold' } as const) : undefined;
@@ -51,6 +53,7 @@ const LoginScreen = () => {
 
   const handleSubmit = useCallback(async () => {
     setError('');
+    setResetMessage('');
     if (!email.trim() || !password) {
       setError('Enter your email and password.');
       return;
@@ -64,6 +67,24 @@ const LoginScreen = () => {
     }
     router.replace('/(tabs)');
   }, [email, password, router, signIn]);
+
+  const handleForgotPassword = useCallback(async () => {
+    setError('');
+    setResetMessage('');
+    const trimmedEmail = email.trim();
+    if (!trimmedEmail) {
+      setError('Enter your email above, then tap Forgot password.');
+      return;
+    }
+    setResetting(true);
+    const result = await resetPassword(trimmedEmail);
+    setResetting(false);
+    if (!result.ok) {
+      setError(result.message);
+      return;
+    }
+    setResetMessage('If an account exists for that email, we sent a password reset link.');
+  }, [email, resetPassword]);
 
   return (
     <SafeAreaView style={styles.safe} edges={['top', 'left', 'right']}>
@@ -121,11 +142,32 @@ const LoginScreen = () => {
               onChangeText={setPassword}
               style={[styles.input, bodyFont, !fontsLoaded && styles.fontFallbackSemi]}
             />
+            <Pressable
+              accessibilityRole="button"
+              accessibilityLabel="Forgot password"
+              accessibilityState={{ disabled: resetting || !isFirebaseReady }}
+              disabled={resetting || !isFirebaseReady}
+              onPress={() => void handleForgotPassword()}
+              style={({ pressed }) => [styles.forgotPress, pressed && styles.secondaryPressed]}>
+              {resetting ? (
+                <ActivityIndicator size="small" color="#FFF59D" />
+              ) : (
+                <Text style={[styles.forgotText, bodyFont, !fontsLoaded && styles.fontFallbackSemi]}>
+                  Forgot password?
+                </Text>
+              )}
+            </Pressable>
           </View>
 
           {error ? (
             <Text style={[styles.errorText, bodyFont, !fontsLoaded && styles.fontFallbackSemi]} accessibilityLiveRegion="polite">
               {error}
+            </Text>
+          ) : null}
+
+          {resetMessage ? (
+            <Text style={[styles.successText, bodyFont, !fontsLoaded && styles.fontFallbackSemi]} accessibilityLiveRegion="polite">
+              {resetMessage}
             </Text>
           ) : null}
 
@@ -224,6 +266,24 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '700',
     marginBottom: 12,
+  },
+  successText: {
+    color: '#C8E6C9',
+    fontSize: 14,
+    fontWeight: '700',
+    marginBottom: 12,
+    lineHeight: 20,
+  },
+  forgotPress: {
+    alignSelf: 'flex-end',
+    marginTop: 8,
+    paddingVertical: 4,
+    paddingHorizontal: 2,
+  },
+  forgotText: {
+    fontSize: 13,
+    color: '#FFF59D',
+    textDecorationLine: 'underline',
   },
   primaryBtn: {
     backgroundColor: '#2A93F4',

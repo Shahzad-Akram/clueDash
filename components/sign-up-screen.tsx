@@ -17,6 +17,7 @@ import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { AppScreenHeader } from '@/components/app-screen-header';
 import { useAuth } from '@/contexts/auth-context';
+import { hasPrivacyPolicyUrl, openPrivacyPolicy } from '@/lib/legal-links';
 import { PROFILE_AVATARS } from '@/lib/profile-avatars';
 import type { ProfileAvatarId } from '@/lib/profile-avatars';
 
@@ -191,6 +192,20 @@ const SignUpScreen = () => {
             </Text>
           ) : null}
 
+          {hasPrivacyPolicyUrl() ? (
+            <Text style={[styles.privacyNote, bodyFont, !fontsLoaded && styles.fontFallbackSemi]}>
+              By creating an account you agree to our{' '}
+              <Text
+                accessibilityRole="link"
+                accessibilityLabel="Privacy policy"
+                style={styles.privacyLink}
+                onPress={() => void openPrivacyPolicy()}>
+                Privacy Policy
+              </Text>
+              .
+            </Text>
+          ) : null}
+
           <Pressable
             accessibilityRole="button"
             accessibilityLabel="Create account"
@@ -314,6 +329,19 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '700',
     marginBottom: 12,
+  },
+  privacyNote: {
+    color: 'rgba(255, 255, 255, 0.92)',
+    fontSize: 13,
+    lineHeight: 18,
+    textAlign: 'center',
+    marginBottom: 12,
+    paddingHorizontal: 4,
+  },
+  privacyLink: {
+    color: '#FFF59D',
+    textDecorationLine: 'underline',
+    fontWeight: '800',
   },
   primaryBtn: {
     backgroundColor: '#72BE2C',

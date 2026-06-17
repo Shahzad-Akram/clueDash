@@ -7,6 +7,7 @@ import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { AppScreenHeader } from '@/components/app-screen-header';
 import { useAuth } from '@/contexts/auth-context';
+import { hasPrivacyPolicyUrl, openPrivacyPolicy } from '@/lib/legal-links';
 import { getProfileAvatarSource } from '@/lib/profile-avatars';
 
 const ProfileScreen = () => {
@@ -69,6 +70,10 @@ const ProfileScreen = () => {
     );
   }, [deleteAccount, router]);
 
+  const handlePrivacyPress = useCallback(() => {
+    void openPrivacyPolicy();
+  }, []);
+
   if (!isHydrated || !user) {
     return (
       <SafeAreaView style={styles.safe} edges={['top', 'left', 'right']}>
@@ -97,6 +102,18 @@ const ProfileScreen = () => {
             <Text style={[styles.pointsValue, titleFont, !fontsLoaded && styles.fontFallbackBold]}>{user.points.toLocaleString()}</Text>
           </View>
         </View>
+
+        {hasPrivacyPolicyUrl() ? (
+          <Pressable
+            accessibilityRole="link"
+            accessibilityLabel="Privacy policy"
+            onPress={handlePrivacyPress}
+            style={({ pressed }) => [styles.privacyPress, pressed && styles.privacyPressed]}>
+            <Text style={[styles.privacyText, bodyFont, !fontsLoaded && styles.fontFallbackSemi]}>
+              Privacy Policy
+            </Text>
+          </Pressable>
+        ) : null}
 
         <Pressable
           accessibilityRole="button"
@@ -214,6 +231,20 @@ const styles = StyleSheet.create({
   pointsValue: {
     fontSize: 22,
     color: '#0D47A1',
+  },
+  privacyPress: {
+    alignSelf: 'center',
+    marginBottom: 16,
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+  },
+  privacyPressed: {
+    opacity: 0.85,
+  },
+  privacyText: {
+    color: '#FFF59D',
+    fontSize: 14,
+    textDecorationLine: 'underline',
   },
   signOutBtn: {
     backgroundColor: '#E53935',

@@ -5,6 +5,8 @@
   "scripts": {
     "seed:guesses": "node scripts/seed-guesses.mjs",
     "seed:guesses-categories": "node scripts/seed-guesses.mjs data/guesses-categories-expanded.json",
+    "seed:daily-challenge": "node scripts/seed-daily-challenge.mjs",
+    "setup:eas-secrets": "node scripts/setup-eas-secrets.mjs",
     "start": "expo start",
     "reset-project": "node ./scripts/reset-project.js",
     "android": "expo run:android",

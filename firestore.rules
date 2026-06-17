@@ -1,0 +1,26 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Puzzle content — readable by everyone (guest play); writes via Admin/scripts only.
+    match /guesses/{docId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    match /dailyChallenge/{docId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    match /users/{userId} {
+      allow read: if request.auth != null;
+      allow create: if request.auth != null && request.auth.uid == userId;
+      allow update: if request.auth != null && request.auth.uid == userId;
+      allow delete: if request.auth != null && request.auth.uid == userId;
+    }
+
+    match /users/{userId}/solvedGuesses/{guessId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+  }
+}

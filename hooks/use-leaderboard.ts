@@ -40,12 +40,18 @@ const mapProfilesToRows = (profiles: AppUserProfile[], currentUid?: string): Lea
   }));
 
 export const useLeaderboard = (maxCount = 50) => {
-  const { user } = useAuth();
+  const { user, isLoggedIn } = useAuth();
   const [rows, setRows] = useState<LeaderboardRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   const load = useCallback(async () => {
+    if (!isLoggedIn) {
+      setRows([]);
+      setError(null);
+      setLoading(false);
+      return;
+    }
     if (!tryInitFirebase()) {
       setRows([]);
       setError('Firebase is not configured.');
@@ -65,7 +71,7 @@ export const useLeaderboard = (maxCount = 50) => {
     } finally {
       setLoading(false);
     }
-  }, [maxCount, user?.uid]);
+  }, [isLoggedIn, maxCount, user?.uid]);
 
   useFocusEffect(
     useCallback(() => {

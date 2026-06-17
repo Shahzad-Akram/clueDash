@@ -2,10 +2,6 @@ import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
-import {
-  getTrackingPermissionsAsync,
-  requestTrackingPermissionsAsync,
-} from 'expo-tracking-transparency';
 import { useEffect, useState } from 'react';
 import { Image, InteractionManager, Platform } from 'react-native';
 import 'react-native-reanimated';
@@ -16,6 +12,7 @@ import { GuessPuzzlesProvider } from '@/contexts/guess-puzzles-context';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import adMobService from '@/lib/admob';
 import { tryInitFirebase } from '@/lib/firebase';
+import { requestAppTrackingIfNeeded } from '@/lib/request-app-tracking';
 
 void SplashScreen.preventAutoHideAsync();
 
@@ -38,28 +35,43 @@ export default function RootLayout() {
   }, []);
 
   useEffect(() => {
-    if (Platform.OS === 'web') {
+    if (Platform.OS === 'web' || !backgroundReady) {
       return;
     }
-    const initAds = async () => {
-      if (Platform.OS === 'ios') {
-        try {
-          const { status } = await getTrackingPermissionsAsync();
-          if (status === 'undetermined') {
-            await requestTrackingPermissionsAsync();
-          }
-        } catch (error) {
-          console.warn('ATT: Error requesting tracking permission', error);
-        }
+
+    let cancelled = false;
+
+    const bootstrapAfterLaunch = async () => {
+      await SplashScreen.hideAsync();
+      if (cancelled) {
+        return;
       }
-      // Let initial navigation/render settle before initializing ads (heavy on cold start).
+
+      try {
+        await requestAppTrackingIfNeeded();
+      } catch (error) {
+        console.warn('ATT: Error requesting tracking permission', error);
+      }
+
+      if (cancelled) {
+        return;
+      }
+
       await new Promise<void>((resolve) => {
         InteractionManager.runAfterInteractions(() => resolve());
       });
-      await adMobService.initialize();
+
+      if (!cancelled) {
+        await adMobService.initialize();
+      }
     };
-    void initAds();
-  }, []);
+
+    void bootstrapAfterLaunch();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [backgroundReady]);
 
   useEffect(() => {
     let cancelled = false;
@@ -84,12 +96,6 @@ export default function RootLayout() {
       cancelled = true;
     };
   }, []);
-
-  useEffect(() => {
-    if (backgroundReady) {
-      void SplashScreen.hideAsync();
-    }
-  }, [backgroundReady]);
 
   if (!backgroundReady) {
     return null;

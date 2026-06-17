@@ -154,25 +154,25 @@ export default function LandingPage() {
 
   const handleShareWithFriendsPress = useCallback(async () => {
     const appLink = Linking.createURL('/');
-    const shareMessage = `Think you can beat me? Play ClueDash — solve clues, guess the name, and climb the leaderboard!\n\n${appLink}`;
+    const shareMessage = `Think you can beat me? Play GuessUp — solve clues, guess the name, and climb the leaderboard!\n\n${appLink}`;
 
     try {
       if (Platform.OS === 'web') {
         if (typeof navigator !== 'undefined' && typeof navigator.share === 'function') {
           await navigator.share({
-            title: 'ClueDash',
+            title: 'GuessUp',
             text: shareMessage,
           });
           return;
         }
-        await Share.share({ message: shareMessage, title: 'ClueDash' });
+        await Share.share({ message: shareMessage, title: 'GuessUp' });
         return;
       }
 
       await Share.share(
         Platform.OS === 'ios'
           ? { message: shareMessage }
-          : { message: shareMessage, title: 'ClueDash' },
+          : { message: shareMessage, title: 'GuessUp' },
       );
     } catch {
       // User dismissed the share sheet.
@@ -192,7 +192,7 @@ export default function LandingPage() {
                 source={require('@/assets/images/logo.png')}
                 style={styles.logoImage}
                 contentFit="contain"
-                accessibilityLabel="ClueDash"
+                accessibilityLabel="GuessUp"
               />
             </View>
             <View style={styles.topBarRight}>
@@ -351,6 +351,7 @@ export default function LandingPage() {
             />
           </View>
 
+          {isLoggedIn ? (
           <View style={styles.leaderboardSection}>
             <View style={styles.bottomCard}>
               <View style={styles.leaderboardHeaderRow}>
@@ -431,6 +432,7 @@ export default function LandingPage() {
               </View>
             </View>
           </View>
+          ) : null}
         </ScrollView>
       </View>
     </SafeAreaView>

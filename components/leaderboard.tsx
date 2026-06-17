@@ -2,11 +2,12 @@ import { Fredoka_600SemiBold, Fredoka_700Bold, useFonts } from '@expo-google-fon
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Image } from 'expo-image';
 import { useRouter } from 'expo-router';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { AppScreenHeader } from '@/components/app-screen-header';
+import { useAuth } from '@/contexts/auth-context';
 import { useLeaderboard, type LeaderboardRow } from '@/hooks/use-leaderboard';
 
 type LeaderTab = 'global' | 'friends' | 'weekly';
@@ -112,6 +113,7 @@ const ACHIEVEMENTS: Achievement[] = [
 const LeaderboardScreen = () => {
   const router = useRouter();
   const insets = useSafeAreaInsets();
+  const { isHydrated, isLoggedIn } = useAuth();
   const { topThree, rest, loading, error } = useLeaderboard(50);
   const podiumDisplay = useMemo(() => buildPodiumDisplay(topThree), [topThree]);
   const [fontsLoaded] = useFonts({
@@ -124,6 +126,13 @@ const LeaderboardScreen = () => {
   const titleFont = fontsLoaded ? ({ fontFamily: 'Fredoka_700Bold' } as const) : undefined;
   const bodyFont = fontsLoaded ? ({ fontFamily: 'Fredoka_600SemiBold' } as const) : undefined;
 
+  useEffect(() => {
+    if (!isHydrated || isLoggedIn) {
+      return;
+    }
+    router.replace('/login');
+  }, [isHydrated, isLoggedIn, router]);
+
   const handleBack = useCallback(() => {
     router.back();
   }, [router]);
@@ -131,6 +140,17 @@ const LeaderboardScreen = () => {
   const handleTabPress = useCallback((next: LeaderTab) => {
     setTab(next);
   }, []);
+
+  if (!isHydrated || !isLoggedIn) {
+    return (
+      <SafeAreaView style={styles.safe} edges={['top', 'left', 'right']}>
+        <AppScreenHeader title="LEADERBOARD" onBack={handleBack} />
+        <View style={styles.centered}>
+          <ActivityIndicator size="large" color="#2A93F4" accessibilityLabel="Loading leaderboard" />
+        </View>
+      </SafeAreaView>
+    );
+  }
 
   return (
     <SafeAreaView style={styles.safe} edges={['top', 'left', 'right']}>
@@ -395,6 +415,11 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     backgroundColor: 'transparent',
+  },
+  centered: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   scroll: {
     flex: 1,

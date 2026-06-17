@@ -1,6 +1,7 @@
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signOut as firebaseSignOut,
 } from 'firebase/auth';
@@ -38,6 +39,7 @@ type AuthContextValue = {
   /** Signed in or chose to continue as guest. */
   hasAppAccess: boolean;
   signIn: (email: string, password: string) => Promise<AuthResult>;
+  resetPassword: (email: string) => Promise<AuthResult>;
   signUp: (payload: SignUpPayload) => Promise<AuthResult>;
   signOut: () => Promise<void>;
   /** Permanently deletes the account (Firestore data + Firebase Auth user). */
@@ -175,6 +177,22 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   }, []);
 
+  const resetPassword = useCallback(async (email: string): Promise<AuthResult> => {
+    if (!tryInitFirebase()) {
+      return { ok: false, message: 'Firebase is not configured. Add EXPO_PUBLIC_FIREBASE_* to .env and restart.' };
+    }
+    const e = email.trim().toLowerCase();
+    if (!e || !isValidEmail(e)) {
+      return { ok: false, message: 'Please enter a valid email.' };
+    }
+    try {
+      await sendPasswordResetEmail(getFirebaseAuth(), e);
+      return { ok: true };
+    } catch (err) {
+      return { ok: false, message: mapAuthError(err) };
+    }
+  }, []);
+
   const signIn = useCallback(async (email: string, password: string): Promise<AuthResult> => {
     if (!tryInitFirebase()) {
       return { ok: false, message: 'Firebase is not configured. Add EXPO_PUBLIC_FIREBASE_* to .env and restart.' };
@@ -287,6 +305,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       isFirebaseReady,
       hasAppAccess,
       signIn,
+      resetPassword,
       signUp,
       signOut,
       deleteAccount,
@@ -302,6 +321,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       isFirebaseReady,
       hasAppAccess,
       signIn,
+      resetPassword,
       signUp,
       signOut,
       deleteAccount,

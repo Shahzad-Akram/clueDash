@@ -63,7 +63,7 @@ const WelcomeScreen = () => {
             source={require('@/assets/images/logo.png')}
             style={styles.logo}
             contentFit="contain"
-            accessibilityLabel="ClueDash"
+            accessibilityLabel="GuessUp"
           />
           <Text style={[styles.tagline, bodyFont, !fontsLoaded && styles.fontFallbackSemi]}>
             Solve clues. Guess the name. Climb the leaderboard.

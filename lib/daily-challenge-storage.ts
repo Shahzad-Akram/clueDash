@@ -11,6 +11,10 @@ export type DailyChallengePersistedState = {
   streak: number;
   /** Local calendar date `YYYY-MM-DD` of the last **win** (for streak math). */
   lastWinDate?: string;
+  /** Firestore/hash id of the puzzle assigned for `assignedPuzzleDate`. */
+  assignedPuzzleId?: string;
+  /** Local calendar date when `assignedPuzzleId` was chosen. */
+  assignedPuzzleDate?: string;
 };
 
 export const getLocalCalendarDateKey = (d = new Date()): string => {
@@ -46,6 +50,8 @@ export const loadDailyChallengeState = async (): Promise<DailyChallengePersisted
       dateOfAttempt: typeof parsed.dateOfAttempt === 'string' ? parsed.dateOfAttempt : '',
       streak: typeof parsed.streak === 'number' && !Number.isNaN(parsed.streak) ? parsed.streak : 0,
       lastWinDate: typeof parsed.lastWinDate === 'string' ? parsed.lastWinDate : undefined,
+      assignedPuzzleId: typeof parsed.assignedPuzzleId === 'string' ? parsed.assignedPuzzleId : undefined,
+      assignedPuzzleDate: typeof parsed.assignedPuzzleDate === 'string' ? parsed.assignedPuzzleDate : undefined,
     };
   } catch {
     return defaultDailyChallengeState();

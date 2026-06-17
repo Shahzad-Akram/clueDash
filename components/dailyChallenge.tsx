@@ -18,16 +18,22 @@ import {
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { useAuth } from '@/contexts/auth-context';
-import { FALLBACK_PUZZLES, type GuessPuzzle } from '@/contexts/guess-puzzles-context';
+import {
+  FALLBACK_PUZZLES,
+  useGuessPuzzles,
+  useGuessPuzzlesOrFallback,
+  type GuessPuzzle,
+} from '@/contexts/guess-puzzles-context';
 import { useInterstitialAd } from '@/hooks/use-interstitial-ad';
 import { usePaidHintActions } from '@/hooks/use-paid-hint-actions';
+import { resolveDailyPuzzleForToday } from '@/lib/daily-challenge-picker';
 import {
   getLocalCalendarDateKey,
   loadDailyChallengeState,
   saveDailyChallengeState,
   type DailyChallengePersistedState,
 } from '@/lib/daily-challenge-storage';
-import { fetchDailyChallengePuzzlesOrdered, tryInitFirebase, type GuessPuzzleDoc } from '@/lib/firebase';
+import { tryInitFirebase } from '@/lib/firebase';
 import { awardUserPoints, DAILY_CHALLENGE_WIN_POINTS } from '@/lib/firebase/points';
 
 const normalizeAnswer = (phrase: string) =>
@@ -128,25 +134,6 @@ const KEYBOARD_ROWS: string[][] = [
   ['Z', 'X', 'C', 'V', 'B', 'N', 'M'],
 ];
 
-function shuffleDailyPuzzles<T>(items: T[]): T[] {
-  const next = [...items];
-  for (let i = next.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    const t = next[i];
-    next[i] = next[j]!;
-    next[j] = t!;
-  }
-  return next;
-}
-
-const mapDailyDocToPuzzle = (d: GuessPuzzleDoc): GuessPuzzle => ({
-  id: d.id,
-  phrase: d.phrase,
-  clue: d.clue,
-  category: d.category,
-  clueEmoji: d.clueEmoji,
-});
-
 const DailyChallenge = () => {
   const [headerFontsLoaded] = useFonts({
     Fredoka_700Bold,
@@ -157,6 +144,8 @@ const DailyChallenge = () => {
   const insets = useSafeAreaInsets();
   const { width: windowWidth } = useWindowDimensions();
   const { user, isLoggedIn, refreshProfile } = useAuth();
+  const { refetch: refetchPuzzles } = useGuessPuzzles();
+  const guessPool = useGuessPuzzlesOrFallback();
 
   const [persisted, setPersisted] = useState<DailyChallengePersistedState | null>(null);
   const [entryBlocked, setEntryBlocked] = useState(false);
@@ -165,41 +154,31 @@ const DailyChallenge = () => {
   const dailyOutcomeSavedRef = useRef(false);
   const winSavedRef = useRef(false);
   const [winBonusLine, setWinBonusLine] = useState<string | null>(null);
-
-  const [remoteDailyPuzzles, setRemoteDailyPuzzles] = useState<GuessPuzzle[]>([]);
+  const [dailyPuzzle, setDailyPuzzle] = useState<GuessPuzzle | null>(null);
 
   useEffect(() => {
+    if (guessPool.length === 0) {
+      return;
+    }
     let cancelled = false;
-    const load = async () => {
-      try {
-        const docs = await fetchDailyChallengePuzzlesOrdered();
-        if (cancelled) {
-          return;
-        }
-        if (docs.length > 0) {
-          setRemoteDailyPuzzles(shuffleDailyPuzzles(docs.map(mapDailyDocToPuzzle)));
-        } else {
-          setRemoteDailyPuzzles([]);
-        }
-      } catch (e) {
-        if (!cancelled) {
-          console.warn('[DailyChallenge] Failed to load dailyChallenge collection', e);
-          setRemoteDailyPuzzles([]);
-        }
+    void (async () => {
+      const stored = await loadDailyChallengeState();
+      const { puzzle, persisted: nextPersisted } = await resolveDailyPuzzleForToday(
+        guessPool,
+        stored,
+      );
+      if (cancelled) {
+        return;
       }
-    };
-    void load();
+      setPersisted(nextPersisted);
+      setDailyPuzzle(puzzle);
+    })();
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [guessPool]);
 
-  const puzzles = useMemo(
-    () => (remoteDailyPuzzles.length > 0 ? remoteDailyPuzzles : [...FALLBACK_PUZZLES]),
-    [remoteDailyPuzzles],
-  );
-
-  const puzzle = puzzles[0] ?? FALLBACK_PUZZLES[0];
+  const puzzle = dailyPuzzle ?? guessPool[0] ?? FALLBACK_PUZZLES[0];
 
   const answer = useMemo(() => normalizeAnswer(puzzle.phrase), [puzzle.phrase]);
 
@@ -236,25 +215,29 @@ const DailyChallenge = () => {
   const [clueRevealed, setClueRevealed] = useState(false);
   const [clueEmojiRevealed, setClueEmojiRevealed] = useState(false);
   const [roundStarted, setRoundStarted] = useState(false);
+  const adShownForAttemptRef = useRef(false);
+  const [resultModalReady, setResultModalReady] = useState(false);
 
   useFocusEffect(
     useCallback(() => {
+      void refetchPuzzles();
       let active = true;
       void (async () => {
-        const p = await loadDailyChallengeState();
+        const stored = await loadDailyChallengeState();
         if (!active) {
           return;
         }
         const day = getLocalCalendarDateKey();
-        const blocked = Boolean(p.attempted && p.dateOfAttempt === day);
+        const blocked = Boolean(stored.attempted && stored.dateOfAttempt === day);
         setEntryBlocked(blocked);
-        setPersisted(p);
         if (!blocked) {
           setRoundStarted(false);
           setTimeLeft(DAILY_TIMER_SECONDS);
           setTimedOut(false);
           dailyOutcomeSavedRef.current = false;
           winSavedRef.current = false;
+          adShownForAttemptRef.current = false;
+          setResultModalReady(false);
           setGuessedLetters(new Set());
           setWrongCount(0);
           setClueRevealed(false);
@@ -264,7 +247,7 @@ const DailyChallenge = () => {
       return () => {
         active = false;
       };
-    }, []),
+    }, [refetchPuzzles]),
   );
 
   useEffect(() => {
@@ -344,13 +327,10 @@ const DailyChallenge = () => {
   const wonInTime = hasWon && !timedOut;
 
   const { showInterstitialAfterGameComplete } = useInterstitialAd();
-  const adShownForAttemptRef = useRef(false);
   /**
    * Result modals stay hidden until the interstitial finishes — on iOS a visible
    * RN Modal blocks the ad's view controller ("view controller is not being presented").
    */
-  const [resultModalReady, setResultModalReady] = useState(false);
-
   useEffect(() => {
     if (!roundStarted) {
       return;
