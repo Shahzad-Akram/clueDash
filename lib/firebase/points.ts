@@ -12,7 +12,7 @@ export type DeductPointsResult =
   | { ok: true; newPoints: number }
   | { ok: false; reason: 'insufficient' | 'missing_profile' | 'error' };
 
-const readPoints = (raw: unknown): number => {
+export const readUserPoints = (raw: unknown): number => {
   if (typeof raw === 'number' && Number.isFinite(raw)) {
     return raw;
   }
@@ -35,7 +35,7 @@ export const deductUserPoints = async (uid: string, amount: number): Promise<Ded
       if (!snap.exists()) {
         return { ok: false, reason: 'missing_profile' };
       }
-      const points = readPoints(snap.data()?.points);
+      const points = readUserPoints(snap.data()?.points);
       if (points < amount) {
         return { ok: false, reason: 'insufficient' };
       }

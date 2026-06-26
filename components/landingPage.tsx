@@ -2,13 +2,15 @@ import { Fredoka_600SemiBold, Fredoka_700Bold, useFonts } from '@expo-google-fon
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Image } from 'expo-image';
 import * as Linking from 'expo-linking';
-import { useFocusEffect, useRouter } from 'expo-router';
+import { useFocusEffect, useRouter, type Href } from 'expo-router';
 import { useCallback, useState } from 'react';
 import { ActivityIndicator, Platform, Pressable, ScrollView, Share, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import StreakRewardsModal from '@/components/streak-rewards-modal';
 import { useAuth } from '@/contexts/auth-context';
 import { useLeaderboard } from '@/hooks/use-leaderboard';
+import { useStreakRewards } from '@/hooks/use-streak-rewards';
 import { loadDailyChallengeState } from '@/lib/daily-challenge-storage';
 import { getProfileAvatarSource } from '@/lib/profile-avatars';
 
@@ -104,6 +106,16 @@ function GameCard({ title, subtitle, imageSource, colors, fontsLoaded, onPress }
 export default function LandingPage() {
   const router = useRouter();
   const { user, isLoggedIn } = useAuth();
+  const {
+    currentStreak,
+    generalMaxStreak,
+    claimedRewardMilestones,
+    rewardsModalVisible,
+    openRewards,
+    closeRewards,
+    syncOnFocus,
+    isLoggedIn: rewardsLoggedIn,
+  } = useStreakRewards();
   const { topThree: leaderboardTopThree, loading: leaderboardLoading } = useLeaderboard(3);
   const [dailyStreak, setDailyStreak] = useState(0);
   const [fontsLoaded] = useFonts({
@@ -117,15 +129,22 @@ export default function LandingPage() {
   useFocusEffect(
     useCallback(() => {
       let active = true;
-      void loadDailyChallengeState().then((state) => {
-        if (active) {
-          setDailyStreak(state.streak);
+
+      const refreshStreakData = async () => {
+        const dailyState = await loadDailyChallengeState();
+        if (!active) {
+          return;
         }
-      });
+        setDailyStreak(dailyState.streak);
+        await syncOnFocus();
+      };
+
+      void refreshStreakData();
+
       return () => {
         active = false;
       };
-    }, []),
+    }, [syncOnFocus]),
   );
 
   const handleGuessTheNamePress = () => {
@@ -151,6 +170,18 @@ export default function LandingPage() {
   const handleProfilePress = useCallback(() => {
     router.push(isLoggedIn ? '/profile' : '/login');
   }, [isLoggedIn, router]);
+
+  const handlePlayWithFriendsPress = useCallback(() => {
+    router.push('/multiplayer' as Href);
+  }, [router]);
+
+  const handleRewardsPress = useCallback(() => {
+    openRewards();
+  }, [openRewards]);
+
+  const handleCloseRewardsModal = useCallback(() => {
+    closeRewards();
+  }, [closeRewards]);
 
   const handleShareWithFriendsPress = useCallback(async () => {
     const appLink = Linking.createURL('/');
@@ -291,26 +322,51 @@ export default function LandingPage() {
                 </View>
               </View>
 
-              <View style={styles.streakCardOuter}>
-                <View style={styles.streakCardInner}>
-                  <View style={styles.streakFireWrap}>
-                    <Image
-                      source={require('@/assets/images/fire.png')}
-                      style={styles.streakFireImage}
-                      contentFit="contain"
-                      accessibilityLabel="Streak flame"
-                    />
+              <View style={styles.streakColumn}>
+                <View style={styles.streakCardOuter}>
+                  <View style={styles.streakCardInner}>
+                    <View style={styles.streakFireWrap}>
+                      <Image
+                        source={require('@/assets/images/fire.png')}
+                        style={styles.streakFireImage}
+                        contentFit="contain"
+                        accessibilityLabel="Daily streak flame"
+                      />
+                    </View>
+                    <Text
+                      style={[styles.streakCount, boldType, !fontsLoaded && styles.fontFallbackBold]}
+                      accessibilityLabel={`${dailyStreak} day streak`}>
+                      {dailyStreak}
+                    </Text>
+                    <Text
+                      style={[styles.streakLabel, boldType, !fontsLoaded && styles.fontFallbackBold]}
+                      numberOfLines={2}>
+                      DAY STREAK
+                    </Text>
                   </View>
-                  <Text
-                    style={[styles.streakCount, boldType, !fontsLoaded && styles.fontFallbackBold]}
-                    accessibilityLabel={`${dailyStreak} day streak`}>
-                    {dailyStreak}
-                  </Text>
-                  <Text
-                    style={[styles.streakLabel, boldType, !fontsLoaded && styles.fontFallbackBold]}
-                    numberOfLines={2}>
-                    DAY STREAK
-                  </Text>
+                </View>
+
+                <View style={styles.streakCardOuter}>
+                  <View style={styles.streakCardInner}>
+                    <View style={styles.streakFireWrap}>
+                      <MaterialCommunityIcons
+                        name="trophy"
+                        size={32}
+                        color="#F57C00"
+                        accessibilityLabel="Best solve streak"
+                      />
+                    </View>
+                    <Text
+                      style={[styles.streakCount, boldType, !fontsLoaded && styles.fontFallbackBold]}
+                      accessibilityLabel={`${generalMaxStreak} best solve streak`}>
+                      {generalMaxStreak}
+                    </Text>
+                    <Text
+                      style={[styles.streakLabel, boldType, !fontsLoaded && styles.fontFallbackBold]}
+                      numberOfLines={2}>
+                      BEST STREAK
+                    </Text>
+                  </View>
                 </View>
               </View>
             </View>
@@ -349,7 +405,33 @@ export default function LandingPage() {
               fontsLoaded={fontsLoaded}
               onPress={() => void handleShareWithFriendsPress()}
             />
+            <GameCard
+              title="PLAY WITH FRIENDS"
+              subtitle="Race a friend in real time!"
+              imageSource={require('@/assets/images/friends.png')}
+              colors={['#72BE2C', '#4E961B']}
+              fontsLoaded={fontsLoaded}
+              onPress={handlePlayWithFriendsPress}
+            />
+            <GameCard
+              title="STREAK REWARDS"
+              subtitle="Bonus points for solve streaks!"
+              imageSource={require('@/assets/images/star.png')}
+              colors={['#FFB300', '#F57C00']}
+              fontsLoaded={fontsLoaded}
+              onPress={handleRewardsPress}
+            />
           </View>
+
+          <StreakRewardsModal
+            visible={rewardsModalVisible}
+            onClose={handleCloseRewardsModal}
+            currentStreak={currentStreak}
+            generalMaxStreak={generalMaxStreak}
+            claimedMilestones={claimedRewardMilestones}
+            isLoggedIn={rewardsLoggedIn}
+            fontsLoaded={fontsLoaded}
+          />
 
           {isLoggedIn ? (
           <View style={styles.leaderboardSection}>
@@ -665,21 +747,23 @@ const styles = StyleSheet.create({
     textShadowOffset: { width: 0, height: 1 },
     textShadowRadius: 0,
   },
-  streakCardOuter: {
+  streakColumn: {
     width: 108,
-    alignSelf: 'stretch',
+    marginTop: 28,
+    gap: 8,
+  },
+  streakCardOuter: {
+    width: '100%',
   },
   streakCardInner: {
-    marginTop: 28,
-    flex: 1,
-    minHeight: 140,
+    minHeight: 66,
     backgroundColor: '#F8F4EA',
     borderRadius: 20,
     borderWidth: 2,
     borderColor: '#D8C59A',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: 10,
+    paddingVertical: 8,
     paddingHorizontal: 6,
     shadowColor: '#2A1D08',
     shadowOffset: { width: 0, height: 2 },
@@ -688,16 +772,16 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   streakFireWrap: {
-    marginBottom: 2,
+    marginBottom: 0,
   },
   streakFireImage: {
-    width: 52,
-    height: 52,
+    width: 36,
+    height: 36,
   },
   streakCount: {
     color: '#F57C00',
-    fontSize: 44,
-    lineHeight: 46,
+    fontSize: 32,
+    lineHeight: 34,
     textShadowColor: 'rgba(181, 71, 0, 0.35)',
     textShadowOffset: { width: 0, height: 1 },
     textShadowRadius: 0,

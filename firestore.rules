@@ -22,5 +22,139 @@ service cloud.firestore {
     match /users/{userId}/solvedGuesses/{guessId} {
       allow read, write: if request.auth != null && request.auth.uid == userId;
     }
+
+    // Play with Friends — multiplayer rooms
+    match /rooms/{roomId} {
+      function roomPlayers() {
+        return resource.data.playerUids;
+      }
+
+      function incomingPlayers() {
+        return request.resource.data.playerUids;
+      }
+
+      function isMember() {
+        return request.auth != null && request.auth.uid in roomPlayers();
+      }
+
+      function isLobby() {
+        return resource.data.status == 'lobby';
+      }
+
+      function isHost() {
+        return request.auth != null && resource.data.hostUid == request.auth.uid;
+      }
+
+      function hasLobbyPlayerDoc() {
+        return exists(/databases/$(database)/documents/rooms/$(roomId)/players/$(request.auth.uid));
+      }
+
+      function parentRoom() {
+        return get(/databases/$(database)/documents/rooms/$(roomId));
+      }
+
+      function parentRoomData() {
+        return parentRoom().data;
+      }
+
+      function isParentLobbyHost() {
+        return request.auth != null
+          && parentRoom().exists()
+          && parentRoomData().hostUid == request.auth.uid
+          && parentRoomData().status == 'lobby';
+      }
+
+      function isLeavingLobby() {
+        return isLobby()
+          && isMember()
+          && request.auth.uid in resource.data.playerUids
+          && !(request.auth.uid in incomingPlayers());
+      }
+
+      function isClosingLobby() {
+        return isHost()
+          && isLobby()
+          && request.resource.data.status == 'abandoned';
+      }
+
+      allow read: if request.auth != null && (
+        resource == null
+        || isMember()
+        || isLobby()
+        || resource.data.status == 'abandoned'
+        || (resource.data.status == 'abandoned' && hasLobbyPlayerDoc())
+      );
+
+      allow create: if request.auth != null
+        && request.resource.data.hostUid == request.auth.uid
+        && request.resource.data.status == 'lobby'
+        && request.auth.uid in request.resource.data.playerUids;
+
+      // Host: any lobby change (kick, start, close). Others: join, leave, or in-match updates.
+      allow update: if request.auth != null && (
+        (isHost() && isLobby())
+        || isClosingLobby()
+        || isLeavingLobby()
+        || (isLobby() && request.auth.uid in incomingPlayers())
+        || (isMember() && !isLobby())
+        || (isLobby() && isMember())
+      );
+
+      // Race progress updates while a match is live.
+      allow update: if request.auth != null
+        && isMember()
+        && resource.data.status == 'playing'
+        && request.auth.uid in resource.data.playerUids;
+
+      // Winner marks the pot as claimed after a finished match.
+      allow update: if request.auth != null
+        && resource.data.status == 'finished'
+        && resource.data.winnerUid == request.auth.uid
+        && request.resource.data.betsSettled == true
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['betsSettled']);
+
+      match /players/{playerId} {
+        function isParentRoomMember() {
+          return request.auth != null
+            && parentRoom().exists()
+            && request.auth.uid in parentRoomData().playerUids;
+        }
+
+        function isParentRoomHost() {
+          return request.auth != null
+            && parentRoom().exists()
+            && parentRoomData().hostUid == request.auth.uid;
+        }
+
+        function canReadPlayers() {
+          return request.auth != null
+            && parentRoom().exists()
+            && (
+              playerId == request.auth.uid
+              || request.auth.uid in parentRoomData().playerUids
+              || parentRoomData().status == 'abandoned'
+              || parentRoomData().status in ['playing', 'countdown', 'finished']
+            );
+        }
+
+        allow read: if request.auth != null && (
+          playerId == request.auth.uid
+          || canReadPlayers()
+        );
+
+        allow create: if request.auth != null && playerId == request.auth.uid;
+
+        allow update: if request.auth != null
+          && playerId == request.auth.uid
+          && parentRoom().exists()
+          && parentRoomData().status in ['lobby', 'playing', 'countdown', 'finished'];
+
+        // Self leave/close, or host removes someone from lobby.
+        allow delete: if request.auth != null && (
+          playerId == request.auth.uid
+          || (isParentLobbyHost() && playerId != request.auth.uid)
+        );
+      }
+    }
   }
 }

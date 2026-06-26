@@ -3,6 +3,7 @@ import * as Haptics from 'expo-haptics';
 import { Image } from 'expo-image';
 import { useFocusEffect, useLocalSearchParams, useRouter } from 'expo-router';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { Fredoka_600SemiBold, Fredoka_700Bold, useFonts } from '@expo-google-fonts/fredoka';
 import {
   Alert,
   Modal,
@@ -17,6 +18,8 @@ import {
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { AppScreenHeader } from '@/components/app-screen-header';
+import StreakRewardsBanner from '@/components/streak-rewards-banner';
+import StreakRewardsModal from '@/components/streak-rewards-modal';
 import { useAuth } from '@/contexts/auth-context';
 import { useInterstitialAd } from '@/hooks/use-interstitial-ad';
 import {
@@ -29,6 +32,8 @@ import { useGameMusic } from '@/hooks/use-game-music';
 import { usePaidHintActions } from '@/hooks/use-paid-hint-actions';
 import { tryInitFirebase } from '@/lib/firebase';
 import { fetchSolvedGuessIds, getPuzzleFirestoreId, recordPuzzleSolved } from '@/lib/firebase/guess-progress';
+import { recordGeneralGameLoss, recordGeneralGameWin } from '@/lib/general-game-streak-storage';
+import { useStreakRewards } from '@/hooks/use-streak-rewards';
 
 const normalizeAnswer = (phrase: string) =>
   phrase
@@ -146,6 +151,21 @@ const GuessTheNameGame = () => {
   const insets = useSafeAreaInsets();
   const { width: windowWidth } = useWindowDimensions();
   const { user, isLoggedIn, refreshProfile } = useAuth();
+  const {
+    currentStreak,
+    generalMaxStreak,
+    claimedRewardMilestones,
+    rewardsModalVisible,
+    openRewards,
+    closeRewards,
+    refreshStreakRewards,
+    syncOnFocus,
+    isLoggedIn: rewardsLoggedIn,
+  } = useStreakRewards();
+  const [fontsLoaded] = useFonts({
+    Fredoka_700Bold,
+    Fredoka_600SemiBold,
+  });
 
   const categoryFilter = useMemo(
     () => normalizeRouteParam(params.category)?.toUpperCase(),
@@ -172,11 +192,15 @@ const GuessTheNameGame = () => {
 
   const [solvedIds, setSolvedIds] = useState<Set<string>>(() => new Set());
   const [winBonusLine, setWinBonusLine] = useState<string | null>(null);
+  const [streakBonusLine, setStreakBonusLine] = useState<string | null>(null);
   const [playPuzzles, setPlayPuzzles] = useState<GuessPuzzle[]>([]);
   const [puzzleIndex, setPuzzleIndex] = useState(0);
   /** Active round puzzle — stays fixed while the win modal is open. */
   const [roundPuzzle, setRoundPuzzle] = useState<GuessPuzzle | null>(null);
   const winRecordedRef = useRef<string | null>(null);
+  const generalStreakRoundRef = useRef<string | null>(null);
+
+  const countsForGeneralStreak = !difficultyFilter;
 
   const screenTitle =
     categoryTitle?.toUpperCase() ??
@@ -223,6 +247,7 @@ const GuessTheNameGame = () => {
     setClueRevealed(false);
     setClueEmojiRevealed(false);
     setWinBonusLine(null);
+    setStreakBonusLine(null);
   }, []);
 
   const initPlayPuzzles = useCallback(() => {
@@ -235,7 +260,10 @@ const GuessTheNameGame = () => {
     useCallback(() => {
       void refetchPuzzles();
       initPlayPuzzles();
-    }, [initPlayPuzzles, refetchPuzzles]),
+      if (countsForGeneralStreak) {
+        syncOnFocus();
+      }
+    }, [countsForGeneralStreak, initPlayPuzzles, refetchPuzzles, syncOnFocus]),
   );
 
   useEffect(() => {
@@ -497,6 +525,7 @@ const GuessTheNameGame = () => {
     if (!hasWon) {
       winRecordedRef.current = null;
       setWinBonusLine(null);
+      setStreakBonusLine(null);
       return;
     }
     if (!roundPuzzle || !user?.uid) {
@@ -537,6 +566,37 @@ const GuessTheNameGame = () => {
     };
   }, [hasWon, refreshProfile, roundPuzzle, user?.points, user?.uid]);
 
+  useEffect(() => {
+    if (!countsForGeneralStreak || !roundPuzzle) {
+      return;
+    }
+    if (!hasWon && !hasLost) {
+      generalStreakRoundRef.current = null;
+      return;
+    }
+    const puzzleId = getPuzzleFirestoreId(roundPuzzle);
+    if (generalStreakRoundRef.current === puzzleId) {
+      return;
+    }
+    generalStreakRoundRef.current = puzzleId;
+    void (async () => {
+      if (hasWon) {
+        await recordGeneralGameWin();
+        if (isLoggedIn && user?.uid && tryInitFirebase()) {
+          const { totalAwarded } = await refreshStreakRewards();
+          if (totalAwarded > 0) {
+            setStreakBonusLine(`+${totalAwarded.toLocaleString()} streak bonus points!`);
+          }
+        } else {
+          await refreshStreakRewards();
+        }
+        return;
+      }
+      await recordGeneralGameLoss();
+      await refreshStreakRewards();
+    })();
+  }, [countsForGeneralStreak, hasLost, hasWon, isLoggedIn, refreshStreakRewards, roundPuzzle, user?.uid]);
+
   return (
     <View style={styles.root}>
       <SafeAreaView style={styles.safe} edges={['top']}>
@@ -544,8 +604,28 @@ const GuessTheNameGame = () => {
           <AppScreenHeader
             title={screenTitle}
             onBack={handleBack}
+            onRewardsPress={countsForGeneralStreak ? openRewards : undefined}
             musicEnabled={musicEnabled}
             onMusicToggle={toggleMusic}
+          />
+
+          {countsForGeneralStreak ? (
+            <StreakRewardsBanner
+              currentStreak={currentStreak}
+              generalMaxStreak={generalMaxStreak}
+              onPress={openRewards}
+              fontsLoaded={fontsLoaded}
+            />
+          ) : null}
+
+          <StreakRewardsModal
+            visible={rewardsModalVisible && countsForGeneralStreak}
+            onClose={closeRewards}
+            currentStreak={currentStreak}
+            generalMaxStreak={generalMaxStreak}
+            claimedMilestones={claimedRewardMilestones}
+            isLoggedIn={rewardsLoggedIn}
+            fontsLoaded={fontsLoaded}
           />
 
         {showPlayableBoard ? (
@@ -815,6 +895,7 @@ const GuessTheNameGame = () => {
             <Text style={styles.modalTitle}>You won!</Text>
             <Text style={styles.modalSubtitle}>Great job solving the phrase.</Text>
             {winBonusLine ? <Text style={styles.modalBonusLine}>{winBonusLine}</Text> : null}
+            {streakBonusLine ? <Text style={styles.modalBonusLine}>{streakBonusLine}</Text> : null}
             <Pressable
               accessibilityRole="button"
               accessibilityLabel="Next word"

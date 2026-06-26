@@ -1,34 +1,4 @@
-import {
-  getTrackingPermissionsAsync,
-  isAvailable,
-  requestTrackingPermissionsAsync,
-} from 'expo-tracking-transparency';
-import { Platform } from 'react-native';
-
-/** Delay after the first screen is visible — ATT must present over an active window (esp. iPad). */
-const ATT_PRESENT_DELAY_MS = 800;
-
-const sleep = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms));
-
-/**
- * Requests App Tracking Transparency when still undetermined.
- * Call only after splash is hidden and the root UI is on screen.
- */
+/** Android — App Tracking Transparency is iOS-only. */
 export const requestAppTrackingIfNeeded = async (): Promise<void> => {
-  if (Platform.OS !== 'ios') {
-    return;
-  }
-
-  await sleep(ATT_PRESENT_DELAY_MS);
-
-  if (!isAvailable()) {
-    return;
-  }
-
-  const { status } = await getTrackingPermissionsAsync();
-  if (status !== 'undetermined') {
-    return;
-  }
-
-  await requestTrackingPermissionsAsync();
+  // No-op on Android.
 };

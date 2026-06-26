@@ -10,7 +10,6 @@ import { AppBackground, APP_BACKGROUND_IMAGE } from '@/components/app-background
 import { AuthProvider } from '@/contexts/auth-context';
 import { GuessPuzzlesProvider } from '@/contexts/guess-puzzles-context';
 import { useColorScheme } from '@/hooks/use-color-scheme';
-import adMobService from '@/lib/admob';
 import { tryInitFirebase } from '@/lib/firebase';
 import { requestAppTrackingIfNeeded } from '@/lib/request-app-tracking';
 
@@ -62,6 +61,7 @@ export default function RootLayout() {
       });
 
       if (!cancelled) {
+        const { default: adMobService } = await import('@/lib/admob');
         await adMobService.initialize();
       }
     };
@@ -121,6 +121,7 @@ export default function RootLayout() {
               <Stack.Screen name="difficulty" options={{ headerShown: false }} />
               <Stack.Screen name="leaderboard" options={{ headerShown: false }} />
               <Stack.Screen name="profile" options={{ headerShown: false }} />
+              <Stack.Screen name="multiplayer" options={{ headerShown: false }} />
               <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
             </Stack>
             <StatusBar style="auto" />

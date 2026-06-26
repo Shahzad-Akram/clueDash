@@ -12,6 +12,8 @@ export type AppScreenHeaderProps = {
   onBack: () => void;
   /** When false, hides the right header actions (e.g. auth screens). */
   showWallet?: boolean;
+  /** When provided, shows a streak rewards button in the header. */
+  onRewardsPress?: () => void;
   /** When provided, shows a music on/off toggle in the header. */
   musicEnabled?: boolean;
   onMusicToggle?: () => void;
@@ -21,6 +23,7 @@ export const AppScreenHeader = ({
   title,
   onBack,
   showWallet = true,
+  onRewardsPress,
   musicEnabled = true,
   onMusicToggle,
 }: AppScreenHeaderProps) => {
@@ -48,6 +51,11 @@ export const AppScreenHeader = ({
   const handleMusicToggle = useCallback(() => {
     onMusicToggle?.();
   }, [onMusicToggle]);
+
+  const handleRewardsPress = useCallback(() => {
+    void Haptics.selectionAsync();
+    onRewardsPress?.();
+  }, [onRewardsPress]);
 
   return (
     <View style={styles.headerShadowWrap}>
@@ -97,6 +105,15 @@ export const AppScreenHeader = ({
                     </Text>
                   </Pressable>
                 </View>
+              ) : null}
+              {onRewardsPress ? (
+                <Pressable
+                  accessibilityRole="button"
+                  accessibilityLabel="Open streak rewards"
+                  onPress={handleRewardsPress}
+                  style={({ pressed }) => [styles.headerSquircleBtn, pressed && styles.pressed]}>
+                  <MaterialCommunityIcons name="gift" size={22} color="#FFFFFF" />
+                </Pressable>
               ) : null}
               {onMusicToggle ? (
                 <Pressable

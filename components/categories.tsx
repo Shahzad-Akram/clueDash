@@ -13,9 +13,12 @@ import {
 } from 'react-native';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import StreakRewardsBanner from '@/components/streak-rewards-banner';
+import StreakRewardsModal from '@/components/streak-rewards-modal';
 import { AppScreenHeader } from '@/components/app-screen-header';
 import { useAuth } from '@/contexts/auth-context';
 import { useGuessPuzzles } from '@/contexts/guess-puzzles-context';
+import { useStreakRewards } from '@/hooks/use-streak-rewards';
 import { tryInitFirebase } from '@/lib/firebase';
 import { fetchSolvedGuessIds, getPuzzleFirestoreId } from '@/lib/firebase/guess-progress';
 
@@ -292,6 +295,16 @@ const CategoriesScreen = () => {
   const router = useRouter();
   const insets = useSafeAreaInsets();
   const { user, isLoggedIn } = useAuth();
+  const {
+    currentStreak,
+    generalMaxStreak,
+    claimedRewardMilestones,
+    rewardsModalVisible,
+    openRewards,
+    closeRewards,
+    syncOnFocus,
+    isLoggedIn: rewardsLoggedIn,
+  } = useStreakRewards();
   const { puzzles, refetch } = useGuessPuzzles();
   const [solvedIds, setSolvedIds] = useState<Set<string>>(() => new Set());
   const [fontsLoaded] = useFonts({
@@ -308,7 +321,8 @@ const CategoriesScreen = () => {
   useFocusEffect(
     useCallback(() => {
       void refetch();
-    }, [refetch]),
+      syncOnFocus();
+    }, [refetch, syncOnFocus]),
   );
 
   useFocusEffect(
@@ -374,7 +388,22 @@ const CategoriesScreen = () => {
   return (
     <SafeAreaView style={styles.safe} edges={['top', 'left', 'right']}>
       <View style={styles.screen}>
-        <AppScreenHeader title="CATEGORIES" onBack={handleBack} />
+        <AppScreenHeader title="CATEGORIES" onBack={handleBack} onRewardsPress={openRewards} />
+        <StreakRewardsBanner
+          currentStreak={currentStreak}
+          generalMaxStreak={generalMaxStreak}
+          onPress={openRewards}
+          fontsLoaded={fontsLoaded}
+        />
+        <StreakRewardsModal
+          visible={rewardsModalVisible}
+          onClose={closeRewards}
+          currentStreak={currentStreak}
+          generalMaxStreak={generalMaxStreak}
+          claimedMilestones={claimedRewardMilestones}
+          isLoggedIn={rewardsLoggedIn}
+          fontsLoaded={fontsLoaded}
+        />
         <View style={styles.body}>
           <View style={styles.searchWrap}>
             <MaterialCommunityIcons name="magnify" size={22} color="#8B7355" style={styles.searchIcon} />
