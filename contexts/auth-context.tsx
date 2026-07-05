@@ -106,34 +106,49 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       return;
     }
 
-    const auth = getFirebaseAuth();
-    const unsub = onAuthStateChanged(auth, async (next) => {
-      if (!next) {
-        setUser(null);
-        setIsHydrated(true);
+    let unsub: (() => void) | undefined;
+    let cancelled = false;
+
+    void (async () => {
+      const auth = getFirebaseAuth();
+      try {
+        await auth.authStateReady();
+      } catch {
+        // Continue — listener still restores session when persistence is available.
+      }
+      if (cancelled) {
         return;
       }
 
-      setUser(null);
-      try {
-        const profile = await fetchUserProfileWithRetry(next);
-        if (!profile) {
-          await firebaseSignOut(auth);
+      unsub = onAuthStateChanged(auth, async (next) => {
+        if (!next) {
           setUser(null);
-        } else {
-          void saveGuestSession(false);
-          setIsGuest(false);
-          setUser(profile);
+          setIsHydrated(true);
+          return;
         }
-      } catch {
+
         setUser(null);
-      } finally {
-        setIsHydrated(true);
-      }
-    });
+        try {
+          const profile = await fetchUserProfileWithRetry(next);
+          if (!profile) {
+            await firebaseSignOut(auth);
+            setUser(null);
+          } else {
+            void saveGuestSession(false);
+            setIsGuest(false);
+            setUser(profile);
+          }
+        } catch {
+          setUser(null);
+        } finally {
+          setIsHydrated(true);
+        }
+      });
+    })();
 
     return () => {
-      unsub();
+      cancelled = true;
+      unsub?.();
     };
   }, []);
 

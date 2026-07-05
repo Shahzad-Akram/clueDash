@@ -14,8 +14,17 @@ const expoTrackingTransparencyStub = path.resolve(
   'lib/stubs/expo-tracking-transparency.ts',
 );
 
+const firebaseAuthRn = path.resolve(__dirname, 'node_modules/@firebase/auth/dist/rn/index.js');
+
 const defaultResolveRequest = config.resolver.resolveRequest;
 config.resolver.resolveRequest = (context, moduleName, platform) => {
+  if (platform !== 'web' && moduleName === 'firebase/auth') {
+    return {
+      filePath: firebaseAuthRn,
+      type: 'sourceFile',
+    };
+  }
+
   if (platform === 'web' && moduleName === 'react-native-google-mobile-ads') {
     return {
       filePath: googleMobileAdsStub,

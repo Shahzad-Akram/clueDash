@@ -1,7 +1,8 @@
 import { getApp, getApps, initializeApp, type FirebaseApp } from 'firebase/app';
-import { getAuth, type Auth } from 'firebase/auth';
+import { type Auth } from 'firebase/auth';
 import { getFirestore, type Firestore } from 'firebase/firestore';
 
+import { createFirebaseAuth } from './create-auth';
 import { getFirebaseWebConfig, isFirebaseConfigComplete } from './config';
 
 let appInstance: FirebaseApp | null = null;
@@ -35,14 +36,16 @@ export const getFirebaseAuth = (): Auth => {
   if (authInstance) {
     return authInstance;
   }
-  authInstance = getAuth(getFirebaseApp());
-  return authInstance;
+  const auth = createFirebaseAuth(getFirebaseApp());
+  authInstance = auth;
+  return auth;
 };
 
 /** Safe startup: no throw so the UI still loads if `.env` is missing. */
 export const tryInitFirebase = (): boolean => {
   try {
     getFirebaseApp();
+    getFirebaseAuth();
     return true;
   } catch {
     return false;
