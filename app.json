@@ -2,7 +2,7 @@
   "expo": {
     "name": "GuessUp",
     "slug": "GuessUp",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "guessup",
@@ -20,13 +20,22 @@
     },
     "android": {
       "package": "com.digitalukapps.GuessUp",
-      "versionCode": 3,
+      "versionCode": 4,
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
+        "backgroundColor": "#FFFFFF",
         "foregroundImage": "./assets/images/android-icon-foreground.png",
-        "backgroundImage": "./assets/images/android-icon-background.png",
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
+      "blockedPermissions": [
+        "android.permission.CAMERA",
+        "android.permission.ACCESS_FINE_LOCATION",
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.READ_MEDIA_IMAGES",
+        "android.permission.READ_MEDIA_VIDEO",
+        "android.permission.RECORD_AUDIO"
+      ],
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
       "permissions": [
@@ -58,7 +67,7 @@
       [
         "react-native-google-mobile-ads",
         {
-          "androidAppId": "ca-app-pub-5967256865674252~6865524347",
+          "androidAppId": "ca-app-pub-5967256865674252~2285647900",
           "iosAppId": "ca-app-pub-5967256865674252~6315196711"
         }
       ],
@@ -72,8 +81,8 @@
     "extra": {
       "admob": {
         "android": {
-          "appId": "ca-app-pub-5967256865674252~6865524347",
-          "interstitialUnitId": "ca-app-pub-5967256865674252/1613197668"
+          "appId": "ca-app-pub-5967256865674252~2285647900",
+          "interstitialUnitId": "ca-app-pub-5967256865674252/8916459265"
         },
         "ios": {
           "appId": "ca-app-pub-5967256865674252~6315196711",
@@ -81,7 +90,8 @@
         }
       },
       "legal": {
-        "privacyPolicyUrl": "https://www.remoterun.uk/app-privacy-policy"
+        "privacyPolicyUrl": "https://www.remoterun.uk/app-privacy-policy",
+        "accountDeletionUrl": "https://www.remoterun.uk/app-data-deletion"
       },
       "router": {},
       "eas": {

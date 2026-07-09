@@ -1,6 +1,8 @@
 import Constants from 'expo-constants';
 import { Platform } from 'react-native';
 
+import { shouldRequestNonPersonalizedAds } from '@/lib/ads-consent';
+
 // AdMob service - Android & iOS, interstitial ads only.
 // - Web: no ads
 // - Expo Go: no ads (native module unavailable; use a development build to test ads)
@@ -29,6 +31,7 @@ class AdMobService {
   // Defer requiring the native SDK until initialize() keeps JS startup light.
   private googleMobileAds: GoogleMobileAdsModule | null = null;
   private readonly interstitialUnitId: string | undefined;
+  private requestNonPersonalizedAdsOnly = true;
 
   constructor() {
     const admob = (Constants.expoConfig?.extra?.admob ?? {}) as AdmobExtraConfig;
@@ -71,6 +74,7 @@ class AdMobService {
         console.log('AdMob: Native module unavailable - ads disabled');
         return;
       }
+      this.requestNonPersonalizedAdsOnly = await shouldRequestNonPersonalizedAds();
       await this.googleMobileAds!.default().initialize();
       this.sdkInitialized = true;
       console.log('AdMob: Google Mobile Ads SDK initialized');
@@ -115,7 +119,7 @@ class AdMobService {
 
       this.cleanupListeners();
       this.interstitial = InterstitialAd.createForAdRequest(this.interstitialUnitId, {
-        requestNonPersonalizedAdsOnly: false,
+        requestNonPersonalizedAdsOnly: this.requestNonPersonalizedAdsOnly,
       });
 
       this.unsubscribeLoaded = this.interstitial.addAdEventListener(AdEventType.LOADED, () => {

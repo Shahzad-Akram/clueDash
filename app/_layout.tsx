@@ -10,6 +10,7 @@ import { AppBackground, APP_BACKGROUND_IMAGE } from '@/components/app-background
 import { AuthProvider } from '@/contexts/auth-context';
 import { GuessPuzzlesProvider } from '@/contexts/guess-puzzles-context';
 import { useColorScheme } from '@/hooks/use-color-scheme';
+import { gatherAdsConsentIfRequired } from '@/lib/ads-consent';
 import { tryInitFirebase } from '@/lib/firebase';
 import { requestAppTrackingIfNeeded } from '@/lib/request-app-tracking';
 
@@ -42,6 +43,16 @@ export default function RootLayout() {
 
     const bootstrapAfterLaunch = async () => {
       await SplashScreen.hideAsync();
+      if (cancelled) {
+        return;
+      }
+
+      try {
+        await gatherAdsConsentIfRequired();
+      } catch (error) {
+        console.warn('[AdsConsent] Error gathering consent', error);
+      }
+
       if (cancelled) {
         return;
       }
